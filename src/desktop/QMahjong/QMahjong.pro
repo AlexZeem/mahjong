@@ -17,6 +17,7 @@ SOURCES += \
     $$PWD/src/main.cpp
 
 RESOURCES += \
+    icons.qrc
 
 QML_FILES = \
     $$PWD/res/qml/main.qml

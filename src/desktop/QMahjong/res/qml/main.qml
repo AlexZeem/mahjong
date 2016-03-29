@@ -8,4 +8,9 @@ FocusScope {
         width: 100
         height: 100
     }
+
+    Image {
+        id: tile
+        source: "qrc:///res/icons/tiles/d1.png"
+    }
 }

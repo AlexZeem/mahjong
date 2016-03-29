@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/">
+        <file>res/icons/tiles/d1.png</file>
+        <file>res/icons/tiles/d2.png</file>
+        <file>res/icons/tiles/d3.png</file>
+        <file>res/icons/tiles/s1.png</file>
+        <file>res/icons/tiles/s2.png</file>
+        <file>res/icons/tiles/s3.png</file>
+        <file>res/icons/tiles/s4.png</file>
+        <file>res/icons/tiles/s5.png</file>
+        <file>res/icons/tiles/s6.png</file>
+        <file>res/icons/tiles/s7.png</file>
+        <file>res/icons/tiles/s8.png</file>
+        <file>res/icons/tiles/s9.png</file>
+    </qresource>
+</RCC>
