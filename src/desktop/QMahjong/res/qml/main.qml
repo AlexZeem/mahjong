@@ -11,6 +11,6 @@ FocusScope {
 
     Image {
         id: tile
-        source: "qrc:///res/icons/tiles/d1.png"
+        source: "qrc:///res/icons/tiles/bamboo/1.png"
     }
 }
