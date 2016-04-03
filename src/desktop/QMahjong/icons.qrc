@@ -42,5 +42,6 @@
         <file>res/icons/tiles/wind/n.png</file>
         <file>res/icons/tiles/wind/s.png</file>
         <file>res/icons/tiles/wind/w.png</file>
+        <file>res/icons/table/background.png</file>
     </qresource>
 </RCC>

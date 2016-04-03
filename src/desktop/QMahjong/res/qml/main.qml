@@ -1,16 +1,15 @@
 import QtQuick 2.4
 
+import "table"
+
 FocusScope {
     id: main
 
-    Rectangle {
-        color: "red"
-        width: 100
-        height: 100
+    width: 640
+    height: 640
+
+    TableBase {
+        anchors.centerIn: main
     }
 
-    Image {
-        id: tile
-        source: "qrc:///res/icons/tiles/bamboo/1.png"
-    }
 }
