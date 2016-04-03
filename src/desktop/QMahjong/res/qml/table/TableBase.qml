@@ -13,4 +13,36 @@ Item {
         source: "qrc:///res/icons/table/background.png"
     }
 
+    WallBase {
+        state: "top"
+        anchors {
+            left: table.left
+            top: table.top
+        }
+    }
+
+    WallBase {
+        state: "right"
+        anchors {
+            right: table.right
+            top: table.top
+        }
+    }
+
+    WallBase {
+        state: "bottom"
+        anchors {
+            left: table.left
+            bottom: table.bottom
+        }
+    }
+
+    WallBase {
+        state: "left"
+        anchors {
+            left: table.left
+            top: table.top
+        }
+    }
+
 }
