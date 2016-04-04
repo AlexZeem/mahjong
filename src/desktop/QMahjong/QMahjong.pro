@@ -21,7 +21,8 @@ RESOURCES += \
 
 QML_FILES = \
     $$PWD/res/qml/main.qml \
-    $$PWD/res/qml/table/*.qml
+    $$PWD/res/qml/table/*.qml \
+    $$PWD/res/qml/table/wall/*.qml
 
 JS_FILES = \
 

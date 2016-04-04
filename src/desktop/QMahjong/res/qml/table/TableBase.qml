@@ -1,10 +1,15 @@
 import QtQuick 2.4
 
+import "../"
+import "wall"
+
 Item {
     id: root
+    readonly property real tableWidth  : 600
+    readonly property real tableHeight  : 600
 
-    width: 360
-    height: 360
+    width: tableWidth
+    height: tableHeight
 
     Image {
         id: table
@@ -13,36 +18,47 @@ Item {
         source: "qrc:///res/icons/table/background.png"
     }
 
-    WallBase {
-        state: "top"
+    TopWall {
+        id: topWall
         anchors {
             left: table.left
             top: table.top
+            leftMargin: 42
         }
     }
 
-    WallBase {
-        state: "right"
+    RightWall {
+        id: rightWall
         anchors {
             right: table.right
             top: table.top
+            rightMargin: 60
         }
     }
 
-    WallBase {
-        state: "bottom"
-        anchors {
-            left: table.left
-            bottom: table.bottom
-        }
-    }
+//    WallBase {
+//        state: "right"
+//        anchors {
+//            right: table.right
+//            top: table.top
+//        }
+//    }
 
-    WallBase {
-        state: "left"
-        anchors {
-            left: table.left
-            top: table.top
-        }
-    }
+//    WallBase {
+//        state: "bottom"
+//        anchors {
+//            left: table.left
+//            bottom: table.bottom
+//            bottomMargin: 80
+//        }
+//    }
+
+    //    WallBase {
+    //        state: "left"
+    //        anchors {
+    //            left: table.left
+    //            top: table.top
+    //        }
+    //    }
 
 }
