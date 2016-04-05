@@ -46,5 +46,8 @@
         <file>res/icons/tiles/other/tileBack.png</file>
         <file>res/icons/tiles/other/tileBottom.png</file>
         <file>res/icons/tiles/other/tileSide.png</file>
+        <file>res/icons/tiles/other/tileBackRotate.png</file>
+        <file>res/icons/tiles/other/tileBottomRotate.png</file>
+        <file>res/icons/tiles/other/tileSideRotate.png</file>
     </qresource>
 </RCC>
