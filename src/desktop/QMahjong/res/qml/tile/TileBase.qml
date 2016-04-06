@@ -5,45 +5,52 @@ Item {
     readonly property real tileWidth: 25
     readonly property real tileHeight: 35
     readonly property real tileDepth: 15
+    property string imagePath: ""
+    property bool faceVisible: true
+    property bool sideVisible: true
 
-    state: "faceUp"
-
-    Image {
-        id: tile
+    Item {
         anchors.fill: parent
-        fillMode: Image.PreserveAspectFit
+        Image {
+            id: face
+            fillMode: Image.PreserveAspectFit
+        }
+        Image {
+            id: side
+            fillMode: Image.PreserveAspectFit
+        }
     }
 
     states: [
         State {
-            name: "faceUp"
-            PropertyChanges { target: root; width: tileWidth; height: tileHeight}
-            PropertyChanges { target: tile; source: "qrc:///res/icons/tiles/other/tileBack.png"}
+            name: "HLUp" //horisontal lying face up
+            PropertyChanges { target: face; source: imagePath; width: tileHeight; height: tileWidth; visible: faceVisible }
+            PropertyChanges { target: side; source: "qrc:///res/icons/tiles/other/tileSideH.png"; width: tileHeight; height: tileDepth; anchors.top: face.bottom; visible: sideVisible }
         },
         State {
-            name: "sideUp"
-            PropertyChanges { target: root; width: tileHeight; height: tileDepth}
-            PropertyChanges { target: tile; source: "qrc:///res/icons/tiles/other/tileSide.png"}
+            name: "HLDown" //horisontal lying face down
+            PropertyChanges { target: face; source: "qrc:///res/icons/tiles/other/tileBackH.png"; width: tileHeight; height: tileWidth; visible: faceVisible }
+            PropertyChanges { target: side; source: "qrc:///res/icons/tiles/other/tileSideH.png"; width: tileHeight; height: tileDepth; anchors.top: face.bottom; visible: sideVisible }
         },
         State {
-            name: "bottomUp"
-            PropertyChanges { target: root; width: tileWidth; height: tileDepth}
-            PropertyChanges { target: tile; source: "qrc:///res/icons/tiles/other/tileBottom.png"}
+            name: "VSForward" //vertical standing face forward
+            PropertyChanges { target: face; source: "qrc:///res/icons/tiles/other/tileBottom.png"; width: tileWidth; height: tileDepth; visible: faceVisible }
+            PropertyChanges { target: side; source: imagePath; width: tileWidth; height: tileDepth; anchors.top: face.bottom; visible: sideVisible }
         },
         State {
-            name: "faceRotate"
-            PropertyChanges { target: root; width: tileHeight; height: tileWidth}
-            PropertyChanges { target: tile; source: "qrc:///res/icons/tiles/other/tileBackRotate.png"}
+            name: "VSBackward" //vertical standing face backward
+            PropertyChanges { target: face; source: "qrc:///res/icons/tiles/other/tileBottom.png"; width: tileWidth; height: tileDepth; visible: faceVisible }
+            PropertyChanges { target: side; source: "qrc:///res/icons/tiles/other/tileBackV.png"; width: tileWidth; height: tileHeight; anchors.top: face.bottom; visible: sideVisible }
         },
         State {
-            name: "sideRotate"
-            PropertyChanges { target: root; width: tileDepth; height: tileWidth}
-            PropertyChanges { target: tile; source: "qrc:///res/icons/tiles/other/tileSideRotate.png"}
+            name: "VSRight" //vertical standing face right
+            PropertyChanges { target: face; source: "qrc:///res/icons/tiles/other/tileBottom.png"; width: tileDepth; height: tileWidth; visible: faceVisible }
+            PropertyChanges { target: side; source: "qrc:///res/icons/tiles/other/tileSideVR.png"; width: tileDepth; height: tileHeight; anchors.top: face.bottom; visible: sideVisible }
         },
         State {
-            name: "bottomRotate"
-            PropertyChanges { target: root; width: tileDepth; height: tileWidth}
-            PropertyChanges { target: tile; source: "qrc:///res/icons/tiles/other/tileBottomRotate.png"}
+            name: "VSLeft" //vertical standing face left
+            PropertyChanges { target: face; source: "qrc:///res/icons/tiles/other/tileBottom.png"; width: tileDepth; height: tileWidth; visible: faceVisible }
+            PropertyChanges { target: side; source: "qrc:///res/icons/tiles/other/tileSideVL.png"; width: tileDepth; height: tileHeight; anchors.top: face.bottom; visible: sideVisible }
         }
     ]
 }
