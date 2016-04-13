@@ -19,7 +19,8 @@ SOURCES += \
 RESOURCES += \
 
 QML_FILES = \
-    $$PWD/res/qml/main.qml
+    $$PWD/res/qml/main.qml \
+    $$PWD/res/qml/*.qml
 
 JS_FILES = \
 
