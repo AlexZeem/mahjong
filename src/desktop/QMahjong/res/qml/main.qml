@@ -12,4 +12,9 @@ FocusScope {
 
         state: "SIGNIN"
     }
+
+    // for testing Authorization Failed Form
+    /*AuthorizationFailedForm {
+        anchors.centerIn: main
+    }*/
 }

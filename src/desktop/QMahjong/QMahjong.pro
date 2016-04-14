@@ -26,4 +26,5 @@ QML_FILES = \
 JS_FILES = \
 
 DISTFILES += $$QML_FILES \
-             $$JS_FILES
+             $$JS_FILES \
+    res/qml/cabinet/AuthorizationFailedForm.qml
