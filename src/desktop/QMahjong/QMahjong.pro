@@ -20,10 +20,9 @@ RESOURCES += \
 
 QML_FILES = \
     $$PWD/res/qml/main.qml \
-    $$PWD/res/qml/*.qml
+    $$PWD/res/qml/cabinet/*.qml
 
 JS_FILES = \
 
 DISTFILES += $$QML_FILES \
-             $$JS_FILES \
-    res/qml/cabinet/SignInForm.qml
+             $$JS_FILES
