@@ -1,75 +1,107 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.4
+import QtQuick.Controls.Styles 1.4
 
-Rectangle {
-    id:root
-    width: 530
-    height: 370
-    color: "white"
-    border.width: 5
-    border.color: "black"
-    radius: 15
-
-    Text {
-        id:header
-        text: "SIGN IN"
-        font.pixelSize: 50
-        anchors.horizontalCenter: root.horizontalCenter
-        anchors.top: root.top
-        anchors.topMargin: 20
-    }
-
-    Column {
-        id:log;
-        anchors.centerIn: root
-        spacing: 5
-
-        Row {
-            spacing: 5;
-            Text {text:"Login:";font.pixelSize:20;}
-            TextField {
-                placeholderText: qsTr("Enter name")
-                font.pixelSize:20;
-            }
-        }
-
-        Row {
-            spacing: 5;
-            Text {text:"Password:"; font.pixelSize:20;}
-            TextField {
-                placeholderText: qsTr("Enter password")
-                font.pixelSize: 20;
-                echoMode: TextInput.Password;
-            }
-        }
-    }
+Item{
+    width: main.width;
+    height: main.height;
 
     Rectangle {
-        id: button;
-        anchors.horizontalCenter: log.horizontalCenter
-        anchors.top: log.bottom
-        anchors.topMargin: 15
-        width: buttonText.width + 20;
-        height: 50
-        color: "light grey"
-        property alias text : buttonText.text
-        radius: 10
-        antialiasing: true
+        id:root
+        anchors.centerIn: parent;
+        width: parent.width / 2;
+        height: parent.height / 2;
+        color: "white"
+        border.width: 5
+        border.color: "black"
+        radius: 15
 
         Text {
-            id: buttonText
-            text: "Sign in"
-            anchors.centerIn: parent
-            font.pixelSize: parent.height/2;
-            style: Text.Sunken
-            color: "black"
-            styleColor: "dark grey"
+            id: header;
+            text: qsTr("SIGN IN");
+            font.pixelSize: 50
+            anchors.horizontalCenter: root.horizontalCenter
+            anchors.top: root.top
+            anchors.topMargin: 5
         }
 
-        MouseArea {
-            anchors.fill: parent
-            onClicked: parent.clicked()
+        Column {
+            id:log;
+            anchors.top:header.bottom;
+            anchors.horizontalCenter: root.horizontalCenter;
+            anchors.topMargin: 15;
+            spacing: 5
+
+            Row {
+                spacing: 5;
+                anchors.horizontalCenter: root.horizontalCenter;
+                Text {text: qsTr("Login:"); font.pixelSize:20}
+                TextField {
+                    maximumLength: 20
+                    style: TextFieldStyle {
+                        textColor: "black"
+                        background: Rectangle {
+                            radius: 2
+                            implicitWidth: 100
+                            implicitHeight: 24
+                            border.color: "dark blue"
+                            border.width: 1
+                        }
+                    }
+                }
+            }
+
+            Row {
+                spacing: 5;
+                anchors.horizontalCenter: root.horizontalCenter;
+                Text {text: qsTr("Password:"); font.pixelSize:20}
+                TextField {
+                    maximumLength: 20
+                    echoMode: TextInput.Password;
+                    style: TextFieldStyle {
+                        textColor: "black"
+                        background: Rectangle {
+                            radius: 2
+                            implicitWidth: 100
+                            implicitHeight: 24
+                            border.color: "dark blue"
+                            border.width: 1
+                        }
+
+                    }
+                }
+            }
+        }
+
+        Button {
+            id:button;
+            anchors.top: log.bottom;
+            anchors.right: log.right;
+            anchors.topMargin: 15;
+
+            style: ButtonStyle {
+                background: Rectangle {
+                    implicitWidth: 100
+                    implicitHeight: 24
+                    color: "light grey"
+                    border.width: control.activeFocus ? 2 : 1
+                    border.color: "#888"
+                    radius: 4
+                }
+                label: Text{
+                    text:qsTr("Sign in")
+                    horizontalAlignment: Text.AlignHCenter
+                    font.pixelSize: 22
+                    style: Text.Sunken;
+                    color: "black"
+                    styleColor: "grey"
+                }
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: clicked();
+            }
         }
     }
 }
-
