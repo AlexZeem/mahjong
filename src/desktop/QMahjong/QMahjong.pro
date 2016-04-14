@@ -20,6 +20,7 @@ RESOURCES += \
 
 QML_FILES = \
     $$PWD/res/qml/main.qml \
+    $$PWD/res/qml/ScreenManager.qml \
     $$PWD/res/qml/cabinet/*.qml
 
 JS_FILES = \
