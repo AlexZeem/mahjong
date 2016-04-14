@@ -6,7 +6,10 @@ FocusScope {
     width: 640
     height: 480
 
-    SignInForm {
-        anchors.centerIn: main
+    ScreenManager{
+        id: mainScrMgr
+        anchors.fill: parent
+
+        state: "SIGNIN"
     }
 }
