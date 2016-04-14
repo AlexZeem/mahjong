@@ -34,7 +34,7 @@ Item{
 
             Row {
                 spacing: 5;
-                anchors.horizontalCenter: root.horizontalCenter;
+                anchors.horizontalCenter: log.horizontalCenter;
                 Text {text: qsTr("Login:"); font.pixelSize:20}
                 TextField {
                     maximumLength: 20
@@ -53,7 +53,7 @@ Item{
 
             Row {
                 spacing: 5;
-                anchors.horizontalCenter: root.horizontalCenter;
+                anchors.horizontalCenter: log.horizontalCenter;
                 Text {text: qsTr("Password:"); font.pixelSize:20}
                 TextField {
                     maximumLength: 20
