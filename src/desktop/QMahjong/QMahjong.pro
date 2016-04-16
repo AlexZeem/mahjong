@@ -27,4 +27,8 @@ JS_FILES = \
 
 DISTFILES += $$QML_FILES \
              $$JS_FILES \
-    res/qml/cabinet/AuthorizationFailedForm.qml
+    res/qml/cabinet/AuthorizationFailedForm.qml \
+    res/qml/cabinet/CabinetForm.qml
+
+FORMS += \
+    res/qml/cabinet/form.ui

@@ -6,15 +6,20 @@ FocusScope {
     width: 640
     height: 480
 
-    ScreenManager{
+    /*ScreenManager{
         id: mainScrMgr
         anchors.fill: parent
 
         state: "SIGNIN"
-    }
+    }*/
 
     // for testing Authorization Failed Form
     /*AuthorizationFailedForm {
         anchors.centerIn: main
     }*/
+
+    // for testing Cabinet Form
+    CabinetForm {
+        anchors.centerIn: main
+    }
 }
