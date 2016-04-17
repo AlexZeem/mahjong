@@ -23,7 +23,7 @@ Item{
                 horizontalCenter: form.horizontalCenter
             }
 
-            text: qsTr("SIGN IN");
+            text: qsTr("SIGN IN")
             font.pixelSize: 50
         }
 

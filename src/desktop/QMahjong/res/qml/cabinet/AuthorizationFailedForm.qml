@@ -8,8 +8,8 @@ Item {
     Rectangle {
         id: backgr
         anchors.centerIn: parent
-        width: parent.width / 1.5;
-        height: parent.height / 1.5;
+        width: parent.width / 1.5
+        height: parent.height / 1.5
         color: "white"
         border.color: "black"
         border.width: 5
