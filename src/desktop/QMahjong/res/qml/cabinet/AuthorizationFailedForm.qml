@@ -4,12 +4,13 @@ import QtQuick.Controls.Styles 1.3
 
 Item {
     id: root
+    signal backClicked()
 
     Rectangle {
         id: backgr
         anchors.centerIn: parent
-        width: parent.width / 1.5;
-        height: parent.height / 1.5;
+        width: parent.width / 1.5
+        height: parent.height / 1.5
         color: "white"
         border.color: "black"
         border.width: 5
@@ -38,6 +39,7 @@ Item {
 
         onClicked: {
             console.log("Back button clicked")
+            root.backClicked()
         }
     }
 }

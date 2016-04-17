@@ -19,13 +19,14 @@ DESTDIR     = $${BUILD_DIR}/bin
 RCC_DIR     = $${BUILD_DIR}/rcc
 
 HEADERS += \
-#    $$PWD/src/db/*.hpp
+    $$PWD/src/cabinet/*.h
 
 SOURCES += \
     $$PWD/src/main.cpp \
-#    $$PWD/src/db/*.cpp
+    $$PWD/src/cabinet/*.cpp
 
 RESOURCES += \
+    icons.qrc
 
 QML_FILES = \
     $$PWD/res/qml/main.qml \

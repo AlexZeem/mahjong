@@ -23,7 +23,7 @@ Item{
                 horizontalCenter: form.horizontalCenter
             }
 
-            text: qsTr("SIGN IN");
+            text: qsTr("SIGN IN")
             font.pixelSize: 50
         }
 
@@ -55,10 +55,12 @@ Item{
                 spacing: 5
 
                 TextField {
+                    id: loginInput
                     maximumLength: 20
                 }
 
                 TextField {
+                    id: passInput
                     maximumLength: 20
                     echoMode: TextInput.Password
                 }
@@ -77,6 +79,7 @@ Item{
 
             onClicked: {
                 console.log("Sign in button clicked")
+                auth.validate(loginInput.text, passInput.text);
             }
         }
     }
