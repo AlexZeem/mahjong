@@ -2,6 +2,13 @@
 
 QT += qml quick
 
+INCLUDEPATH += \
+    /usr/local/include
+
+#LIBS += \
+#    -lodb -lodb-sqlite \
+#    -L/usr/local/lib
+
 PROJECT_ROOT_DIR = ./
 release: BUILD_DIR = $${PROJECT_ROOT_DIR}/build/release
 debug:   BUILD_DIR = $${PROJECT_ROOT_DIR}/build/debug
@@ -12,9 +19,11 @@ DESTDIR     = $${BUILD_DIR}/bin
 RCC_DIR     = $${BUILD_DIR}/rcc
 
 HEADERS += \
+#    $$PWD/src/db/*.hpp
 
 SOURCES += \
-    $$PWD/src/main.cpp
+    $$PWD/src/main.cpp \
+#    $$PWD/src/db/*.cpp
 
 RESOURCES += \
 
@@ -26,9 +35,4 @@ QML_FILES = \
 JS_FILES = \
 
 DISTFILES += $$QML_FILES \
-             $$JS_FILES \
-    res/qml/cabinet/AuthorizationFailedForm.qml \
-    res/qml/cabinet/CabinetForm.qml
-
-FORMS += \
-    res/qml/cabinet/form.ui
+             $$JS_FILES
