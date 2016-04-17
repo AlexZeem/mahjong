@@ -12,18 +12,38 @@ Item {
         State {
             // Cabinet "Sign In"
             name: "SIGNIN"
-            PropertyChanges {target:mainLoader; source: "cabinet/SignInForm.qml";}
+            PropertyChanges { target: mainLoader; source: "cabinet/SignInForm.qml"; }
         },
         State {
             // Cabinet "Authorization Failed"
             name: "AFAILED"
-            PropertyChanges {target:mainLoader; source: "cabinet/AuthorizationFailedForm.qml";}
+            PropertyChanges { target: mainLoader; source: "cabinet/AuthorizationFailedForm.qml"; }
         },
         State {
             // Cabinet
             name: "CABINET"
-            PropertyChanges {target:mainLoader; source: "cabinet/CabinetForm.qml";}
+            PropertyChanges { target: mainLoader; source: "cabinet/CabinetForm.qml"; }
         }
     ]
+
+    Connections {
+        target: auth
+        onValidationFailed: {
+            screenManager.state = "AFAILED"
+        }
+        onValidationSuccesfull: {
+            screenManager.state = "CABINET"
+        }
+    }
+
+    Connections {
+        target: mainLoader.item
+        onBackClicked: {
+            screenManager.state = "SIGNIN"
+        }
+        onSignOut: {
+            screenManager.state = "SIGNIN"
+        }
+    }
 }
 

@@ -4,6 +4,7 @@ import QtQuick.Controls.Styles 1.3
 
 Item {
     id: root
+    signal signOut()
 
     UserInfo {
         id: userInfo
@@ -69,6 +70,7 @@ Item {
 
             onClicked: {
                 console.log("Sign out button clicked")
+                root.signOut()
             }
         }
     }

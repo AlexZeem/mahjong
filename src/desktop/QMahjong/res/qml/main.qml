@@ -6,10 +6,10 @@ FocusScope {
     width: 640
     height: 480
 
-    ScreenManager{
+    ScreenManager {
         id: mainScrMgr
         anchors.fill: parent
 
-        state: "CABINET"
+        state: "SIGNIN"
     }
 }

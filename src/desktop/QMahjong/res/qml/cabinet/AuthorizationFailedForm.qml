@@ -4,6 +4,7 @@ import QtQuick.Controls.Styles 1.3
 
 Item {
     id: root
+    signal backClicked()
 
     Rectangle {
         id: backgr
@@ -38,6 +39,7 @@ Item {
 
         onClicked: {
             console.log("Back button clicked")
+            root.backClicked()
         }
     }
 }
