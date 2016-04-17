@@ -1,1 +1,5 @@
-<RCC/>
+<RCC>
+    <qresource prefix="/">
+        <file>res/icons/cabinet/UserIcon.png</file>
+    </qresource>
+</RCC>
