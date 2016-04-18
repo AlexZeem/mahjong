@@ -10,6 +10,7 @@ FocusScope {
         id: mainScrMgr
         anchors.fill: parent
 
-        state: "SIGNIN"
+        //state: "SIGNIN"
+        state: "DETAILS"
     }
 }

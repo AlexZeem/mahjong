@@ -23,6 +23,11 @@ Item {
             // Cabinet
             name: "CABINET"
             PropertyChanges { target: mainLoader; source: "cabinet/CabinetForm.qml"; }
+        },
+        State {
+            // Game Details
+            name: "DETAILS"
+            PropertyChanges { target: mainLoader; source: "cabinet/GameDetailsForm.qml"; }
         }
     ]
 
