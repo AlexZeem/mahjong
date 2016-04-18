@@ -2,12 +2,11 @@
 
 QT += qml quick
 
-INCLUDEPATH += \
-    /usr/local/include
-
-#LIBS += \
-#    -lodb -lodb-sqlite \
-#    -L/usr/local/lib
+macx {
+INCLUDEPATH += /usr/local/include
+LIBS += -L/usr/local/lib/
+LIBS += -lboost_serialization
+}
 
 PROJECT_ROOT_DIR = ./
 release: BUILD_DIR = $${PROJECT_ROOT_DIR}/build/release
@@ -17,6 +16,14 @@ OBJECTS_DIR = $${BUILD_DIR}/obj
 MOC_DIR     = $${BUILD_DIR}/moc
 DESTDIR     = $${BUILD_DIR}/bin
 RCC_DIR     = $${BUILD_DIR}/rcc
+
+macx {
+HEADERS += \
+    $$PWD/src/persistence/*.h
+
+SOURCES += \
+    $$PWD/src/persistence/*.cpp
+}
 
 HEADERS += \
     $$PWD/src/cabinet/*.h
