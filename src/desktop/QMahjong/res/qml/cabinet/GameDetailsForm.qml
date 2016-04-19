@@ -89,17 +89,6 @@ Item {
             }
         }
 
-        Component {
-            id: checkBoxDelegate
-
-            Item {
-                CheckBox {
-                    checked: model.player1mahjong
-                    enabled: false
-                }
-            }
-        }
-
         TableView {
             id: countTable
             model: countModel
@@ -116,7 +105,10 @@ Item {
             TableViewColumn {
                 role: "player1mahjong"
                 width: 30
-                delegate: checkBoxDelegate
+                delegate: CheckBox {
+                    checked: model.player1mahjong
+                    enabled: false
+                }
             }
             TableViewColumn {
                 role: "player1point"
