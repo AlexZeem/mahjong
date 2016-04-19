@@ -70,10 +70,22 @@ Item {
         ListModel {
             id: countModel
             ListElement {
-                wind: "E"
-                mahjong: true
-                point: 21
-                score: 41
+                player1wind: "E"
+                player1mahjong: true
+                player1point: 21
+                player1score: 41
+                player2wind: "S"
+                player2mahjong: false
+                player2point: 8
+                player2score: 8
+                player3wind: "W"
+                player3mahjong: false
+                player3point: 2
+                player3score: 4
+                player4wind: "N"
+                player4mahjong: false
+                player4point: 6
+                player4score: 12
             }
         }
 
@@ -95,22 +107,77 @@ Item {
             anchors {
                 top: headerTable.bottom
             }
+            width: headerTable.width;
 
             TableViewColumn {
-                role: "wind"
+                role: "player1wind"
                 width: 30
             }
             TableViewColumn {
-                role: "mahjong"
+                role: "player1mahjong"
                 width: 30
                 delegate: checkBoxDelegate
             }
             TableViewColumn {
-                role: "point"
+                role: "player1point"
                 width: 30
             }
             TableViewColumn {
-                role: "score"
+                role: "player1score"
+                width: 30
+            }
+
+            TableViewColumn {
+                role: "player2wind"
+                width: 30
+            }
+            TableViewColumn {
+                role: "player2mahjong"
+                width: 30
+                delegate: checkBoxDelegate
+            }
+            TableViewColumn {
+                role: "player2point"
+                width: 30
+            }
+            TableViewColumn {
+                role: "player2score"
+                width: 30
+            }
+
+            TableViewColumn {
+                role: "player3wind"
+                width: 30
+            }
+            TableViewColumn {
+                role: "player3mahjong"
+                width: 30
+                delegate: checkBoxDelegate
+            }
+            TableViewColumn {
+                role: "player3point"
+                width: 30
+            }
+            TableViewColumn {
+                role: "player3score"
+                width: 30
+            }
+
+            TableViewColumn {
+                role: "player4wind"
+                width: 30
+            }
+            TableViewColumn {
+                role: "player4mahjong"
+                width: 30
+                delegate: checkBoxDelegate
+            }
+            TableViewColumn {
+                role: "player4point"
+                width: 30
+            }
+            TableViewColumn {
+                role: "player4score"
                 width: 30
             }
         }
