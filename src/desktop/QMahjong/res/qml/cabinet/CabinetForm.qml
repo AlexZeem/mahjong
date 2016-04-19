@@ -4,7 +4,6 @@ import QtQuick.Controls.Styles 1.3
 
 Item {
     id: root
-    signal signOut()
 
     UserInfo {
         id: userInfo
@@ -69,7 +68,7 @@ Item {
             text: qsTr("Sign out")
             onClicked: {
                 console.log("Sign out button clicked")
-                root.signOut()
+                fsmEvent.signOut()
             }
         }
     }

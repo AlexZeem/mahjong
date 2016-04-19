@@ -9,8 +9,5 @@ FocusScope {
     ScreenManager {
         id: mainScrMgr
         anchors.fill: parent
-
-        //state: "SIGNIN"
-        state: "DETAILS"
     }
 }

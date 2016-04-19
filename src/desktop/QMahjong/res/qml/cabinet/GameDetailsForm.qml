@@ -16,7 +16,10 @@ Item {
                 topMargin: 15
                 rightMargin: 15
             }
-            onClicked: console.log ("Back is pressed")
+            onClicked: {
+                console.log ("Back is pressed")
+                fsmEvent.back()
+            }
         }
 
         // 1st part of game details table;
