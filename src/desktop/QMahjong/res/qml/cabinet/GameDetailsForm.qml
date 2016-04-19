@@ -94,7 +94,7 @@ Item {
 
             Item {
                 CheckBox {
-                    checked: model.mahjong
+                    checked: model.player1mahjong
                     enabled: false
                 }
             }
@@ -134,7 +134,10 @@ Item {
             TableViewColumn {
                 role: "player2mahjong"
                 width: 30
-                delegate: checkBoxDelegate
+                delegate: CheckBox {
+                    checked: model.player2mahjong
+                    enabled: false
+                }
             }
             TableViewColumn {
                 role: "player2point"
@@ -152,7 +155,10 @@ Item {
             TableViewColumn {
                 role: "player3mahjong"
                 width: 30
-                delegate: checkBoxDelegate
+                delegate: CheckBox {
+                    checked: model.player3mahjong
+                    enabled: false
+                }
             }
             TableViewColumn {
                 role: "player3point"
@@ -170,7 +176,10 @@ Item {
             TableViewColumn {
                 role: "player4mahjong"
                 width: 30
-                delegate: checkBoxDelegate
+                delegate: CheckBox {
+                    checked: model.player4mahjong
+                    enabled: false
+                }
             }
             TableViewColumn {
                 role: "player4point"
