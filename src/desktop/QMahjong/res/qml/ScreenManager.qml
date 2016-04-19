@@ -50,6 +50,20 @@ Item {
             }
 
             DSM.SignalTransition {
+                targetState: gameStatState
+                signal: fsmEvent.gameStat
+            }
+        }
+
+        DSM.State {
+            id: gameStatState
+            onEntered: mainLoader.source = "cabinet/GameStatsForm.qml"
+
+            DSM.SignalTransition {
+                targetState: cabinetState
+                signal: fsmEvent.back
+            }
+            DSM.SignalTransition {
                 targetState: gameDetailsState
                 signal: fsmEvent.gameDetails
             }
@@ -60,7 +74,7 @@ Item {
             onEntered: mainLoader.source = "cabinet/GameDetailsForm.qml"
 
             DSM.SignalTransition {
-                targetState: cabinetState
+                targetState: gameStatState
                 signal: fsmEvent.back
             }
         }

@@ -4,4 +4,5 @@ QtObject {
     signal back
     signal signOut
     signal gameDetails
+    signal gameStat
 }
