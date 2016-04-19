@@ -5,7 +5,7 @@ Item {
     id: root;
 
     Rectangle {
-        anchors.fill: parent;
+        anchors.fill: parent
 
         Button {
             id: button
@@ -37,7 +37,7 @@ Item {
         }
 
         ListModel {
-            id: gameStatModel;
+            id: gameStatModel
             ListElement {
                 date: "12/03/2012"
                 personalScore: -126
@@ -45,34 +45,34 @@ Item {
             }
         }
             TableView {
-                id: gameStatTable;
+                id: gameStatTable
                 anchors {
-                    top: button.bottom;
-                    topMargin: 15;
+                    top: button.bottom
+                    topMargin: 15
                 }
                 model: gameStatModel
-                width: root.width;
+                width: root.width
 
                 TableViewColumn {
-                    role: "date";
-                    title: "Date";
+                    role: "date"
+                    title: "Date"
                     width: 120;
                 }
                 TableViewColumn {
-                    role: "personalScore";
-                    title: "Personal score";
+                    role: "personalScore"
+                    title: "Personal score"
+                    width: 120
+                }
+                TableViewColumn {
+                    role: "winner"
+                    title: "Winner"
                     width: 120;
                 }
                 TableViewColumn {
-                    role: "winner";
-                    title: "Winner";
-                    width: 120;
-                }
-                TableViewColumn {
-                    role: "details";
-                    title: "Details";
-                    delegate: detailsBtnDelegate;
-                    width: 120;
+                    role: "details"
+                    title: "Details"
+                    delegate: detailsBtnDelegate
+                    width: 120
                 }
             }
         }

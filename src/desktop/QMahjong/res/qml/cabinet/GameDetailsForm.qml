@@ -96,7 +96,7 @@ Item {
             anchors {
                 top: headerTable.bottom
             }
-            width: headerTable.width;
+            width: headerTable.width
 
             TableViewColumn {
                 role: "player1wind"

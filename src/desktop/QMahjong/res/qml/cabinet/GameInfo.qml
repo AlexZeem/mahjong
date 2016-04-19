@@ -42,7 +42,7 @@ Item {
 
                     onClicked: {
                         console.log("More in button clicked")
-                        fsmEvent.gameDetails()
+                        fsmEvent.gameStat()
                     }
                 }
             }
