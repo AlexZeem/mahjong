@@ -1,6 +1,10 @@
 #include <QGuiApplication>
 #include <QtQuick>
+#ifdef __APPLE__
+    #include "persistence/DBHandler.h"
+#endif
 #include "cabinet/Authorization.h"
+
 
 int main(int argc, char *argv[])
 {
@@ -14,6 +18,10 @@ int main(int argc, char *argv[])
     //------------
 
     view.setSource(QUrl(QStringLiteral("res/qml/main.qml")));
+
+#ifdef __APPLE__
+    persistence::DBHandler::instance();
+#endif
 
     //object registration
     cabinet::Authorization auth;
