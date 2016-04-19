@@ -12,13 +12,6 @@ int main(int argc, char *argv[])
     QGuiApplication guiApp(argc, argv);
     QQuickView view;
 
-    //for transparency
-    QQuickWindow::setDefaultAlphaBuffer(true);
-    view.setColor(Qt::transparent);
-    //------------
-
-    view.setSource(QUrl(QStringLiteral("res/qml/main.qml")));
-
 #ifdef __APPLE__
     persistence::DBHandler::instance();
 #endif
@@ -28,6 +21,12 @@ int main(int argc, char *argv[])
     view.engine()->rootContext()->setContextProperty("auth", &auth);
     //
 
+    //for transparency
+    QQuickWindow::setDefaultAlphaBuffer(true);
+    view.setColor(Qt::transparent);
+    //------------
+
+    view.setSource(QUrl(QStringLiteral("res/qml/main.qml")));
     view.setPosition(0,0);
     view.show();
     view.raise();
