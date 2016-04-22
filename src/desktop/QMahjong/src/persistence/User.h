@@ -10,31 +10,16 @@ public:
     User()
     { }
 
-    User(const boolean& _a) :
+    User(const bool& _a) :
         super(_a)
     { }
 
-    User(const std::string& _l) :
-        login(_l)
-    { }
-
-    User(const std::string& _p) :
-        pass(_p)
-    { }
-
-    User(const std::string& _n) :
-        name(_n)
-    { }
-
-    User(const std::string& _s) :
-        surname(_s)
-    { }
-
-    User(const std::string& _p) :
-        phone(_p)
-    { }
-
-    User(const std::string& _e) :
+    User(const std::string& _l, const std::string& _p, const std::string& _n, const std::string& _s, const std::string& _ph, const std::string& _e) :
+        login(_l),
+        pass(_p),
+        name(_n),
+        surname(_s),
+        phone(_ph),
         email(_e)
     { }
 
@@ -43,7 +28,7 @@ public:
     { }
 
 private:
-    boolean super;
+    bool super;
     std::string login;
     std::string pass;
     std::string name;
