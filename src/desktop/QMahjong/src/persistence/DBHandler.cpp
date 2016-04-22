@@ -4,6 +4,7 @@
 #include "Hand.h"
 #include "Limit.h"
 #include "User.h"
+#include "Participant.h"
 #include "DBHandler.h"
 
 namespace persistence {
@@ -20,6 +21,8 @@ struct DBHandler::impl_t
     Hand h;
     Limit l;
     User u;
+    Participant p;
+
 };
 
 DBHandler::DBHandler()
