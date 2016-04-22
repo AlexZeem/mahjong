@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 #include <string>
 #include <iostream>
 
@@ -11,15 +12,12 @@ public:
     { }
 
     Game(const unsigned long& _id) :
-        GameId(_id)
+        gameId(_id)
     { }
 
-    Game(const std::string& _d) :
-        data(_d)
-    { }
-
-    Game(const std::string& _w) :
-        winner(_w)
+    Game(const std::string& _d, const std::string& _w) :
+        data(_d),
+        winner (_w)
     { }
 
     Game(const std::vector<int>& _s) :
