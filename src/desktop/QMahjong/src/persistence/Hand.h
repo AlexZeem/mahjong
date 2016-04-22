@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 #include <string>
 #include <iostream>
 
@@ -10,16 +11,9 @@ public:
     Hand()
     { }
 
-    Hand(const unsigned long& _h) :
-        handId(_h)
-    { }
-
-    Hand(const unsigned long& _g) :
-        gameId(_h)
-    { }
-
-    Hand(const unsigned long& _h) :
-        handId(_h)
+    Hand(const unsigned long& _h, const unsigned long& _g) :
+        handId(_h),
+        gameId(_g)
     { }
 
     Hand(const char& _w) :
@@ -30,7 +24,7 @@ public:
         mahjong(_m)
     { }
 
-    Hand(const std::vector<uint>& _c) :
+    Hand(const std::vector<unsigned int>& _c) :
         combo(_c)
     { }
 
@@ -38,7 +32,7 @@ public:
         score(_s)
     { }
 
-    Game(const std::string& _l) :
+    Hand(const std::string& _l) :
         limit(_l)
     { }
 
@@ -47,8 +41,8 @@ private:
     unsigned long gameId;
     char wind;
     unsigned int mahjong;
-    std::vector <uint> combo;
-    std::vector <uint> score;
+    std::vector <unsigned int> combo;
+    std::vector <int> score;
     std::string limit;
 
 };
