@@ -1,20 +1,14 @@
 #include <QGuiApplication>
 #include <QtQuick>
-#ifdef __APPLE__
-    #include "persistence/DBHandler.h"
-#endif
 #include "cabinet/Authorization.h"
-
+#include "persistence/DBHandler.h"
 
 int main(int argc, char *argv[])
 {
     int result = 0;
     QGuiApplication guiApp(argc, argv);
     QQuickView view;
-
-#ifdef __APPLE__
     persistence::DBHandler::instance();
-#endif
 
     //object registration
     cabinet::Authorization auth;

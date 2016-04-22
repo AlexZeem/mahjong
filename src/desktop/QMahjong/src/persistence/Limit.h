@@ -1,19 +1,11 @@
 #pragma once
 #include <string>
 #include <iostream>
-#include "Serializable.h"
 
 namespace persistence {
 
-class Limit : public Serializable
+class Limit
 {
-    template<class Archive>
-    void serialize(Archive & ar, const unsigned int /* file_version */)
-    {
-        std::cout << "serialize Limit" << std::endl;
-        ar & name;
-    }
-
 public:
     Limit()
     { }
