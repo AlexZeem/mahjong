@@ -1,7 +1,6 @@
 #pragma once // предпроцессорная дериктива, контроль подключения исходника только 1 раз при компиляции
 #include <vector>
 #include <string>
-#include <iostream>
 
 // некоторео множество, создание для группировки неких идентификаторов.
 namespace persistence {
@@ -9,30 +8,48 @@ namespace persistence {
 class Game
 {
 public:
-    Game() // конструктор по умолчанию
-    { }
-
-    Game(const unsigned long& _id) :
-    /* конструктор который инициирует объект параметром _id
-    (константа ссылки(переданный параметр не будет изменен)).
-        // инициализируемый объект*/
-        gameId(_id)
-    { }
-
-    Game(const std::string& _d, const std::string& _w) : // конструктор который инициирует объекты параметрами  _d, _w
-        // инициализируемые объекты
-        data(_d),
-        winner (_w)
-    { }
-
-    Game(const std::vector<int>& _s) : // конструктор который инициирует объект параметром _s
-        // инициализируемый объект
+    Game(unsigned long _id = 0, std::string _d = "12/12/2012", std::string _w = "Player 1", std::vector<int> _s = std::vector<int>(4,0)):
+        gameId(_id),
+        date(_d),
+        winner (_w),
         score(_s)
     { }
 
+    unsigned long GetGameId() {
+        return gameId;
+    }
+
+    void SetGameId (unsigned long gi) {
+        gameId = gi;
+    }
+
+    std::string GetDate() {
+        return date;
+    }
+
+    void SetDate (const std::string& d) {
+        date = d;
+    }
+
+    std::string GetWinner () {
+        return winner;
+    }
+
+    void SetWinner (const std::string& w) {
+        winner = w;
+    }
+
+    std::vector<int> GetScore () {
+        return score;
+    }
+
+    void SetScore (const std::vector<int>& s) {
+        score = s;
+    }
+
 private:
     unsigned long gameId;
-    std::string data;
+    std::string date;
     std::string winner;
     std::vector <int> score;
 
