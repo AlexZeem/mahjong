@@ -61,6 +61,18 @@ struct DBHandler::impl_t
         std::cout << std::endl;
     }
 
+    // user.h test
+    void displayUser() {
+        std::cout << "Super user:" << u.GetSuper() << std::endl;
+        std::cout << "Login:" << u.GetLogin() << std::endl;
+        std::cout << "Password:" << u.GetPass() << std::endl;
+        std::cout << "Name:" << u.GetName() << std::endl;
+        std::cout << "Surname:" << u.GetSurname() << std::endl;
+        std::cout << "Phone:" << u.GetPhone() << std::endl;
+        std::cout << "Email:" << u.GetEmail() << std::endl;
+        std::cout << "Rang:" << u.GetRang() << std::endl;
+    }
+
     Game g;
     Hand h;
     Limit l;
@@ -75,6 +87,7 @@ DBHandler::DBHandler()
     impl->displayGame();
     impl->displayHand();
     impl->displayPart();
+    impl->displayUser();
 }
 
 DBHandler::~DBHandler()
