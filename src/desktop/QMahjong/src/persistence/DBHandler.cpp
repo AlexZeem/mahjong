@@ -18,6 +18,7 @@ struct DBHandler::impl_t
     ~impl_t()
     { }
 
+    // game.h test
     void displayGame() {
         std::cout << "Game ID:" << g.GetGameId() << std::endl;
         std::cout << "Game date:" << g.GetDate() << std::endl;
@@ -29,6 +30,7 @@ struct DBHandler::impl_t
         std::cout << std::endl;
     }
 
+    // hand.h test
     void displayHand() {
         std::cout << "Hand ID:" << h.GetHandId() << std::endl;
         std::cout << "Game ID:" << h.GetGameId() << std::endl;
@@ -48,6 +50,17 @@ struct DBHandler::impl_t
 
     }
 
+    //participant.h test
+    void displayPart() {
+        std::cout << "Part ID:" << p.GetPartId() << std::endl;
+        std::cout << "Game ID:" << p.GetGameId() << std::endl;
+        std::cout << "UserId:";
+        for (const auto & i : p.GetUsedId()){
+            std::cout << i << ",";
+        }
+        std::cout << std::endl;
+    }
+
     Game g;
     Hand h;
     Limit l;
@@ -61,6 +74,7 @@ DBHandler::DBHandler()
 { //load();
     impl->displayGame();
     impl->displayHand();
+    impl->displayPart();
 }
 
 DBHandler::~DBHandler()
