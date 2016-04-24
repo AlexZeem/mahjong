@@ -18,15 +18,34 @@ struct DBHandler::impl_t
     ~impl_t()
     { }
 
-    void display() {
+    void displayGame() {
         std::cout << "Game ID:" << g.GetGameId() << std::endl;
         std::cout << "Game date:" << g.GetDate() << std::endl;
         std::cout << "Game winner:" << g.GetWinner() << std::endl;
         std::cout << "Game score: ";
         for (const auto & i : g.GetScore()){
-        std::cout << i << ",";
+            std::cout << i << ",";
         }
         std::cout << std::endl;
+    }
+
+    void displayHand() {
+        std::cout << "Hand ID:" << h.GetHandId() << std::endl;
+        std::cout << "Game ID:" << h.GetGameId() << std::endl;
+        std::cout << "Wind: " << h.GetWind() << std::endl;
+        std::cout << "Mahjong:" << h.GetMahjong() << std::endl;
+        std::cout << "Combo:";
+        for (const auto & i : h.GetCombo()){
+            std::cout << i << ",";
+        }
+        std::cout << std::endl;
+        std::cout << "Score:";
+        for (const auto & i : h.GetScore()){
+            std::cout << i << ",";
+        }
+        std::cout << std::endl;
+        std::cout << "Limit:" << h.GetLimit() << std::endl;
+
     }
 
     Game g;
@@ -40,7 +59,8 @@ struct DBHandler::impl_t
 DBHandler::DBHandler()
     : impl(new impl_t())
 { //load();
-    //impl->display();
+    impl->displayGame();
+    impl->displayHand();
 }
 
 DBHandler::~DBHandler()
