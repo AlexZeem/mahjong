@@ -1,8 +1,8 @@
 #include <fstream>
 #include <iostream>
 
-#include "Game.h"
-#include "Hand.h"
+#include "Game.cpp"
+#include "Hand.cpp"
 #include "Limit.h"
 #include "User.h"
 #include "Participant.h"
