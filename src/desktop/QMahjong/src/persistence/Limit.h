@@ -7,12 +7,8 @@ namespace persistence {
 class Limit
 {
 public:
-    Limit()
-    { }
-
-    Limit(const std::string& _n) :
-        name(_n)
-    { }
+    Limit();
+    Limit(const std::string&);
 
 private:
     std::string name;
