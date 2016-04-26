@@ -33,7 +33,7 @@ public:
     void SetMahjong(unsigned int);
     void SetCombo(const std::vector<unsigned int>&);
     void SetScore(const std::vector<int>&);
-     void SetLimit(const std::string&);
+    void SetLimit(const std::string&);
 
 private:
     unsigned long handId;

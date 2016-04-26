@@ -1,6 +1,6 @@
 #include "Hand.h"
 
-namespace persistence  {
+namespace persistence{
 
 Hand::Hand(unsigned long _h,
            unsigned long _g,
@@ -75,5 +75,4 @@ std::string Hand::GetLimit(){
 void Hand::SetLimit(const std::string& l){
     limit = l;
 }
-
 } // persistence

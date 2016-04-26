@@ -3,9 +3,9 @@
 
 #include "Game.cpp"
 #include "Hand.cpp"
+#include "User.cpp"
+#include "Participant.cpp"
 #include "Limit.h"
-#include "User.h"
-#include "Participant.h"
 #include "DBHandler.h"
 
 namespace persistence {
