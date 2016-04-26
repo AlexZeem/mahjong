@@ -55,7 +55,7 @@ struct DBHandler::impl_t
         std::cout << "Part ID:" << p.GetPartId() << std::endl;
         std::cout << "Game ID:" << p.GetGameId() << std::endl;
         std::cout << "UserId:";
-        for (const auto & i : p.GetUsedId()){
+        for (const auto & i : p.GetUserId()){
             std::cout << i << ",";
         }
         std::cout << std::endl;
