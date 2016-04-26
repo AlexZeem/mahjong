@@ -9,65 +9,31 @@ class Hand
 {
 public:
     //конструктор который инициирует объект параметрами.
-    Hand(unsigned long _h = 0, unsigned long _g = 0, char _w = 'E', unsigned int _m = 1,
-         std::vector<unsigned int> _c = std::vector<unsigned int>(1,20), std::vector<int> _s = std::vector<int>(1,20),
+    Hand(unsigned long _h = 0,
+         unsigned long _g = 0,
+         char _w = 'E',
+         unsigned int _m = 1,
+         std::vector<unsigned int> _c = std::vector<unsigned int>(1,20),
+         std::vector<int> _s = std::vector<int>(1,20),
          std::string _l = "none");
 
-    unsigned long GetHandId() {
-        return handId;
-    }
+    // getters;
+    unsigned long GetHandId();
+    unsigned long GetGameId();
+    char GetWind();
+    unsigned int GetMahjong();
+    std::vector<unsigned int> GetCombo();
+    std::vector<int> GetScore();
+    std::string GetLimit();
 
-    void SetHandId(unsigned long hi) {
-        handId = hi;
-    }
-
-    unsigned long GetGameId() {
-        return gameId;
-    }
-
-    void SetGamaId(unsigned long gi){
-        gameId = gi;
-    }
-
-    char GetWind() {
-        return wind;
-    }
-
-    void SetChar(char w) {
-        wind = w;
-    }
-
-    unsigned int GetMahjong() {
-        return mahjong;
-    }
-
-    void SetMahjong(unsigned int m) {
-        mahjong = m;
-    }
-
-    std::vector<unsigned int> GetCombo(){
-        return combo;
-    }
-
-    void SetCombo(const std::vector<unsigned int>& c){
-        combo = c;
-    }
-
-    std::vector<int> GetScore(){
-        return score;
-    }
-
-    void SetScore(const std::vector<int>& s){
-        score = s;
-    }
-
-    std::string GetLimit(){
-        return limit;
-    }
-
-    void SetLimit(const std::string& l){
-        limit = l;
-    }
+    //setter;
+    void SetHandId(unsigned long);
+    void SetGamaId(unsigned long);
+    void SetChar(char);
+    void SetMahjong(unsigned int);
+    void SetCombo(const std::vector<unsigned int>&);
+    void SetScore(const std::vector<int>&);
+     void SetLimit(const std::string&);
 
 private:
     unsigned long handId;
