@@ -11,17 +11,7 @@ public:
     //конструктор который инициирует объект параметрами.
     Hand(unsigned long _h = 0, unsigned long _g = 0, char _w = 'E', unsigned int _m = 1,
          std::vector<unsigned int> _c = std::vector<unsigned int>(1,20), std::vector<int> _s = std::vector<int>(1,20),
-         std::string _l = "none") :
-
-        //Список инициируемых объектов:
-        handId(_h),
-        gameId(_g),
-        wind(_w),
-        mahjong(_m),
-        combo(_c),
-        score(_s),
-        limit(_l)
-    { }
+         std::string _l = "none");
 
     unsigned long GetHandId() {
         return handId;
