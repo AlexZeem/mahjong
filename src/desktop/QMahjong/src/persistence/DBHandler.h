@@ -18,7 +18,7 @@ public:
     void load(const std::string &filepath = default_path());
     void save(const std::string &filepath = default_path());
 
-    static std::string default_path() { return "persistence.xml"; }
+    static std::string default_path() { return "persistence.txt"; }
 
     // delete copy and move constructors and assign operators
     DBHandler(DBHandler const&) = delete;             // Copy construct

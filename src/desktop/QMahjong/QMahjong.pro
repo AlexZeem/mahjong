@@ -1,6 +1,6 @@
 *g++*:QMAKE_CXXFLAGS += -std=c++11
 
-QT += qml quick
+QT += qml quick core
 
 macx{
 INCLUDEPATH += /usr/local/include

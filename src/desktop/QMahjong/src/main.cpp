@@ -26,6 +26,7 @@ int main(int argc, char *argv[])
     view.raise();
 
     result = guiApp.exec();
+    persistence::DBHandler::instance()->save();
 
     return result;
 }

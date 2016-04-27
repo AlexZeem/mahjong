@@ -1,4 +1,5 @@
-#include <fstream>
+#include <QFile>
+#include <QDebug>
 #include <iostream>
 
 #include "Game.cpp"
@@ -83,11 +84,12 @@ struct DBHandler::impl_t
 
 DBHandler::DBHandler()
     : impl(new impl_t())
-{ //load();
+{ load();
     impl->displayGame();
     impl->displayHand();
     impl->displayPart();
     impl->displayUser();
+    impl->l.SetName("Green Dragon");
 }
 
 DBHandler::~DBHandler()
@@ -104,16 +106,23 @@ DBHandler* DBHandler::instance()
 
 void DBHandler::save(const std::string &filepath)
 {
-    std::ofstream ofs(filepath);
-
+    QFile outputFile(QString::fromStdString(filepath));
+    outputFile.open(QFile::WriteOnly);
+    QDataStream outstream(&outputFile);
+    outstream << impl->l;
+    qDebug() << "Outstream:" << outstream; // для вывода инфо кьютовских данніх;
+    outputFile.flush();
+    outputFile.close();
 }
 
 void DBHandler::load(const std::string &filepath)
 {
-    std::ifstream ifs(filepath);
-
-    // restore the schedule from the archive
-    //ia >> s;
+    QFile inputFile (QString::fromStdString(filepath));
+    inputFile.open(QFile::ReadOnly);
+    QDataStream inputStream (&inputFile);
+    inputStream >> impl->l;
+    qDebug() << "Limit name:" << impl->l.GetName().c_str();
+    inputFile.close();
 }
 
 

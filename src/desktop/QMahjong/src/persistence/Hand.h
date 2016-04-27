@@ -13,8 +13,8 @@ public:
          unsigned long _g = 0,
          char _w = 'E',
          unsigned int _m = 1,
-         std::vector<unsigned int> _c = std::vector<unsigned int>(1,20),
-         std::vector<int> _s = std::vector<int>(1,20),
+         std::vector<unsigned int> _c = std::vector<unsigned int>(4,0),
+         std::vector<int> _s = std::vector<int>(4,0),
          std::string _l = "none");
 
     // getters;
