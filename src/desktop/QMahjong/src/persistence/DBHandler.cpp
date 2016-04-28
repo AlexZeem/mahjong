@@ -6,7 +6,7 @@
 #include "Hand.cpp"
 #include "User.cpp"
 #include "Participant.cpp"
-#include "Limit.h"
+#include "Limit.cpp"
 #include "DBHandler.h"
 
 namespace persistence {
@@ -90,6 +90,12 @@ DBHandler::DBHandler()
     impl->displayPart();
     impl->displayUser();
     impl->l.SetName("Green Dragon");
+    impl->u.SetName("Name");
+    impl->u.SetSurname("Surname");
+    impl->u.SetLogin("Login");
+    impl->u.SetPass("1111");
+    impl->u.SetPhone("123 456 78");
+    impl->u.SetEmail("e-mail@example.com");
 }
 
 DBHandler::~DBHandler()
@@ -110,6 +116,7 @@ void DBHandler::save(const std::string &filepath)
     outputFile.open(QFile::WriteOnly);
     QDataStream outstream(&outputFile);
     outstream << impl->l;
+    outstream << impl->u;
     qDebug() << "Outstream:" << outstream; // для вывода инфо кьютовских данніх;
     outputFile.flush();
     outputFile.close();
@@ -121,10 +128,19 @@ void DBHandler::load(const std::string &filepath)
     inputFile.open(QFile::ReadOnly);
     QDataStream inputStream (&inputFile);
     inputStream >> impl->l;
+    inputStream >> impl->u;
     qDebug() << "Limit name:" << impl->l.GetName().c_str();
+
+    //User check
+    qDebug() << "User:" << impl->u.GetSuper();
+    qDebug() << "User:" << impl->u.GetLogin().c_str();
+    qDebug() << "User:" << impl->u.GetPass().c_str();
+    qDebug() << "User:" << impl->u.GetName().c_str();
+    qDebug() << "User:" << impl->u.GetSurname().c_str();
+    qDebug() << "User:" << impl->u.GetPhone().c_str();
+    qDebug() << "User:" << impl->u.GetEmail().c_str();
+    qDebug() << "User:" << impl->u.GetRang();
     inputFile.close();
 }
-
-
 
 } //persistence

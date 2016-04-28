@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <QDataStream>
 
 namespace persistence {
 
@@ -36,6 +37,10 @@ public:
     void SetPhone(const std::string&);
     void SetEmail(const std::string&);
     void SetRang(double);
+
+    //reddifine in/out operators
+    friend QDataStream& operator << (QDataStream& out, const User&);
+    friend QDataStream& operator >> (QDataStream& in, User&);
 
 private:
     bool super;

@@ -39,4 +39,36 @@ void User::SetPhone(const std::string& ph) {phone = ph;}
 void User::SetEmail(const std::string& e) {email = e;}
 void User::SetRang(double r) {rang = r;}
 
+QDataStream &operator>>(QDataStream &in, User& u)
+{
+    bool b;
+    in >> b;
+    u.SetSuper(b);
+    QString l, p, n, s, ph, e;
+    in >> l >> p >> n >> s >> ph >> e;
+    u.SetLogin(l.toStdString());
+    u.SetPass(p.toStdString());
+    u.SetName(n.toStdString());
+    u.SetSurname(s.toStdString());
+    u.SetPhone(ph.toStdString());
+    u.SetEmail(e.toStdString());
+    double r;
+    in >> r;
+    u.SetRang(r);
+    return in;
+}
+
+QDataStream &operator<<(QDataStream &out, const User& u)
+{
+    out << (bool)u.super;
+    out << QString::fromStdString(u.login);
+    out << QString::fromStdString(u.pass);
+    out << QString::fromStdString(u.name);
+    out << QString::fromStdString(u.surname);
+    out << QString::fromStdString(u.phone);
+    out << QString::fromStdString(u.email);
+    out << (double)u.rang;
+    return out;
+}
+
 } // persistence
