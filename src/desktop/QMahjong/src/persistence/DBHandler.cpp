@@ -57,7 +57,7 @@ struct DBHandler::impl_t
         std::cout << "Game ID:" << p.GetGameId() << std::endl;
         std::cout << "UserId:";
         for (const auto & i : p.GetUserId()){
-            std::cout << i << ",";
+            qDebug() << i;
         }
         std::cout << std::endl;
     }
@@ -112,6 +112,10 @@ DBHandler::DBHandler()
     impl->h.SetScore(QVector<int>(4,0));
     impl->h.SetLimit("Limit");
 
+    impl->p.SetPartId(0);
+    impl->p.SetGameId(0);
+    impl->p.SetUserId(QVector<QString>(4,"Login"));
+
 }
 
 DBHandler::~DBHandler()
@@ -135,6 +139,7 @@ void DBHandler::save(const std::string &filepath)
     outstream << impl->u;
     outstream << impl->g;
     outstream << impl->h;
+    outstream << impl->p;
     qDebug() << "Outstream:" << outstream; // для вывода инфо кьютовских данніх;
     outputFile.flush();
     outputFile.close();
@@ -149,6 +154,8 @@ void DBHandler::load(const std::string &filepath)
     inputStream >> impl->u;
     inputStream >> impl->g;
     inputStream >> impl->h;
+    inputStream >> impl->p;
+
     qDebug() << "Limit name:" << impl->l.GetName().c_str();
 
     //User check
@@ -175,6 +182,11 @@ void DBHandler::load(const std::string &filepath)
     qDebug() << "Hand:" << impl->h.GetCombo();
     qDebug() << "Hand:" << impl->h.GetScore();
     qDebug() << "Hand:" << impl->h.GetLimit().c_str();
+
+    //Participant check
+    qDebug() << "Participant:" << impl->p.GetPartId();
+    qDebug() << "Participant:" << impl->p.GetGameId();
+    qDebug() << "Participant:" << impl->p.GetUserId();
 
     inputFile.close();
 }

@@ -1,7 +1,8 @@
 #pragma once
 
-#include <string>
-#include <vector>
+#include <QString>
+#include <QVector>
+#include <QDataStream>
 
 namespace persistence {
 
@@ -10,21 +11,24 @@ class Participant
 public:
     Participant(unsigned long _pid = 0,
                 unsigned long _gid = 0,
-                std::vector <std::string> _uid = std::vector<std::string>(4,"Login"));
+                QVector<QString> _uid = QVector<QString>(4,"Login"));
     //Getters:
     unsigned long GetPartId();
     unsigned long GetGameId();
-    std::vector <std::string> GetUserId();
+    QVector <QString> GetUserId();
 
     //Setters:
     void SetPartId(unsigned long);
     void SetGameId(unsigned long);
-    void SetUserId(const std::vector <std::string>&);
+    void SetUserId(const QVector<QString>&);
+
+    friend QDataStream & operator << (QDataStream &out, const Participant &);
+    friend QDataStream & operator >> (QDataStream &in, Participant&);
 
 private:
     unsigned long partId;
     unsigned long gameId;
-    std::vector <std::string> userId;
+    QVector <QString> userId;
 
 };
 
