@@ -89,13 +89,20 @@ DBHandler::DBHandler()
     impl->displayHand();
     impl->displayPart();
     impl->displayUser();
+
     impl->l.SetName("Green Dragon");
+
     impl->u.SetName("Name");
     impl->u.SetSurname("Surname");
     impl->u.SetLogin("Login");
     impl->u.SetPass("1111");
     impl->u.SetPhone("123 456 78");
     impl->u.SetEmail("e-mail@example.com");
+
+    impl->g.SetGameId(0);
+    impl->g.SetDate("12/12/2012");
+    impl->g.SetWinner("Player 1");
+    impl->g.SetScore(4,4);
 }
 
 DBHandler::~DBHandler()
@@ -117,6 +124,7 @@ void DBHandler::save(const std::string &filepath)
     QDataStream outstream(&outputFile);
     outstream << impl->l;
     outstream << impl->u;
+    outstream << impl->g;
     qDebug() << "Outstream:" << outstream; // для вывода инфо кьютовских данніх;
     outputFile.flush();
     outputFile.close();
@@ -129,6 +137,7 @@ void DBHandler::load(const std::string &filepath)
     QDataStream inputStream (&inputFile);
     inputStream >> impl->l;
     inputStream >> impl->u;
+    inputStream >> impl->g;
     qDebug() << "Limit name:" << impl->l.GetName().c_str();
 
     //User check
@@ -140,6 +149,14 @@ void DBHandler::load(const std::string &filepath)
     qDebug() << "User:" << impl->u.GetPhone().c_str();
     qDebug() << "User:" << impl->u.GetEmail().c_str();
     qDebug() << "User:" << impl->u.GetRang();
+
+    //Game check:
+    qDebug() << "Game:" << impl->g.GetGameId();
+    qDebug() << "Game:" << impl->g.GetDate().c_str();
+    qDebug() << "Game:" << impl->g.GetWinner().c_str();
+    qDebug() << "Game:" << impl->g.GetScore();
+
+
     inputFile.close();
 }
 
