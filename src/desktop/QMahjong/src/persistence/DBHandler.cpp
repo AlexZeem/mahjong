@@ -103,6 +103,15 @@ DBHandler::DBHandler()
     impl->g.SetDate("12/12/2012");
     impl->g.SetWinner("Player 1");
     impl->g.SetScore(QVector<int>(4,0));
+
+    impl->h.SetHandId(0);
+    impl->h.SetGameId(0);
+    impl->h.SetWind('E');
+    impl->h.SetMahjong(0);
+    impl->h.SetCombo(QVector<unsigned int>(4,0));
+    impl->h.SetScore(QVector<int>(4,0));
+    impl->h.SetLimit("Limit");
+
 }
 
 DBHandler::~DBHandler()
@@ -125,6 +134,7 @@ void DBHandler::save(const std::string &filepath)
     outstream << impl->l;
     outstream << impl->u;
     outstream << impl->g;
+    outstream << impl->h;
     qDebug() << "Outstream:" << outstream; // для вывода инфо кьютовских данніх;
     outputFile.flush();
     outputFile.close();
@@ -138,6 +148,7 @@ void DBHandler::load(const std::string &filepath)
     inputStream >> impl->l;
     inputStream >> impl->u;
     inputStream >> impl->g;
+    inputStream >> impl->h;
     qDebug() << "Limit name:" << impl->l.GetName().c_str();
 
     //User check
@@ -156,6 +167,14 @@ void DBHandler::load(const std::string &filepath)
     qDebug() << "Game:" << impl->g.GetWinner().c_str();
     qDebug() << "Game:" << impl->g.GetScore();
 
+    //Hand check:
+    qDebug() << "Hand:" << impl->h.GetHandId();
+    qDebug() << "Hand:" << impl->h.GetGameId();
+    qDebug() << "Hand:" << impl->h.GetWind();
+    qDebug() << "Hand:" << impl->h.GetMahjong();
+    qDebug() << "Hand:" << impl->h.GetCombo();
+    qDebug() << "Hand:" << impl->h.GetScore();
+    qDebug() << "Hand:" << impl->h.GetLimit().c_str();
 
     inputFile.close();
 }

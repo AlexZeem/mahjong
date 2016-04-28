@@ -8,6 +8,7 @@ namespace persistence {
                std::string _d,
                std::string _w,
                QVector<int> _s):
+
         gameId(_id),
         date(_d),
         winner (_w),

@@ -1,7 +1,8 @@
 #pragma once
 
-#include <vector>
 #include <string>
+#include <QVector>
+#include <QDataStream>
 
 namespace persistence {
 
@@ -12,9 +13,9 @@ public:
     Hand(unsigned long _h = 0,
          unsigned long _g = 0,
          char _w = 'E',
-         unsigned int _m = 1,
-         std::vector<unsigned int> _c = std::vector<unsigned int>(4,0),
-         std::vector<int> _s = std::vector<int>(4,0),
+         unsigned int _m = 0,
+         QVector<unsigned int> _c = QVector<unsigned int>(4,0),
+         QVector<int> _s = QVector<int>(4,0),
          std::string _l = "none");
 
     // getters;
@@ -22,26 +23,29 @@ public:
     unsigned long GetGameId();
     char GetWind();
     unsigned int GetMahjong();
-    std::vector<unsigned int> GetCombo();
-    std::vector<int> GetScore();
+    QVector<unsigned int> GetCombo();
+    QVector<int> GetScore();
     std::string GetLimit();
 
     //setter;
     void SetHandId(unsigned long);
-    void SetGamaId(unsigned long);
-    void SetChar(char);
+    void SetGameId(unsigned long);
+    void SetWind(char);
     void SetMahjong(unsigned int);
-    void SetCombo(const std::vector<unsigned int>&);
-    void SetScore(const std::vector<int>&);
+    void SetCombo(const QVector<unsigned int>&);
+    void SetScore(const QVector<int>&);
     void SetLimit(const std::string&);
+
+    friend QDataStream &operator<< (QDataStream &out, const Hand&);
+    friend QDataStream &operator>> (QDataStream &in, Hand);
 
 private:
     unsigned long handId;
     unsigned long gameId;
     char wind;
     unsigned int mahjong;
-    std::vector <unsigned int> combo;
-    std::vector <int> score;
+    QVector <unsigned int> combo;
+    QVector <int> score;
     std::string limit;
 
 };
