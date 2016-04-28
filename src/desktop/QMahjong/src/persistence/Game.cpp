@@ -51,15 +51,14 @@ namespace persistence {
         quint32 gid;
         in >> gid;
         g.SetGameId(gid);
-
         QString d, w;
         in >> d >> w;
         g.SetDate(d.toStdString());
         g.SetWinner(w.toStdString());
-
         QVector<int> v;
         in >> v;
         g.SetScore(v);
+        return in;
     }
 
     QDataStream &operator<<(QDataStream &out, const Game & g)
@@ -68,6 +67,7 @@ namespace persistence {
         out << QString::fromStdString(g.date);
         out << QString::fromStdString(g.winner);
         out << (QVector<int>)g.score;
+        return out;
     }
 
 } //persistence

@@ -1,7 +1,7 @@
 #pragma once
-#include <vector>
 #include <string>
 #include <QDataStream>
+#include <QVector>
 
 // некоторео множество, создание для группировки неких идентификаторов.
 namespace persistence {

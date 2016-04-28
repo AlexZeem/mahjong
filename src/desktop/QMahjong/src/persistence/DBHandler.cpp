@@ -102,7 +102,7 @@ DBHandler::DBHandler()
     impl->g.SetGameId(0);
     impl->g.SetDate("12/12/2012");
     impl->g.SetWinner("Player 1");
-    impl->g.SetScore(4,4);
+    impl->g.SetScore(QVector<int>(4,0));
 }
 
 DBHandler::~DBHandler()
