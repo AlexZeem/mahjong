@@ -37,12 +37,7 @@ QDataStream &operator<<(QDataStream &out, const Participant &p)
 
 QDataStream &operator>>(QDataStream &in, Participant &p)
 {
-    quint32 pi, gi;
-    QVector<QString> ui;
-    in >> pi >> gi >> ui;
-    p.SetPartId(pi);
-    p.SetGameId(gi);
-    p.SetUserId(ui);
+    in >> p.gameId >> p.partId >> p.userId;
     return in;
 }
 
