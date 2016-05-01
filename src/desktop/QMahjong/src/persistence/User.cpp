@@ -52,9 +52,9 @@ QDataStream &operator>>(QDataStream &in, User& u)
     u.SetSurname(s.toStdString());
     u.SetPhone(ph.toStdString());
     u.SetEmail(e.toStdString());
-    double r;
-    in >> r;
-    u.SetRang(r);
+    QString temp;
+    in >> temp;
+    u.SetRang(temp.toDouble());
     return in;
 }
 
@@ -67,7 +67,8 @@ QDataStream &operator<<(QDataStream &out, const User& u)
     out << QString::fromStdString(u.surname);
     out << QString::fromStdString(u.phone);
     out << QString::fromStdString(u.email);
-    out << (double)u.rang;
+    QString temp = QString::number(u.rang);
+    out << temp;//(double)u.rang;
     return out;
 }
 

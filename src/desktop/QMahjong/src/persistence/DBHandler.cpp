@@ -21,12 +21,12 @@ struct DBHandler::impl_t
 
     // game.h test
     void displayGame() {
-        std::cout << "Game ID:" << g.GetGameId() << std::endl;
-        std::cout << "Game date:" << g.GetDate() << std::endl;
-        std::cout << "Game winner:" << g.GetWinner() << std::endl;
-        std::cout << "Game score: ";
-        for (const auto & i : g.GetScore()){
-            std::cout << i << ",";
+        qDebug() << "Game ID:" << g.getGameId();
+        qDebug() << "Game date:" << g.getDate();
+        qDebug() << "Game winner:" << g.getWinner();
+        qDebug() << "Game score: ";
+        for (const auto & i : g.getScore()){
+            qDebug() << i << ",";
         }
         std::cout << std::endl;
     }
@@ -85,35 +85,37 @@ struct DBHandler::impl_t
 DBHandler::DBHandler()
     : impl(new impl_t())
 { load();
-    impl->displayGame();
-    impl->displayHand();
-    impl->displayPart();
-    impl->displayUser();
+//    impl->displayGame();
+//    impl->displayHand();
+//    impl->displayPart();
+//    impl->displayUser();
 
     impl->l.SetName("Green Dragon");
 
+    impl->u.SetSuper(false);
     impl->u.SetName("Name");
     impl->u.SetSurname("Surname");
     impl->u.SetLogin("Login");
     impl->u.SetPass("1111");
     impl->u.SetPhone("123 456 78");
     impl->u.SetEmail("e-mail@example.com");
+    impl->u.SetRang(.89);
 
-    impl->g.SetGameId(0);
-    impl->g.SetDate("12/12/2012");
-    impl->g.SetWinner("Player 1");
-    impl->g.SetScore(QVector<int>(4,0));
+    impl->g.setGameId(0);
+    impl->g.setDate("12/12/2012");
+    impl->g.setWinner("Player 1");
+    impl->g.setScore(QVector<int>(4,7));
 
     impl->h.SetHandId(0);
     impl->h.SetGameId(0);
     impl->h.SetWind('E');
     impl->h.SetMahjong(0);
-    impl->h.SetCombo(QVector<unsigned int>(4,0));
-    impl->h.SetScore(QVector<int>(4,0));
+    impl->h.SetCombo(QVector<unsigned int>(4,6));
+    impl->h.SetScore(QVector<int>(4,9));
     impl->h.SetLimit("Limit");
 
-    impl->p.SetPartId(0);
-    impl->p.SetGameId(0);
+    impl->p.SetPartId(20);
+    impl->p.SetGameId(10);
     impl->p.SetUserId(QVector<QString>(4,"Login"));
 
 }
@@ -140,7 +142,7 @@ void DBHandler::save(const std::string &filepath)
     outstream << impl->g;
     outstream << impl->h;
     outstream << impl->p;
-    qDebug() << "Outstream:" << outstream; // для вывода инфо кьютовских данніх;
+
     outputFile.flush();
     outputFile.close();
 }
@@ -159,34 +161,34 @@ void DBHandler::load(const std::string &filepath)
     qDebug() << "Limit name:" << impl->l.GetName().c_str();
 
     //User check
-    qDebug() << "User:" << impl->u.GetSuper();
-    qDebug() << "User:" << impl->u.GetLogin().c_str();
-    qDebug() << "User:" << impl->u.GetPass().c_str();
-    qDebug() << "User:" << impl->u.GetName().c_str();
-    qDebug() << "User:" << impl->u.GetSurname().c_str();
-    qDebug() << "User:" << impl->u.GetPhone().c_str();
-    qDebug() << "User:" << impl->u.GetEmail().c_str();
-    qDebug() << "User:" << impl->u.GetRang();
+    qDebug() << "User super:" << impl->u.GetSuper();
+    qDebug() << "User login:" << impl->u.GetLogin().c_str();
+    qDebug() << "User pass:" << impl->u.GetPass().c_str();
+    qDebug() << "User name:" << impl->u.GetName().c_str();
+    qDebug() << "User surname:" << impl->u.GetSurname().c_str();
+    qDebug() << "User phone:" << impl->u.GetPhone().c_str();
+    qDebug() << "User email:" << impl->u.GetEmail().c_str();
+    qDebug() << "User rang:" << impl->u.GetRang();
 
     //Game check:
-    qDebug() << "Game:" << impl->g.GetGameId();
-    qDebug() << "Game:" << impl->g.GetDate().c_str();
-    qDebug() << "Game:" << impl->g.GetWinner().c_str();
-    qDebug() << "Game:" << impl->g.GetScore();
+    qDebug() << "Game id:" << impl->g.getGameId();
+    qDebug() << "Game date:" << impl->g.getDate();
+    qDebug() << "Game winner:" << impl->g.getWinner();
+    qDebug() << "Game score:" << impl->g.getScore();
 
     //Hand check:
-    qDebug() << "Hand:" << impl->h.GetHandId();
-    qDebug() << "Hand:" << impl->h.GetGameId();
-    qDebug() << "Hand:" << impl->h.GetWind();
-    qDebug() << "Hand:" << impl->h.GetMahjong();
-    qDebug() << "Hand:" << impl->h.GetCombo();
-    qDebug() << "Hand:" << impl->h.GetScore();
-    qDebug() << "Hand:" << impl->h.GetLimit().c_str();
+    qDebug() << "Hand id:" << impl->h.GetHandId();
+    qDebug() << "Hand game id:" << impl->h.GetGameId();
+    qDebug() << "Hand wind:" << impl->h.GetWind();
+    qDebug() << "Hand mahjong:" << impl->h.GetMahjong();
+    qDebug() << "Hand combo:" << impl->h.GetCombo();
+    qDebug() << "Hand score:" << impl->h.GetScore();
+    qDebug() << "Hand limit:" << impl->h.GetLimit().c_str();
 
     //Participant check
-    qDebug() << "Participant:" << impl->p.GetPartId();
-    qDebug() << "Participant:" << impl->p.GetGameId();
-    qDebug() << "Participant:" << impl->p.GetUserId();
+    qDebug() << "Participant id:" << impl->p.GetPartId();
+    qDebug() << "Participant game id:" << impl->p.GetGameId();
+    qDebug() << "Participant user id:" << impl->p.GetUserId();
 
     inputFile.close();
 }

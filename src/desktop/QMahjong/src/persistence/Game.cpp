@@ -4,71 +4,78 @@
 
 namespace persistence {
 
-    Game::Game(unsigned long _id,
-               std::string _d,
-               std::string _w,
-               QVector<int> _s):
+Game::Game(unsigned long _id,
+           const QString &_d,
+           const QString &_w,
+           QVector<int> _s):
 
-        gameId(_id),
-        date(_d),
-        winner (_w),
-        score(_s)
-    { }
+    gameId(_id),
+    date(_d),
+    winner (_w),
+    score(_s)
+{ }
 
-    unsigned long Game::GetGameId() {
-        return gameId;
+unsigned long Game::getGameId() const
+{
+    return gameId;
+}
+
+void Game::setGameId(unsigned long value)
+{
+    if (gameId != value) gameId = value;
+}
+
+QString Game::getDate() const
+{
+    return date;
+}
+void Game::setDate(const QString &value)
+{
+    if (date != value) date = value;
+}
+
+QString Game::getWinner() const
+{
+    return winner;
+}
+
+void Game::setWinner(const QString &value)
+{
+    if (winner != value) winner = value;
+}
+
+QVector<int> Game::getScore() const
+{
+    return score;
+}
+
+void Game::setScore(const QVector<int> &value)
+{
+    score = value;
+}
+
+QDataStream &operator << (QDataStream& out, const Game& obj)
+{
+    out << QString::number(obj.getGameId());
+    out << obj.getDate();
+    out << obj.getWinner();
+    for (const auto& i : obj.getScore()) {
+        out << i;
     }
+    return out;
+}
 
-    std::string Game::GetDate() {
-        return date;
+QDataStream &operator >> (QDataStream& in, Game& obj)
+{
+    QString temp;
+    in >> temp;
+    obj.setGameId(temp.toULong());
+    in >> obj.date;
+    in >> obj.winner;
+    for (auto& i : obj.score) {
+        in >> i;
     }
-
-    std::string Game::GetWinner () {
-        return winner;
-    }
-
-    QVector<int> Game::GetScore() {
-        return score;
-    }
-
-    void Game::SetGameId(unsigned long gi) {
-        gameId = gi;
-    }
-
-    void Game::SetDate(const std::string& d) {
-        date = d;
-    }
-
-    void Game::SetWinner(const std::string& w) {
-        winner = w;
-    }
-
-    void Game::SetScore(const QVector<int>& s) {
-        score = s;
-    }
-
-    QDataStream &operator>>(QDataStream &in, Game & g)
-    {
-        quint32 gid;
-        in >> gid;
-        g.SetGameId(gid);
-        QString d, w;
-        in >> d >> w;
-        g.SetDate(d.toStdString());
-        g.SetWinner(w.toStdString());
-        QVector<int> v;
-        in >> v;
-        g.SetScore(v);
-        return in;
-    }
-
-    QDataStream &operator<<(QDataStream &out, const Game & g)
-    {
-        out << (quint32)g.gameId;
-        out << QString::fromStdString(g.date);
-        out << QString::fromStdString(g.winner);
-        out << (QVector<int>)g.score;
-        return out;
-    }
+    return in;
+}
 
 } //persistence

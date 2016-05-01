@@ -1,4 +1,5 @@
 #include "Participant.h"
+#include <QDebug>
 
 namespace persistence {
 Participant::Participant(unsigned long _pid,
@@ -29,15 +30,33 @@ void Participant::SetUserId(const QVector<QString> &uid){
 
 QDataStream &operator<<(QDataStream &out, const Participant &p)
 {
-    out << (quint32)p.partId;
-    out << (quint32)p.gameId;
-    out << (QVector<QString>)p.userId;
+    out << (qint32)p.partId;
+
+
+    for (const auto& i : p.userId) {
+        out << i;
+    }
+    out << (qint32)p.gameId;
+
     return out;
 }
 
 QDataStream &operator>>(QDataStream &in, Participant &p)
 {
-    in >> p.gameId >> p.partId >> p.userId;
+    qint32 pi, gi;
+    in >> pi;
+    for (auto i : p.userId) {
+        in >> i;
+    }
+    in >> gi;
+    qDebug() << "jhgiygabf" << pi << gi;
+    p.SetPartId(pi);
+    p.SetGameId(gi);
+    //p.partId = pi;
+    //p.gameId = gi;
+
+
+
     return in;
 }
 
