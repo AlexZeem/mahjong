@@ -20,7 +20,11 @@ void Authorization::validate(const QString &login, const QString &pass)
     if (!login.isEmpty() && !pass.isEmpty()) {
         persistence::User u = persistence::DBHandler::instance()->selectUser(login);
         if (u.getPass() == pass) {
-            emit validationSuccesfull();
+            if (u.getSuper()) {
+                emit superUserSignIn();
+            } else {
+                emit validationSuccesfull();
+            }
         } else {
             emit validationFailed();
         }

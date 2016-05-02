@@ -18,6 +18,7 @@ public:
 signals:
     void validationFailed();
     void validationSuccesfull();
+    void superUserSignIn();
 
 private:
     Q_DISABLE_COPY(Authorization)

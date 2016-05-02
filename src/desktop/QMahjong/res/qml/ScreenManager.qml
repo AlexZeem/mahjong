@@ -28,6 +28,11 @@ Item {
                 targetState: cabinetState
                 signal: auth.validationSuccesfull
             }
+
+            DSM.SignalTransition {
+                targetState: administrationState
+                signal: auth.superUserSignIn
+            }
         }
 
         DSM.State {
@@ -76,6 +81,16 @@ Item {
             DSM.SignalTransition {
                 targetState: gameStatState
                 signal: fsmEvent.back
+            }
+        }
+
+        DSM.State {
+            id: administrationState
+            onEntered: mainLoader.source = "cabinet/AdministrationForm.qml"
+
+            DSM.SignalTransition {
+                targetState: signInState
+                signal: fsmEvent.signOut
             }
         }
     }

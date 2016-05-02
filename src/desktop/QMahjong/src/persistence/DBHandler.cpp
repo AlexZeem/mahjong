@@ -30,6 +30,8 @@ DBHandler::DBHandler()
     impl->users.clear();
     User u1(false,"q", "q", "Player", "First", "000 123 45 67", "some@email.com", 3.14);
     impl->users[u1.getLogin()] = u1;
+    User u2(true,"admin", "admin", "Player", "First", "000 123 45 67", "some@email.com", 3.14);
+    impl->users[u2.getLogin()] = u2;
 
     impl->participants.clear();
     Participant p1(1, 1, QVector<QString>(4,"q"));
