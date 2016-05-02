@@ -1,54 +1,16 @@
 #include <QFile>
-#include <QSet>
-#include <QMap>
 #include <QDebug>
 
 #include "Game.h"
 #include "Hand.h"
 #include "User.h"
 #include "Participant.h"
+#include "DBImpl.h"
 #include "DBHandler.h"
 
 namespace persistence {
 
 const QString rootDataPath         = "persistence.dat";
-
-struct DBHandler::impl_t
-{
-    impl_t()
-        : gamesDataPath("games.dat")
-        , handsDataPath("hands.dat")
-        , limitsDataPath("limits.dat")
-        , usersDataPath("users.dat")
-        , participantsDataPath("participants.dat")
-    { }
-
-    ~impl_t()
-    { }
-
-    void saveGamesData(const QString& path);
-    void loadGamesData(const QString& path, unsigned int counter);
-    void saveHandsData(const QString& path);
-    void loadHandsData(const QString& path, unsigned int counter);
-    void saveLimitsData(const QString& path);
-    void loadLimitsData(const QString& path, unsigned int counter);
-    void saveUsersData(const QString& path);
-    void loadUsersData(const QString& path, unsigned int counter);
-    void saveParticipantsData(const QString& path);
-    void loadParticipantsData(const QString& path, unsigned int counter);
-
-    QString gamesDataPath;
-    QString handsDataPath;
-    QString limitsDataPath;
-    QString usersDataPath;
-    QString participantsDataPath;
-    QMap<unsigned long, Game> games;
-    QMap<unsigned long, Hand> hands;
-    QSet<QString> limits;
-    QMap<QString, User> users;
-    // key = game id
-    QMap<unsigned long, Participant> participants;
-};
 
 DBHandler::DBHandler()
     : impl(new impl_t())
@@ -137,155 +99,6 @@ void DBHandler::save(const QString& path)
     impl->saveParticipantsData(path);
 
     file.flush();
-    file.close();
-}
-
-void DBHandler::impl_t::saveGamesData(const QString& path)
-{
-    QFile file(path + gamesDataPath);
-    file.open(QFile::WriteOnly);
-    QDataStream ostream(&file);
-
-    for (const auto& i : games) {
-        ostream << i;
-    }
-
-    file.flush();
-    file.close();
-}
-
-void DBHandler::impl_t::loadGamesData(const QString& path, unsigned int counter)
-{
-    QFile file(path + gamesDataPath);
-    file.open(QFile::ReadOnly);
-    QDataStream istream(&file);
-
-    for (unsigned int i = 0; i < counter; ++i) {
-        Game g;
-        istream >> g;
-        games[g.getGameId()] = g;
-    }
-
-    file.close();
-}
-
-void DBHandler::impl_t::saveHandsData(const QString& path)
-{
-    QFile file(path + handsDataPath);
-    file.open(QFile::WriteOnly);
-    QDataStream ostream(&file);
-
-    for (const auto& i : hands) {
-        ostream << i;
-    }
-
-    file.flush();
-    file.close();
-}
-
-void DBHandler::impl_t::loadHandsData(const QString& path, unsigned int counter)
-{
-    QFile file(path + handsDataPath);
-    file.open(QFile::ReadOnly);
-    QDataStream istream(&file);
-
-    for (unsigned int i = 0; i < counter; ++i) {
-        Hand h;
-        istream >> h;
-        hands[h.getHandId()] = h;
-        h.print();
-    }
-
-    file.close();
-}
-
-void DBHandler::impl_t::saveLimitsData(const QString& path)
-{
-    QFile file(path + limitsDataPath);
-    file.open(QFile::WriteOnly);
-    QDataStream ostream(&file);
-
-    for (const auto& i : limits) {
-        ostream << i;
-    }
-
-    file.flush();
-    file.close();
-}
-
-void DBHandler::impl_t::loadLimitsData(const QString& path, unsigned int counter)
-{
-    QFile file(path + limitsDataPath);
-    file.open(QFile::ReadOnly);
-    QDataStream istream(&file);
-
-    for (unsigned int i = 0; i < counter; ++i) {
-        QString l;
-        istream >> l;
-        limits << l;
-        qDebug() << "Limit: " << l;
-    }
-
-    file.close();
-}
-
-void DBHandler::impl_t::saveUsersData(const QString& path)
-{
-    QFile file(path + usersDataPath);
-    file.open(QFile::WriteOnly);
-    QDataStream ostream(&file);
-
-    for (const auto& i : users) {
-        ostream << i;
-    }
-
-    file.flush();
-    file.close();
-}
-
-void DBHandler::impl_t::loadUsersData(const QString& path, unsigned int counter)
-{
-    QFile file(path + usersDataPath);
-    file.open(QFile::ReadOnly);
-    QDataStream istream(&file);
-
-    for (unsigned int i = 0; i < counter; ++i) {
-        User u;
-        istream >> u;
-        users[u.getLogin()] = u;
-        u.print();
-    }
-
-    file.close();
-}
-
-void DBHandler::impl_t::saveParticipantsData(const QString& path)
-{
-    QFile file(path + participantsDataPath);
-    file.open(QFile::WriteOnly);
-    QDataStream ostream(&file);
-
-    for (const auto& i : participants) {
-        ostream << i;
-    }
-
-    file.flush();
-    file.close();
-}
-
-void DBHandler::impl_t::loadParticipantsData(const QString& path, unsigned int counter)
-{
-    QFile file(path + participantsDataPath);
-    file.open(QFile::ReadOnly);
-    QDataStream istream(&file);
-
-    for (unsigned int i = 0; i < counter; ++i) {
-        Participant p;
-        istream >> p;
-        participants[p.getGameId()] = p;
-        p.print();
-    }
-
     file.close();
 }
 

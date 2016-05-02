@@ -4,9 +4,9 @@
 
 namespace persistence {
 
+struct impl_t;
 class DBHandler
 {
-    struct impl_t;
     std::unique_ptr<impl_t> impl;
 
     DBHandler();

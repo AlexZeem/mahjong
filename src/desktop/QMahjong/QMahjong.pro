@@ -2,18 +2,6 @@
 
 QT += qml quick core
 
-macx{
-INCLUDEPATH += /usr/local/include
-LIBS += -L/usr/local/lib/
-LIBS += -lboost_serialization
-}
-
-#win32 {
-#INCLUDEPATH += C:/"Program Files"/boost/boost_1_60_0
-#LIBS += -LC:/"Program Files"/boost/boost_1_60_0/stage/lib/
-#LIBS += -lboost_serialization-mgw49-mt-1_60 -lws2_32
-#}
-
 PROJECT_ROOT_DIR = ./
 release: BUILD_DIR = $${PROJECT_ROOT_DIR}/build/release
 debug:   BUILD_DIR = $${PROJECT_ROOT_DIR}/build/debug
