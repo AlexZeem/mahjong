@@ -27,7 +27,8 @@ QML_FILES = \
     $$PWD/res/qml/main.qml \
     $$PWD/res/qml/ScreenManager.qml \
     $$PWD/res/qml/FSMEvent.qml \
-    $$PWD/res/qml/cabinet/*.qml
+    $$PWD/res/qml/cabinet/*.qml \
+    $$PWD/res/qml/cabinet/admin/*.qml \
 
 JS_FILES = \
 
