@@ -1,110 +1,128 @@
 #include "Hand.h"
-#include <QString>
 
 namespace persistence{
+
+QDataStream &operator << (QDataStream &out, const Hand& obj)
+{
+    out << QString::number(obj.handId);
+    out << QString::number(obj.gameId);
+    out << obj.wind;
+    out << QString::number(obj.mahjong);
+    for (const auto& i : obj.combo) {
+        out << i;
+    }
+    for (const auto& i : obj.score) {
+        out << i;
+    }
+    out << obj.limit;
+    return out;
+}
+
+QDataStream &operator >> (QDataStream &in, Hand& obj)
+{
+    QString temp;
+    in >> temp;
+    obj.handId = temp.toULong();
+    in >> temp;
+    obj.gameId = temp.toULong();
+    in >> temp;
+    obj.wind = temp.toInt();
+    in >> temp;
+    obj.mahjong = temp.toInt();
+    for (auto& i : obj.combo) {
+        in >> i;
+    }
+    for (auto& i : obj.score) {
+        in >> i;
+    }
+    in >> obj.limit;
+    return in;
+}
 
 Hand::Hand(unsigned long _h,
            unsigned long _g,
            char _w,
-           unsigned int _m,
+           int _m,
            QVector<unsigned int> _c,
            QVector<int> _s,
-           std::string _l):
-
-    //Список инициируемых объектов:
-    handId(_h),
-    gameId(_g),
-    wind(_w),
-    mahjong(_m),
-    combo(_c),
-    score(_s),
-    limit(_l)
+           QString _l)
+    : handId(_h)
+    , gameId(_g)
+    , wind(_w)
+    , mahjong(_m)
+    , combo(_c)
+    , score(_s)
+    , limit(_l)
 { }
 
-//Getters:
-unsigned long Hand::GetHandId() {
+unsigned long Hand::getHandId() const
+{
     return handId;
 }
 
-unsigned long Hand::GetGameId() {
+void Hand::setHandId(unsigned long value)
+{
+    if (value != handId) handId = value;
+}
+
+unsigned long Hand::getGameId() const
+{
     return gameId;
 }
 
-char Hand::GetWind() {
+void Hand::setGameId(unsigned long value)
+{
+    if (value != gameId) gameId = value;
+}
+
+char Hand::getWind() const
+{
     return wind;
 }
 
-unsigned int Hand::GetMahjong() {
+void Hand::setWind(char value)
+{
+    if (value != wind) wind = value;
+}
+
+int Hand::getMahjong() const
+{
     return mahjong;
 }
 
-QVector<unsigned int> Hand::GetCombo(){
+void Hand::setMahjong(int value)
+{
+    if (value != mahjong) mahjong = value;
+}
+
+QVector<unsigned int> Hand::getCombo() const
+{
     return combo;
 }
 
-QVector<int> Hand::GetScore(){
+void Hand::setCombo(const QVector<unsigned int> &value)
+{
+    if (value != combo) combo = value;
+}
+
+QVector<int> Hand::getScore() const
+{
     return score;
 }
 
-std::string Hand::GetLimit(){
+void Hand::setScore(const QVector<int> &value)
+{
+    if (value != score) score = value;
+}
+
+QString Hand::getLimit() const
+{
     return limit;
 }
 
-// Setters:
-void Hand::SetHandId(unsigned long hi) {
-    handId = hi;
-}
-
-void Hand::SetGameId(unsigned long gi){
-    gameId = gi;
-}
-
-void Hand::SetWind(char w) {
-    wind = w;
-}
-
-void Hand::SetMahjong(unsigned int m) {
-    mahjong = m;
-}
-
-void Hand::SetCombo(const QVector<unsigned int> &c){
-    combo = c;
-}
-
-void Hand::SetScore(const QVector<int> &s){
-    score = s;
-}
-
-void Hand::SetLimit(const std::string& l){
-    limit = l;
-}
-
-QDataStream & operator >>(QDataStream &in, Hand h)
+void Hand::setLimit(const QString &value)
 {
-    quint32 hid, gid;
-    qint8 w;
-    quint16 m;
-    QVector<unsigned int> c;
-    QVector<int> s;
-    in >> hid >> gid >> w >> m >> c >> s;
-    h.SetGameId(gid);
-    h.SetHandId(hid);
-    h.SetWind(w);
-    h.SetMahjong(m);
-    h.SetCombo(c);
-    h.SetScore(s);
-    return in;
+    if (value != limit) limit = value;
 }
 
-QDataStream & operator <<(QDataStream &out, const Hand &h)
-{
-    out << (quint32)h.handId;
-    out << (quint32)h.gameId;
-    out << (qint8)h.wind;
-    out << (quint16)h.mahjong;
-    out << (QVector<unsigned int>)h.combo;
-    out << (QVector<int>)h.score;
-    out << QString::fromStdString(h.limit);
-    return out;
-}
 } // persistence

@@ -1,6 +1,4 @@
 #include "Game.h"
-#include <QString>
-#include <QVector>
 
 namespace persistence {
 
@@ -31,12 +29,11 @@ QDataStream &operator >> (QDataStream& in, Game& obj)
 Game::Game(unsigned long _id,
            const QString &_d,
            const QString &_w,
-           QVector<int> _s):
-
-    gameId(_id),
-    date(_d),
-    winner (_w),
-    score(_s)
+           QVector<int> _s)
+    : gameId(_id)
+    , date(_d)
+    , winner (_w)
+    , score(_s)
 { }
 
 unsigned long Game::getGameId() const
