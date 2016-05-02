@@ -19,6 +19,11 @@ impl_t::impl_t()
 impl_t::~impl_t()
 { }
 
+User impl_t::selectUser(const QString &login)
+{
+    return users.value(login);
+}
+
 void impl_t::saveGamesData(const QString& path)
 {
     QFile file(path + gamesDataPath);

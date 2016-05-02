@@ -5,12 +5,20 @@
 namespace persistence {
 
 struct impl_t;
+class Game;
+class Hand;
+class Participant;
+class User;
+
 class DBHandler
 {
     std::unique_ptr<impl_t> impl;
 
     DBHandler();
     ~DBHandler();
+
+public:
+    User selectUser(const QString& login);
 
 public:
     static DBHandler* instance();

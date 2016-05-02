@@ -39,6 +39,11 @@ DBHandler::DBHandler()
 DBHandler::~DBHandler()
 { save(); }
 
+User DBHandler::selectUser(const QString &login)
+{
+    return impl->selectUser(login);
+}
+
 DBHandler* DBHandler::instance()
 {
     static DBHandler*  ptr = 0;

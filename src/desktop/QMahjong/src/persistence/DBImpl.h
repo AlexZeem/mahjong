@@ -15,6 +15,8 @@ struct impl_t
     impl_t();
     ~impl_t();
 
+    User selectUser(const QString& login);
+
     void saveGamesData(const QString& path);
     void loadGamesData(const QString& path, unsigned int counter);
     void saveHandsData(const QString& path);
