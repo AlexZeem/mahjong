@@ -25,6 +25,8 @@ public:
     unsigned long getPartId() const;
     void setPartId(unsigned long value);
 
+    void print() const;
+
 private:
     unsigned long partId;
     unsigned long gameId;

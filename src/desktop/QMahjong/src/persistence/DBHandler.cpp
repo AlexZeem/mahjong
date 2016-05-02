@@ -52,7 +52,27 @@ struct DBHandler::impl_t
 
 DBHandler::DBHandler()
     : impl(new impl_t())
-{ load(); }
+{ load();
+
+    impl->games.clear();
+    Game g1(1,"02/05/2016","Player 2", QVector<int>(4,678));
+    impl->games[g1.getGameId()] = g1;
+
+    impl->hands.clear();
+    Hand h1(1, 1, 'E', 2, QVector<unsigned int>(4,6), QVector<int>(4,45), "none");
+    impl->hands[h1.getHandId()] = h1;
+
+    impl->limits.clear();
+    impl->limits << "Green dragon";
+
+    impl->users.clear();
+    User u1(false,"q", "q", "Player", "First", "000 123 45 67", "some@email.com", 3.14);
+    impl->users[u1.getLogin()] = u1;
+
+    impl->participants.clear();
+    Participant p1(1, 1, QVector<QString>(4,"q"));
+    impl->participants[p1.getGameId()] = p1;
+}
 
 DBHandler::~DBHandler()
 { save(); }
@@ -172,7 +192,8 @@ void DBHandler::impl_t::loadHandsData(const QString& path, unsigned int counter)
     for (unsigned int i = 0; i < counter; ++i) {
         Hand h;
         istream >> h;
-        hands[h.GetHandId()] = h;
+        hands[h.getHandId()] = h;
+        h.print();
     }
 
     file.close();
@@ -202,6 +223,7 @@ void DBHandler::impl_t::loadLimitsData(const QString& path, unsigned int counter
         QString l;
         istream >> l;
         limits << l;
+        qDebug() << "Limit: " << l;
     }
 
     file.close();
@@ -230,7 +252,8 @@ void DBHandler::impl_t::loadUsersData(const QString& path, unsigned int counter)
     for (unsigned int i = 0; i < counter; ++i) {
         User u;
         istream >> u;
-        users[u.GetLogin()] = u;
+        users[u.getLogin()] = u;
+        u.print();
     }
 
     file.close();
@@ -259,7 +282,8 @@ void DBHandler::impl_t::loadParticipantsData(const QString& path, unsigned int c
     for (unsigned int i = 0; i < counter; ++i) {
         Participant p;
         istream >> p;
-        participants[p.GetGameId()] = p;
+        participants[p.getGameId()] = p;
+        p.print();
     }
 
     file.close();

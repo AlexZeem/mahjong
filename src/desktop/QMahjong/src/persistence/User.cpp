@@ -1,3 +1,4 @@
+#include <QDebug>
 #include "User.h"
 
 namespace persistence {
@@ -39,13 +40,13 @@ User::User(bool _a,
            QString _e,
            double _r)
     : super(_a)
+    , rang(_r)
     , login(_l)
     , pass(_p)
     , name(_n)
     , surname(_s)
     , phone(_ph)
     , email(_e)
-    , rang(_r)
 { }
 
 bool User::getSuper() const
@@ -126,6 +127,18 @@ QString User::getEmail() const
 void User::setEmail(const QString &value)
 {
     if (value != email) email = value;
+}
+
+void User::print() const
+{
+    qDebug() << "User super:" << super;
+    qDebug() << "User rang:" << rang;
+    qDebug() << "User login:" << login;
+    qDebug() << "User pass:" << pass;
+    qDebug() << "User name:" << name;
+    qDebug() << "User surname:" << surname;
+    qDebug() << "User phone:" << phone;
+    qDebug() << "User email:" << email;
 }
 
 } // persistence

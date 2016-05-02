@@ -1,5 +1,5 @@
-#include "Participant.h"
 #include <QDebug>
+#include "Participant.h"
 
 namespace persistence {
 
@@ -28,10 +28,10 @@ QDataStream &operator >> (QDataStream &in, Participant& obj)
 
 Participant::Participant(unsigned long _pid,
                          unsigned long _gid,
-                         QVector<QString> _uid):
-    partId(_pid),
-    gameId(_gid),
-    userId(_uid)
+                         QVector<QString> _uid)
+    : partId(_pid)
+    , gameId(_gid)
+    , userId(_uid)
 { }
 
 QVector<QString> Participant::getUserId() const
@@ -62,6 +62,13 @@ unsigned long Participant::getPartId() const
 void Participant::setPartId(unsigned long value)
 {
     if (value != partId) partId = value;
+}
+
+void Participant::print() const
+{
+    qDebug() << "Participant id:" << partId;
+    qDebug() << "Participant game id:" << gameId;
+    qDebug() << "Participant user id:" << userId;
 }
 
 } // persistence

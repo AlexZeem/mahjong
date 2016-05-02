@@ -28,6 +28,8 @@ public:
     QVector<int> getScore() const;
     void setScore(const QVector<int> &value);
 
+    void print() const;
+
 private:
     unsigned long gameId;
     QString date;

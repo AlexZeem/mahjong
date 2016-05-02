@@ -11,7 +11,7 @@ public:
     friend QDataStream &operator << (QDataStream &out, const User& obj);
     friend QDataStream &operator >> (QDataStream &in, User& obj);
 
-    User(bool _a = "true",
+    User(bool _a = false,
          QString _l = "a",
          QString _p = "a",
          QString _n = "Player",
@@ -43,6 +43,8 @@ public:
 
     QString getEmail() const;
     void setEmail(const QString &value);
+
+    void print() const;
 
 private:
     bool super;

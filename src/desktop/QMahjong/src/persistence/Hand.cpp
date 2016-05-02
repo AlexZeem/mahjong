@@ -1,3 +1,4 @@
+#include <QDebug>
 #include "Hand.h"
 
 namespace persistence{
@@ -6,7 +7,7 @@ QDataStream &operator << (QDataStream &out, const Hand& obj)
 {
     out << QString::number(obj.handId);
     out << QString::number(obj.gameId);
-    out << obj.wind;
+    out << (qint8)obj.wind;
     out << QString::number(obj.mahjong);
     for (const auto& i : obj.combo) {
         out << i;
@@ -25,8 +26,9 @@ QDataStream &operator >> (QDataStream &in, Hand& obj)
     obj.handId = temp.toULong();
     in >> temp;
     obj.gameId = temp.toULong();
-    in >> temp;
-    obj.wind = temp.toInt();
+    qint8 ch;
+    in >> ch;
+    obj.wind = ch;
     in >> temp;
     obj.mahjong = temp.toInt();
     for (auto& i : obj.combo) {
@@ -123,6 +125,17 @@ QString Hand::getLimit() const
 void Hand::setLimit(const QString &value)
 {
     if (value != limit) limit = value;
+}
+
+void Hand::print() const
+{
+    qDebug() << "Hand id:" << handId;
+    qDebug() << "Hand game id:" << gameId;
+    qDebug() << "Hand wind:" << wind;
+    qDebug() << "Hand mahjong:" << mahjong;
+    qDebug() << "Hand combo:" << combo;
+    qDebug() << "Hand score:" << score;
+    qDebug() << "Hand limit:" << limit;
 }
 
 } // persistence

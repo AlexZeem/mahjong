@@ -41,6 +41,8 @@ public:
     QString getLimit() const;
     void setLimit(const QString &value);
 
+    void print() const;
+
 private:
     unsigned long handId;
     unsigned long gameId;

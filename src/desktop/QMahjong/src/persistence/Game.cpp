@@ -1,3 +1,4 @@
+#include <QDebug>
 #include "Game.h"
 
 namespace persistence {
@@ -74,6 +75,14 @@ QVector<int> Game::getScore() const
 void Game::setScore(const QVector<int> &value)
 {
     if (value != score) score = value;
+}
+
+void Game::print() const
+{
+    qDebug () << "Game id:" << gameId;
+    qDebug () << "Game date:" << date;
+    qDebug () << "Game winner:" << winner;
+    qDebug () << "Game score:" << score;
 }
 
 } //persistence
