@@ -2,12 +2,14 @@
 #include <QDebug>
 #include <iostream>
 
-#include "Game.cpp"
-#include "Hand.cpp"
-#include "User.cpp"
-#include "Participant.cpp"
-#include "Limit.cpp"
+#include "Game.h"
+#include "Hand.h"
+#include "User.h"
+#include "Participant.h"
+#include "Limit.h"
 #include "DBHandler.h"
+
+using namespace persistence;
 
 namespace persistence {
 
