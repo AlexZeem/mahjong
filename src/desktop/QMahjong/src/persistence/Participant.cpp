@@ -2,6 +2,30 @@
 #include <QDebug>
 
 namespace persistence {
+
+QDataStream &operator << (QDataStream &out, const Participant& obj)
+{
+    out << QString::number(obj.partId);
+    out << QString::number(obj.gameId);
+    for (const auto& i : obj.userId) {
+        out << i;
+    }
+    return out;
+}
+
+QDataStream &operator >> (QDataStream &in, Participant& obj)
+{
+    QString temp;
+    in >> temp;
+    obj.partId = temp.toULong();
+    in >> temp;
+    obj.gameId = temp.toULong();
+    for (auto& i : obj.userId) {
+        in >> i;
+    }
+    return in;
+}
+
 Participant::Participant(unsigned long _pid,
                          unsigned long _gid,
                          QVector<QString> _uid):
@@ -10,54 +34,34 @@ Participant::Participant(unsigned long _pid,
     userId(_uid)
 { }
 
-//Getters:
-unsigned long Participant::GetPartId(){return partId;}
-unsigned long Participant::GetGameId() {return gameId;}
-QVector<QString> Participant::GetUserId() {return userId;}
-
-//Setters:
-void Participant::SetPartId(unsigned long pid){
-    partId = pid;
-}
-
-void Participant::SetGameId(unsigned long gid) {
-    gameId = gid;
-}
-
-void Participant::SetUserId(const QVector<QString> &uid){
-    userId = uid;
-}
-
-QDataStream &operator<<(QDataStream &out, const Participant &p)
+QVector<QString> Participant::getUserId() const
 {
-    out << (qint32)p.partId;
-
-
-    for (const auto& i : p.userId) {
-        out << i;
-    }
-    out << (qint32)p.gameId;
-
-    return out;
+    return userId;
 }
 
-QDataStream &operator>>(QDataStream &in, Participant &p)
+void Participant::setUserId(const QVector<QString> &value)
 {
-    qint32 pi, gi;
-    in >> pi;
-    for (auto i : p.userId) {
-        in >> i;
-    }
-    in >> gi;
-    qDebug() << "jhgiygabf" << pi << gi;
-    p.SetPartId(pi);
-    p.SetGameId(gi);
-    //p.partId = pi;
-    //p.gameId = gi;
+    if (value != userId) userId = value;
+}
 
+unsigned long Participant::getGameId() const
+{
+    return gameId;
+}
 
+void Participant::setGameId(unsigned long value)
+{
+    if (value != gameId) gameId = value;
+}
 
-    return in;
+unsigned long Participant::getPartId() const
+{
+    return partId;
+}
+
+void Participant::setPartId(unsigned long value)
+{
+    if (value != partId) partId = value;
 }
 
 } // persistence

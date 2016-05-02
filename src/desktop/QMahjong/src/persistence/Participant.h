@@ -9,27 +9,26 @@ namespace persistence {
 class Participant
 {
 public:
+    friend QDataStream &operator << (QDataStream &out, const Participant& obj);
+    friend QDataStream &operator >> (QDataStream &in, Participant& obj);
+
     Participant(unsigned long _pid = 0,
                 unsigned long _gid = 0,
                 QVector<QString> _uid = QVector<QString>(4,"Login"));
-    //Getters:
-    unsigned long GetPartId();
-    unsigned long GetGameId();
-    QVector <QString> GetUserId();
 
-    //Setters:
-    void SetPartId(unsigned long);
-    void SetGameId(unsigned long);
-    void SetUserId(const QVector<QString>&);
+    QVector<QString> getUserId() const;
+    void setUserId(const QVector<QString> &value);
 
-    friend QDataStream & operator << (QDataStream &out, const Participant &);
-    friend QDataStream & operator >> (QDataStream &in, Participant&);
+    unsigned long getGameId() const;
+    void setGameId(unsigned long value);
+
+    unsigned long getPartId() const;
+    void setPartId(unsigned long value);
 
 private:
     unsigned long partId;
     unsigned long gameId;
-    QVector <QString> userId;
-
+    QVector<QString> userId;
 };
 
 } //persistence
