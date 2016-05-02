@@ -28,27 +28,21 @@ struct DBHandler::impl_t
         for (const auto & i : g.getScore()){
             qDebug() << i << ",";
         }
-        std::cout << std::endl;
     }
 
     // hand.h test
     void displayHand() {
-        std::cout << "Hand ID:" << h.GetHandId() << std::endl;
+       std::cout << "Hand ID:" << h.GetHandId() << std::endl;
         std::cout << "Game ID:" << h.GetGameId() << std::endl;
-        std::cout << "Wind: " << h.GetWind() << std::endl;
-        std::cout << "Mahjong:" << h.GetMahjong() << std::endl;
-        std::cout << "Combo:";
-        for (const auto & i : h.GetCombo()){
-            std::cout << i << ",";
+        std::cout << "Hand ID:" << h.GetWind() << std::endl;
+        std::cout << "Hand ID:" << h.GetMahjong() << std::endl;
+        qDebug() << "Hand ID:" << h.GetLimit();
+        for (const auto & c : h.GetCombo()){
+            qDebug() << c << ",";
         }
-        std::cout << std::endl;
-        std::cout << "Score:";
-        for (const auto & i : h.GetScore()){
-            std::cout << i << ",";
+        for (const auto & s : h.GetScore()){
+            qDebug() << s << ",";
         }
-        std::cout << std::endl;
-        std::cout << "Limit:" << h.GetLimit() << std::endl;
-
     }
 
     //participant.h test
@@ -106,10 +100,10 @@ DBHandler::DBHandler()
     impl->g.setWinner("Player 1");
     impl->g.setScore(QVector<int>(4,7));
 
-    impl->h.SetHandId(0);
-    impl->h.SetGameId(0);
-    impl->h.SetWind('E');
-    impl->h.SetMahjong(0);
+    impl->h.SetHandId(1);
+    impl->h.SetGameId(2);
+    impl->h.SetWind('W');
+    impl->h.SetMahjong(3);
     impl->h.SetCombo(QVector<unsigned int>(4,6));
     impl->h.SetScore(QVector<int>(4,9));
     impl->h.SetLimit("Limit");
@@ -183,7 +177,7 @@ void DBHandler::load(const std::string &filepath)
     qDebug() << "Hand mahjong:" << impl->h.GetMahjong();
     qDebug() << "Hand combo:" << impl->h.GetCombo();
     qDebug() << "Hand score:" << impl->h.GetScore();
-    qDebug() << "Hand limit:" << impl->h.GetLimit().c_str();
+    qDebug() << "Hand limit:" << impl->h.GetLimit();
 
     //Participant check
     qDebug() << "Participant id:" << impl->p.GetPartId();

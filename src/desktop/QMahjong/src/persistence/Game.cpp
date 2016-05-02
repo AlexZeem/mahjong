@@ -29,6 +29,7 @@ QString Game::getDate() const
 {
     return date;
 }
+
 void Game::setDate(const QString &value)
 {
     if (date != value) date = value;
