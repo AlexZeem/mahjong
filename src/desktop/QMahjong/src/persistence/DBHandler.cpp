@@ -1,124 +1,58 @@
 #include <QFile>
+#include <QSet>
+#include <QMap>
 #include <QDebug>
-#include <iostream>
 
-#include "Game.cpp"
-#include "Hand.cpp"
-#include "User.cpp"
-#include "Participant.cpp"
-#include "Limit.cpp"
+#include "Game.h"
+#include "Hand.h"
+#include "User.h"
+#include "Participant.h"
 #include "DBHandler.h"
 
 namespace persistence {
 
+const QString rootDataPath         = "persistence.dat";
+
 struct DBHandler::impl_t
 {
     impl_t()
+        : gamesDataPath("games.dat")
+        , handsDataPath("hands.dat")
+        , limitsDataPath("limits.dat")
+        , usersDataPath("users.dat")
+        , participantsDataPath("participants.dat")
     { }
 
     ~impl_t()
     { }
 
-    // game.h test
-    void displayGame() {
-        qDebug() << "Game ID:" << g.getGameId();
-        qDebug() << "Game date:" << g.getDate();
-        qDebug() << "Game winner:" << g.getWinner();
-        qDebug() << "Game score: ";
-        for (const auto & i : g.getScore()){
-            qDebug() << i << ",";
-        }
-        std::cout << std::endl;
-    }
+    void saveGamesData(const QString& path);
+    void loadGamesData(const QString& path, unsigned int counter);
+    void saveHandsData(const QString& path);
+    void loadHandsData(const QString& path, unsigned int counter);
+    void saveLimitsData(const QString& path);
+    void loadLimitsData(const QString& path, unsigned int counter);
+    void saveUsersData(const QString& path);
+    void loadUsersData(const QString& path, unsigned int counter);
+    void saveParticipantsData(const QString& path);
+    void loadParticipantsData(const QString& path, unsigned int counter);
 
-    // hand.h test
-    void displayHand() {
-        std::cout << "Hand ID:" << h.GetHandId() << std::endl;
-        std::cout << "Game ID:" << h.GetGameId() << std::endl;
-        std::cout << "Wind: " << h.GetWind() << std::endl;
-        std::cout << "Mahjong:" << h.GetMahjong() << std::endl;
-        std::cout << "Combo:";
-        for (const auto & i : h.GetCombo()){
-            std::cout << i << ",";
-        }
-        std::cout << std::endl;
-        std::cout << "Score:";
-        for (const auto & i : h.GetScore()){
-            std::cout << i << ",";
-        }
-        std::cout << std::endl;
-        std::cout << "Limit:" << h.GetLimit() << std::endl;
-
-    }
-
-    //participant.h test
-    void displayPart() {
-        std::cout << "Part ID:" << p.GetPartId() << std::endl;
-        std::cout << "Game ID:" << p.GetGameId() << std::endl;
-        std::cout << "UserId:";
-        for (const auto & i : p.GetUserId()){
-            qDebug() << i;
-        }
-        std::cout << std::endl;
-    }
-
-    // user.h test
-    void displayUser() {
-        std::cout << "Super user:" << u.GetSuper() << std::endl;
-        std::cout << "Login:" << u.GetLogin() << std::endl;
-        std::cout << "Password:" << u.GetPass() << std::endl;
-        std::cout << "Name:" << u.GetName() << std::endl;
-        std::cout << "Surname:" << u.GetSurname() << std::endl;
-        std::cout << "Phone:" << u.GetPhone() << std::endl;
-        std::cout << "Email:" << u.GetEmail() << std::endl;
-        std::cout << "Rang:" << u.GetRang() << std::endl;
-    }
-
-    Game g;
-    Hand h;
-    Limit l;
-    User u;
-    Participant p;
-
+    QString gamesDataPath;
+    QString handsDataPath;
+    QString limitsDataPath;
+    QString usersDataPath;
+    QString participantsDataPath;
+    QMap<unsigned long, Game> games;
+    QMap<unsigned long, Hand> hands;
+    QSet<QString> limits;
+    QMap<QString, User> users;
+    // key = game id
+    QMap<unsigned long, Participant> participants;
 };
 
 DBHandler::DBHandler()
     : impl(new impl_t())
-{ load();
-//    impl->displayGame();
-//    impl->displayHand();
-//    impl->displayPart();
-//    impl->displayUser();
-
-    impl->l.SetName("Green Dragon");
-
-    impl->u.SetSuper(false);
-    impl->u.SetName("Name");
-    impl->u.SetSurname("Surname");
-    impl->u.SetLogin("Login");
-    impl->u.SetPass("1111");
-    impl->u.SetPhone("123 456 78");
-    impl->u.SetEmail("e-mail@example.com");
-    impl->u.SetRang(.89);
-
-    impl->g.setGameId(0);
-    impl->g.setDate("12/12/2012");
-    impl->g.setWinner("Player 1");
-    impl->g.setScore(QVector<int>(4,7));
-
-    impl->h.SetHandId(0);
-    impl->h.SetGameId(0);
-    impl->h.SetWind('E');
-    impl->h.SetMahjong(0);
-    impl->h.SetCombo(QVector<unsigned int>(4,6));
-    impl->h.SetScore(QVector<int>(4,9));
-    impl->h.SetLimit("Limit");
-
-    impl->p.SetPartId(20);
-    impl->p.SetGameId(10);
-    impl->p.SetUserId(QVector<QString>(4,"Login"));
-
-}
+{ load(); }
 
 DBHandler::~DBHandler()
 { save(); }
@@ -132,65 +66,203 @@ DBHandler* DBHandler::instance()
     return ptr;
 }
 
-void DBHandler::save(const std::string &filepath)
+void DBHandler::load(const QString& path)
 {
-    QFile outputFile(QString::fromStdString(filepath));
-    outputFile.open(QFile::WriteOnly);
-    QDataStream outstream(&outputFile);
-    outstream << impl->l;
-    outstream << impl->u;
-    outstream << impl->g;
-    outstream << impl->h;
-    outstream << impl->p;
-
-    outputFile.flush();
-    outputFile.close();
+    QFile file(path + rootDataPath);
+    file.open(QFile::ReadOnly);
+    QDataStream inputStream(&file);
+    QString temp;
+    inputStream >> impl->gamesDataPath >> temp;
+    qDebug() << impl->gamesDataPath << temp.toInt();
+    impl->loadGamesData(path, temp.toInt());
+    inputStream >> impl->handsDataPath >> temp;
+    qDebug() << impl->handsDataPath << temp.toInt();
+    impl->loadHandsData(path, temp.toInt());
+    inputStream >> impl->limitsDataPath >> temp;
+    qDebug() << impl->limitsDataPath << temp.toInt();
+    impl->loadLimitsData(path, temp.toInt());
+    inputStream >> impl->usersDataPath >> temp;
+    qDebug() << impl->usersDataPath << temp.toInt();
+    impl->loadUsersData(path, temp.toInt());
+    inputStream >> impl->participantsDataPath >> temp;
+    qDebug() << impl->participantsDataPath << temp.toInt();
+    impl->loadParticipantsData(path, temp.toInt());
+    file.close();
 }
 
-void DBHandler::load(const std::string &filepath)
+void DBHandler::save(const QString& path)
 {
-    QFile inputFile (QString::fromStdString(filepath));
-    inputFile.open(QFile::ReadOnly);
-    QDataStream inputStream (&inputFile);
-    inputStream >> impl->l;
-    inputStream >> impl->u;
-    inputStream >> impl->g;
-    inputStream >> impl->h;
-    inputStream >> impl->p;
+    QFile file(path + rootDataPath);
+    file.open(QFile::WriteOnly);
+    QDataStream outStream(&file);
 
-    qDebug() << "Limit name:" << impl->l.GetName().c_str();
+    qDebug() << "Games items:" << impl->games.size();
+    outStream << QString("games.dat") << QString::number(impl->games.size());
+    impl->saveGamesData(path);
 
-    //User check
-    qDebug() << "User super:" << impl->u.GetSuper();
-    qDebug() << "User login:" << impl->u.GetLogin().c_str();
-    qDebug() << "User pass:" << impl->u.GetPass().c_str();
-    qDebug() << "User name:" << impl->u.GetName().c_str();
-    qDebug() << "User surname:" << impl->u.GetSurname().c_str();
-    qDebug() << "User phone:" << impl->u.GetPhone().c_str();
-    qDebug() << "User email:" << impl->u.GetEmail().c_str();
-    qDebug() << "User rang:" << impl->u.GetRang();
+    qDebug() << "Hans items: " << impl->hands.size();
+    outStream << QString("hands.dat") << QString::number(impl->hands.size());
+    impl->saveHandsData(path);
 
-    //Game check:
-    qDebug() << "Game id:" << impl->g.getGameId();
-    qDebug() << "Game date:" << impl->g.getDate();
-    qDebug() << "Game winner:" << impl->g.getWinner();
-    qDebug() << "Game score:" << impl->g.getScore();
+    qDebug() << "Limits items: " << impl->limits.size();
+    outStream << QString("limits.dat") << QString::number(impl->limits.size());
+    impl->saveLimitsData(path);
 
-    //Hand check:
-    qDebug() << "Hand id:" << impl->h.GetHandId();
-    qDebug() << "Hand game id:" << impl->h.GetGameId();
-    qDebug() << "Hand wind:" << impl->h.GetWind();
-    qDebug() << "Hand mahjong:" << impl->h.GetMahjong();
-    qDebug() << "Hand combo:" << impl->h.GetCombo();
-    qDebug() << "Hand score:" << impl->h.GetScore();
-    qDebug() << "Hand limit:" << impl->h.GetLimit().c_str();
+    qDebug() << "Participants items: " << impl->participants.size();
+    outStream << QString("participants.dat") << QString::number(impl->participants.size());
+    impl->saveUsersData(path);
 
-    //Participant check
-    qDebug() << "Participant id:" << impl->p.GetPartId();
-    qDebug() << "Participant game id:" << impl->p.GetGameId();
-    qDebug() << "Participant user id:" << impl->p.GetUserId();
+    qDebug() << "Users items: " << impl->users.size();
+    outStream << QString("users.dat") << QString::number(impl->users.size());
+    impl->saveParticipantsData(path);
 
-    inputFile.close();
+    file.flush();
+    file.close();
+}
+
+void DBHandler::impl_t::saveGamesData(const QString& path)
+{
+    QFile file(path + gamesDataPath);
+    file.open(QFile::WriteOnly);
+    QDataStream ostream(&file);
+
+    for (const auto& i : games) {
+        ostream << i;
+    }
+
+    file.flush();
+    file.close();
+}
+
+void DBHandler::impl_t::loadGamesData(const QString& path, unsigned int counter)
+{
+    QFile file(path + gamesDataPath);
+    file.open(QFile::ReadOnly);
+    QDataStream istream(&file);
+
+    for (unsigned int i = 0; i < counter; ++i) {
+        Game g;
+        istream >> g;
+        games[g.getGameId()] = g;
+    }
+
+    file.close();
+}
+
+void DBHandler::impl_t::saveHandsData(const QString& path)
+{
+    QFile file(path + handsDataPath);
+    file.open(QFile::WriteOnly);
+    QDataStream ostream(&file);
+
+    for (const auto& i : hands) {
+        ostream << i;
+    }
+
+    file.flush();
+    file.close();
+}
+
+void DBHandler::impl_t::loadHandsData(const QString& path, unsigned int counter)
+{
+    QFile file(path + handsDataPath);
+    file.open(QFile::ReadOnly);
+    QDataStream istream(&file);
+
+    for (unsigned int i = 0; i < counter; ++i) {
+        Hand h;
+        istream >> h;
+        hands[h.GetHandId()] = h;
+    }
+
+    file.close();
+}
+
+void DBHandler::impl_t::saveLimitsData(const QString& path)
+{
+    QFile file(path + limitsDataPath);
+    file.open(QFile::WriteOnly);
+    QDataStream ostream(&file);
+
+    for (const auto& i : limits) {
+        ostream << i;
+    }
+
+    file.flush();
+    file.close();
+}
+
+void DBHandler::impl_t::loadLimitsData(const QString& path, unsigned int counter)
+{
+    QFile file(path + limitsDataPath);
+    file.open(QFile::ReadOnly);
+    QDataStream istream(&file);
+
+    for (unsigned int i = 0; i < counter; ++i) {
+        QString l;
+        istream >> l;
+        limits << l;
+    }
+
+    file.close();
+}
+
+void DBHandler::impl_t::saveUsersData(const QString& path)
+{
+    QFile file(path + usersDataPath);
+    file.open(QFile::WriteOnly);
+    QDataStream ostream(&file);
+
+    for (const auto& i : users) {
+        ostream << i;
+    }
+
+    file.flush();
+    file.close();
+}
+
+void DBHandler::impl_t::loadUsersData(const QString& path, unsigned int counter)
+{
+    QFile file(path + usersDataPath);
+    file.open(QFile::ReadOnly);
+    QDataStream istream(&file);
+
+    for (unsigned int i = 0; i < counter; ++i) {
+        User u;
+        istream >> u;
+        users[u.GetLogin()] = u;
+    }
+
+    file.close();
+}
+
+void DBHandler::impl_t::saveParticipantsData(const QString& path)
+{
+    QFile file(path + participantsDataPath);
+    file.open(QFile::WriteOnly);
+    QDataStream ostream(&file);
+
+    for (const auto& i : participants) {
+        ostream << i;
+    }
+
+    file.flush();
+    file.close();
+}
+
+void DBHandler::impl_t::loadParticipantsData(const QString& path, unsigned int counter)
+{
+    QFile file(path + participantsDataPath);
+    file.open(QFile::ReadOnly);
+    QDataStream istream(&file);
+
+    for (unsigned int i = 0; i < counter; ++i) {
+        Participant p;
+        istream >> p;
+        participants[p.GetGameId()] = p;
+    }
+
+    file.close();
 }
 
 } //persistence

@@ -1,6 +1,6 @@
 #pragma once
 #include <memory>
-#include <string>
+#include <QString>
 
 namespace persistence {
 
@@ -15,10 +15,10 @@ class DBHandler
 public:
     static DBHandler* instance();
 
-    void load(const std::string &filepath = default_path());
-    void save(const std::string &filepath = default_path());
+    void load(const QString& path = default_path());
+    void save(const QString& path = default_path());
 
-    static std::string default_path() { return "persistence.dat"; }
+    static QString default_path() { return "persistence/"; }
 
     // delete copy and move constructors and assign operators
     DBHandler(DBHandler const&) = delete;             // Copy construct

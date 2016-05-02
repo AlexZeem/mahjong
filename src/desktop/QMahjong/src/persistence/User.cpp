@@ -21,7 +21,7 @@ User::User(bool _a,
 
 // Getters:
 bool User::GetSuper(){return super;}
-std::string User::GetLogin(){return login;}
+QString User::GetLogin(){return QString(login.c_str());}
 std::string User::GetPass(){return pass;}
 std::string User::GetName() {return name;}
 std::string User::GetSurname() {return surname;}

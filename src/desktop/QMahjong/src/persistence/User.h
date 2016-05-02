@@ -20,7 +20,7 @@ public:
 
     // Getters:
     bool GetSuper();
-    std::string GetLogin();
+    QString GetLogin();
     std::string GetPass();
     std::string GetName();
     std::string GetSurname();
