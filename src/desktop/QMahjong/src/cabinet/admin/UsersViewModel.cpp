@@ -1,6 +1,6 @@
 #include <QDebug>
-#include "../persistence/DBHandler.h"
-#include "../persistence/User.h"
+#include "../../persistence/DBHandler.h"
+#include "../../persistence/User.h"
 #include "UsersViewModel.h"
 
 namespace cabinet {

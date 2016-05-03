@@ -13,11 +13,13 @@ RCC_DIR     = $${BUILD_DIR}/rcc
 
 HEADERS += \
     $$PWD/src/cabinet/*.h \
+    $$PWD/src/cabinet/admin/*.h \
     $$PWD/src/persistence/*.h
 
 SOURCES += \
     $$PWD/src/main.cpp \
     $$PWD/src/cabinet/*.cpp \
+    $$PWD/src/cabinet/admin/*.cpp \
     $$PWD/src/persistence/*.cpp
 
 RESOURCES += \

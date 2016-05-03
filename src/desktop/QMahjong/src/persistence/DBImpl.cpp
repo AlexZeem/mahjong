@@ -60,6 +60,41 @@ QMap<QString, User> impl_t::getUsers()
     return users;
 }
 
+bool impl_t::updateGame(const Game &g)
+{
+    if (!games.contains(g.getGameId())) {
+        return false;
+    } else {
+        games[g.getGameId()] = g;
+        return true;
+    }
+}
+
+bool impl_t::addGame(const Game &g)
+{
+    if (games.contains(g.getGameId())) {
+        return false;
+    } else {
+        games[g.getGameId()] = g;
+        return true;
+    }
+}
+
+bool impl_t::deleteGame(const Game &g)
+{
+    if (!games.contains(g.getGameId())) {
+        return false;
+    } else {
+        games.erase(games.find(g.getGameId()));
+        return true;
+    }
+}
+
+QMap<unsigned long, Game> impl_t::getGames()
+{
+    return games;
+}
+
 void impl_t::saveGamesData(const QString& path)
 {
     QFile file(path + gamesDataPath);
@@ -68,6 +103,7 @@ void impl_t::saveGamesData(const QString& path)
 
     for (const auto& i : games) {
         ostream << i;
+        i.print();
     }
 
     file.flush();
@@ -84,7 +120,7 @@ void impl_t::loadGamesData(const QString& path, unsigned int counter)
         Game g;
         istream >> g;
         games[g.getGameId()] = g;
-        //g.print();
+        g.print();
     }
 
     file.close();

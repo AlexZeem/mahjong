@@ -32,11 +32,11 @@ Item {
                 right: button.left
                 margins: 15
             }
+
             Tab {
-                id: usersTab
-                title: "Users"
-                UsersView {
-                    width: parent.width - button.width
+                id: gamesTab
+                title: "Games"
+                GamesView {
                     anchors {
                         fill: parent
                         margins: 15
@@ -45,11 +45,15 @@ Item {
             }
 
             Tab {
-                title: "Games"
-                Rectangle { color: "green" }
+                id: usersTab
+                title: "Users"
+                UsersView {
+                    anchors {
+                        fill: parent
+                        margins: 15
+                    }
+                }
             }
         }
-
-
     }
 }

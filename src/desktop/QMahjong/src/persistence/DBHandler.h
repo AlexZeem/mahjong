@@ -25,6 +25,11 @@ public:
     bool deleteUser(const User& u);
     QMap<QString, User> getUsers();
 
+    bool updateGame(const Game& g);
+    bool addGame(const Game& g);
+    bool deleteGame(const Game& g);
+    QMap<unsigned long, Game> getGames();
+
 public:
     static DBHandler* instance();
 
