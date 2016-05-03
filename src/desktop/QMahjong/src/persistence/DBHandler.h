@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include <QString>
+#include <QMap>
 
 namespace persistence {
 
@@ -19,6 +20,10 @@ class DBHandler
 
 public:
     User selectUser(const QString& login);
+    bool updateUser(const User& u, const QString& login = "");
+    bool addUser(const User& u);
+    bool deleteUser(const User& u);
+    QMap<QString, User> getUsers();
 
 public:
     static DBHandler* instance();

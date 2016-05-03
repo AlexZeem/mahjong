@@ -16,6 +16,10 @@ DBHandler::DBHandler()
     : impl(new impl_t())
 { load();
 
+    /*impl->users.clear();
+    User u1(true,"admin", "admin", "Admin", "Admin", "911", "admin@email.com", .0);
+    impl->users[u1.getLogin()] = u1;*/
+
     impl->games.clear();
     Game g1(1,"02/05/2016","Player 2", QVector<int>(4,678));
     impl->games[g1.getGameId()] = g1;
@@ -26,12 +30,6 @@ DBHandler::DBHandler()
 
     impl->limits.clear();
     impl->limits << "Green dragon";
-
-    impl->users.clear();
-    User u1(false,"q", "q", "Player", "First", "000 123 45 67", "some@email.com", 3.14);
-    impl->users[u1.getLogin()] = u1;
-    User u2(true,"admin", "admin", "Player", "First", "000 123 45 67", "some@email.com", 3.14);
-    impl->users[u2.getLogin()] = u2;
 
     impl->participants.clear();
     Participant p1(1, 1, QVector<QString>(4,"q"));
@@ -46,6 +44,26 @@ User DBHandler::selectUser(const QString &login)
     return impl->selectUser(login);
 }
 
+bool DBHandler::updateUser(const User &u, const QString& login)
+{
+    return impl->updateUser(u, login);
+}
+
+bool DBHandler::addUser(const User &u)
+{
+    return impl->addUser(u);
+}
+
+bool DBHandler::deleteUser(const User &u)
+{
+    return impl->deleteUser(u);
+}
+
+QMap<QString, User> DBHandler::getUsers()
+{
+    return impl->getUsers();
+}
+
 DBHandler* DBHandler::instance()
 {
     static DBHandler*  ptr = 0;
@@ -57,6 +75,7 @@ DBHandler* DBHandler::instance()
 
 void DBHandler::load(const QString& path)
 {
+    qDebug() << "-----LOAD";
     QFile file(path + rootDataPath);
     file.open(QFile::ReadOnly);
     QDataStream inputStream(&file);
@@ -70,17 +89,18 @@ void DBHandler::load(const QString& path)
     inputStream >> impl->limitsDataPath >> temp;
     qDebug() << impl->limitsDataPath << temp.toInt();
     impl->loadLimitsData(path, temp.toInt());
-    inputStream >> impl->usersDataPath >> temp;
-    qDebug() << impl->usersDataPath << temp.toInt();
-    impl->loadUsersData(path, temp.toInt());
     inputStream >> impl->participantsDataPath >> temp;
     qDebug() << impl->participantsDataPath << temp.toInt();
     impl->loadParticipantsData(path, temp.toInt());
+    inputStream >> impl->usersDataPath >> temp;
+    qDebug() << impl->usersDataPath << temp.toInt();
+    impl->loadUsersData(path, temp.toInt());
     file.close();
 }
 
 void DBHandler::save(const QString& path)
 {
+    qDebug() << "-----SAVE";
     QFile file(path + rootDataPath);
     file.open(QFile::WriteOnly);
     QDataStream outStream(&file);
@@ -99,11 +119,11 @@ void DBHandler::save(const QString& path)
 
     qDebug() << "Participants items: " << impl->participants.size();
     outStream << QString("participants.dat") << QString::number(impl->participants.size());
-    impl->saveUsersData(path);
+    impl->saveParticipantsData(path);
 
     qDebug() << "Users items: " << impl->users.size();
     outStream << QString("users.dat") << QString::number(impl->users.size());
-    impl->saveParticipantsData(path);
+    impl->saveUsersData(path);
 
     file.flush();
     file.close();

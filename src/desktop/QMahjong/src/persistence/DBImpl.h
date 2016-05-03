@@ -16,6 +16,10 @@ struct impl_t
     ~impl_t();
 
     User selectUser(const QString& login);
+    bool updateUser(const User& u, const QString& login = "");
+    bool addUser(const User& u);
+    bool deleteUser(const User& u);
+    QMap<QString, User> getUsers();
 
     void saveGamesData(const QString& path);
     void loadGamesData(const QString& path, unsigned int counter);

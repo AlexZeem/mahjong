@@ -24,6 +24,42 @@ User impl_t::selectUser(const QString &login)
     return users.value(login);
 }
 
+bool impl_t::updateUser(const User &u, const QString& login)
+{
+    QString key = !login.isEmpty() ? login : u.getLogin();
+    if (!users.contains(key)) {
+        return false;
+    } else {
+        users[key] = u;
+        return true;
+    }
+}
+
+bool impl_t::addUser(const User &u)
+{
+    if (users.contains(u.getLogin())) {
+        return false;
+    } else {
+        users[u.getLogin()] = u;
+        return true;
+    }
+}
+
+bool impl_t::deleteUser(const User &u)
+{
+    if (!users.contains(u.getLogin())) {
+        return false;
+    } else {
+        users.erase(users.find(u.getLogin()));
+        return true;
+    }
+}
+
+QMap<QString, User> impl_t::getUsers()
+{
+    return users;
+}
+
 void impl_t::saveGamesData(const QString& path)
 {
     QFile file(path + gamesDataPath);
@@ -48,6 +84,7 @@ void impl_t::loadGamesData(const QString& path, unsigned int counter)
         Game g;
         istream >> g;
         games[g.getGameId()] = g;
+        //g.print();
     }
 
     file.close();
@@ -77,7 +114,7 @@ void impl_t::loadHandsData(const QString& path, unsigned int counter)
         Hand h;
         istream >> h;
         hands[h.getHandId()] = h;
-        h.print();
+        //h.print();
     }
 
     file.close();
@@ -107,7 +144,7 @@ void impl_t::loadLimitsData(const QString& path, unsigned int counter)
         QString l;
         istream >> l;
         limits << l;
-        qDebug() << "Limit: " << l;
+        //qDebug() << "Limit: " << l;
     }
 
     file.close();
@@ -120,6 +157,7 @@ void impl_t::saveUsersData(const QString& path)
     QDataStream ostream(&file);
 
     for (const auto& i : users) {
+        i.print();
         ostream << i;
     }
 
@@ -133,6 +171,7 @@ void impl_t::loadUsersData(const QString& path, unsigned int counter)
     file.open(QFile::ReadOnly);
     QDataStream istream(&file);
 
+    qDebug() << path + usersDataPath << counter;
     for (unsigned int i = 0; i < counter; ++i) {
         User u;
         istream >> u;
@@ -167,7 +206,7 @@ void impl_t::loadParticipantsData(const QString& path, unsigned int counter)
         Participant p;
         istream >> p;
         participants[p.getGameId()] = p;
-        p.print();
+        //p.print();
     }
 
     file.close();
