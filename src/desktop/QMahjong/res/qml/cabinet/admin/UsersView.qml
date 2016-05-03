@@ -10,8 +10,6 @@ Item {
         anchors {
             top: parent.top
             left: parent.left
-            topMargin: 15
-            leftMargin: 15
         }
         onClicked: {
             umodel.addNew()

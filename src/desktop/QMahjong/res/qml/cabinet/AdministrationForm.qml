@@ -24,17 +24,32 @@ Item {
             }
         }
 
-        UsersView {
-            width: parent.width - button.width
+        TabView {
             anchors {
                 top: parent.top
                 bottom: parent.bottom
                 left: parent.left
                 right: button.left
-                topMargin: 15
-                rightMargin: 15
-                leftMargin: 15
+                margins: 15
+            }
+            Tab {
+                id: usersTab
+                title: "Users"
+                UsersView {
+                    width: parent.width - button.width
+                    anchors {
+                        fill: parent
+                        margins: 15
+                    }
+                }
+            }
+
+            Tab {
+                title: "Games"
+                Rectangle { color: "green" }
             }
         }
+
+
     }
 }
