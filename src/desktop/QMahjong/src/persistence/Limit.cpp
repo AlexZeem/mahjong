@@ -2,33 +2,33 @@
 
 namespace persistence {
 
-Limit::Limit(const std::string& n):
+Limit::Limit(const QString &n):
     name(n)
 {}
 
-std::string Limit::GetName()
+QString Limit::GetName()
 {
     return name;
 }
 
-void Limit::SetName(const std::string& n)
+void Limit::SetName(const QString &value)
 {
-    name = n;
+    if (name != value)name = value;
 }
 
-QDataStream &operator >>(QDataStream &in, Limit &l)
+QDataStream &operator <<(QDataStream &out, const Limit & limit)
 {
-    QString str;
-    in >> str;
-    l.SetName(str.toStdString());
+    out << limit.name;
+    return out; //return after changes;
+}
+
+
+QDataStream &operator >>(QDataStream &in, Limit & limit)
+{
+    in >> limit.name;
     return in;
 }
 
-QDataStream &operator <<(QDataStream &out, const Limit &l)
-{
-    out << QString::fromStdString(l.name); // convert string to QString;
-    return out; //return after changes;
-}
 
 
 } // persistence

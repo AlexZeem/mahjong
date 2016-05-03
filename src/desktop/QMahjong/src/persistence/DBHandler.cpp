@@ -9,8 +9,6 @@
 #include "Limit.h"
 #include "DBHandler.h"
 
-using namespace persistence;
-
 namespace persistence {
 
 struct DBHandler::impl_t
@@ -154,7 +152,7 @@ void DBHandler::load(const std::string &filepath)
     inputStream >> impl->h;
     inputStream >> impl->p;
 
-    qDebug() << "Limit name:" << impl->l.GetName().c_str();
+    qDebug() << "Limit name:" << impl->l.GetName();
 
     //User check
     qDebug() << "User super:" << impl->u.GetSuper();

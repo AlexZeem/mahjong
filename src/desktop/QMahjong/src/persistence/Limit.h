@@ -1,5 +1,5 @@
 #pragma once
-#include <string>
+#include <QString>
 #include <QDataStream>
 
 namespace persistence {
@@ -7,17 +7,17 @@ namespace persistence {
 class Limit
 {
 public:
-    Limit(const std::string& n = "Limit");
+    Limit(const QString& n = "Limit");
 
     //переопределим операторов ввода и вывода:
-    friend QDataStream& operator <<(QDataStream& out,const Limit&);
-    friend QDataStream& operator >>(QDataStream& in, Limit&);
+    friend QDataStream& operator <<(QDataStream& out,const Limit& limit);
+    friend QDataStream& operator >>(QDataStream& in, Limit& limit);
 
-    std::string GetName();
-    void SetName(const std::string&);
+    QString GetName();
+    void SetName(const QString& value);
 
 private:
-    std::string name;
+    QString name;
 };
 
 } //persistence
