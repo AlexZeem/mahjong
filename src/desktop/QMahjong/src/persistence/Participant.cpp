@@ -11,52 +11,56 @@ Participant::Participant(unsigned long _pid,
 { }
 
 //Getters:
-unsigned long Participant::GetPartId(){return partId;}
-unsigned long Participant::GetGameId() {return gameId;}
-QVector<QString> Participant::GetUserId() {return userId;}
+unsigned long Participant::GetPartId() const
+{
+    return partId;
+}
+
+unsigned long Participant::GetGameId() const
+{
+    return gameId;
+}
+
+QVector<QString> Participant::GetUserId() const
+{
+    return userId;
+}
 
 //Setters:
-void Participant::SetPartId(unsigned long pid){
-    partId = pid;
-}
-
-void Participant::SetGameId(unsigned long gid) {
-    gameId = gid;
-}
-
-void Participant::SetUserId(const QVector<QString> &uid){
-    userId = uid;
-}
-
-QDataStream &operator<<(QDataStream &out, const Participant &p)
+void Participant::SetPartId(unsigned long value)
 {
-    out << (qint32)p.partId;
+    if(partId != value)partId = value;
+}
 
+void Participant::SetGameId(unsigned long value)
+{
+    if(gameId != value)gameId = value;
+}
 
-    for (const auto& i : p.userId) {
+void Participant::SetUserId(const QVector<QString> &value)
+{
+            userId = value;
+}
+
+QDataStream &operator<<(QDataStream &out, const Participant &part)
+{
+    out << QString::number(part.GetPartId());
+    out << QString::number(part.GetGameId());
+    for (const auto & i : part.GetUserId()){
         out << i;
     }
-    out << (qint32)p.gameId;
-
     return out;
 }
 
-QDataStream &operator>>(QDataStream &in, Participant &p)
+QDataStream & operator >> (QDataStream &in, Participant &part)
 {
-    qint32 pi, gi;
-    in >> pi;
-    for (auto i : p.userId) {
+    QString p, g;
+    in >> p >> g;
+    part.SetGameId(g.toULong());
+    part.SetPartId(p.toULong());
+    for (auto i : part.userId) {
         in >> i;
     }
-    in >> gi;
-    qDebug() << "jhgiygabf" << pi << gi;
-    p.SetPartId(pi);
-    p.SetGameId(gi);
-    //p.partId = pi;
-    //p.gameId = gi;
-
-
-
     return in;
 }
 

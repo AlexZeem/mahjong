@@ -6,7 +6,7 @@ Limit::Limit(const QString &n):
     name(n)
 {}
 
-QString Limit::GetName()
+QString Limit::GetName() const
 {
     return name;
 }
@@ -18,7 +18,7 @@ void Limit::SetName(const QString &value)
 
 QDataStream &operator <<(QDataStream &out, const Limit & limit)
 {
-    out << limit.name;
+    out << limit.GetName();
     return out; //return after changes;
 }
 

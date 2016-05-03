@@ -13,17 +13,17 @@ public:
                 unsigned long _gid = 0,
                 QVector<QString> _uid = QVector<QString>(4,"Login"));
     //Getters:
-    unsigned long GetPartId();
-    unsigned long GetGameId();
-    QVector <QString> GetUserId();
+    unsigned long GetPartId() const;
+    unsigned long GetGameId() const;
+    QVector <QString> GetUserId() const;
 
     //Setters:
-    void SetPartId(unsigned long);
-    void SetGameId(unsigned long);
-    void SetUserId(const QVector<QString>&);
+    void SetPartId(unsigned long value);
+    void SetGameId(unsigned long value);
+    void SetUserId(const QVector<QString>& value);
 
-    friend QDataStream & operator << (QDataStream &out, const Participant &);
-    friend QDataStream & operator >> (QDataStream &in, Participant&);
+    friend QDataStream & operator << (QDataStream &out, const Participant & part);
+    friend QDataStream & operator >> (QDataStream &in, Participant& part);
 
 private:
     unsigned long partId;

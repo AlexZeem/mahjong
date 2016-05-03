@@ -13,7 +13,7 @@ public:
     friend QDataStream& operator <<(QDataStream& out,const Limit& limit);
     friend QDataStream& operator >>(QDataStream& in, Limit& limit);
 
-    QString GetName();
+    QString GetName() const;
     void SetName(const QString& value);
 
 private:
