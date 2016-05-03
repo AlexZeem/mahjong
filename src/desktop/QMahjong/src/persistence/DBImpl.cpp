@@ -95,6 +95,15 @@ QMap<unsigned long, Game> impl_t::getGames()
     return games;
 }
 
+QVector<QString> impl_t::getPlayers(unsigned long gameId)
+{
+    if (!participants.contains(gameId)) {
+        return QVector<QString>();
+    } else {
+        return participants.value(gameId).getUserId();
+    }
+}
+
 void impl_t::saveGamesData(const QString& path)
 {
     QFile file(path + gamesDataPath);

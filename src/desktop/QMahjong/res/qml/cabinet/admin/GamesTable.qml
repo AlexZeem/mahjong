@@ -64,6 +64,7 @@ Item {
         }
 
         model: gmediator.gamesModel
+
         itemDelegate: Component {
             id: editableDelegate
             Item {
@@ -84,11 +85,11 @@ Item {
                     Connections {
                         target: loaderEditor.item
                         onAccepted: {
-                            console.log("onAccepted", styleData.row, styleData.role)
                             gmediator.gamesModel.editItem(loaderEditor.item.text, styleData.row, styleData.column, styleData.role)
+                            tableView.selection.deselect(0, tableView.model.length - 1)
                         }
                     }
-                    sourceComponent: styleData.selected ? editor : null
+                    sourceComponent: styleData.selected ? ( styleData.role === "winner" ? winnerEditor : editor) : null
                     Component {
                         id: editor
                         TextInput {
@@ -100,6 +101,22 @@ Item {
                                 anchors.fill: parent
                                 hoverEnabled: true
                                 onClicked: textinput.forceActiveFocus()
+                            }
+                        }
+                    }
+                    Component {
+                        id: winnerEditor
+                        ComboBox {
+                            id: winners
+                            model: gmediator.gamesModel.players(tableView.currentRow)
+                            currentIndex: 0
+
+                            onCurrentIndexChanged: {
+                                if (currentText !== "") {
+                                    if (styleData.row > -1)
+                                        gmediator.gamesModel.editItem(currentText, styleData.row, styleData.column, styleData.role)
+                                    tableView.selection.deselect(0, tableView.model.length - 1)
+                                }
                             }
                         }
                     }

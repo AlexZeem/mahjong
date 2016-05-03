@@ -30,6 +30,8 @@ public:
     bool deleteGame(const Game& g);
     QMap<unsigned long, Game> getGames();
 
+    QVector<QString> getPlayers(unsigned long gameId);
+
 public:
     static DBHandler* instance();
 

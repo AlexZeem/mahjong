@@ -33,6 +33,7 @@ public:
     Q_INVOKABLE void editItem(const QString& value, int row, int col, const QString &role);
     Q_INVOKABLE void addNew();
     Q_INVOKABLE void deleteSelected(int index);
+    Q_INVOKABLE QStringList players(int index);
 
 private:
     QVector<persistence::Game> games;

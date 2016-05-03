@@ -1,6 +1,8 @@
+#include <QTime>
 #include <QDebug>
 #include "../../persistence/DBHandler.h"
 #include "../../persistence/Game.h"
+#include "../../persistence/User.h"
 #include "GamesViewModel.h"
 
 namespace cabinet {
@@ -24,6 +26,8 @@ QVariantMap toMap(const persistence::Game & item)
 GamesViewModel::GamesViewModel(QObject *parent)
     : QAbstractListModel(parent)
 {
+    QTime curr(QTime::currentTime());
+    qsrand(curr.msecsSinceStartOfDay());
     QMap<unsigned long, persistence::Game> g = persistence::DBHandler::instance()->getGames();
     for (const auto& i : g) {
         games.push_back(i);
@@ -74,6 +78,11 @@ QHash<int, QByteArray> GamesViewModel::roleNames() const
 void GamesViewModel::editItem(const QString& value, int row, int col, const QString &role)
 {
     qDebug() << "editItem" << value << row << col << role;
+    if (row < 0 || row > rowCount()) {
+       qDebug() << "invalid index";
+       return;
+    }
+
     if ("date" == role) {
         games[row].setDate(value);
     } else if ("winner" == role) {
@@ -97,11 +106,14 @@ void GamesViewModel::editItem(const QString& value, int row, int col, const QStr
     }
 
     qDebug() << "item" << (persistence::DBHandler::instance()->updateGame(games[row]) ? "updated" : "not updated");
+    beginResetModel();
+    endResetModel();
 }
 
 void GamesViewModel::addNew()
 {
     persistence::Game g;
+    g.setGameId(qrand());
     if (persistence::DBHandler::instance()->addGame(g)) {
         beginInsertRows(QModelIndex(), games.size(), games.size());
         games.push_back(g);
@@ -114,7 +126,7 @@ void GamesViewModel::addNew()
 
 void GamesViewModel::deleteSelected(int index)
 {
-    if (index < 0 || index > rowCount()) {
+    if (index < 0 || index > rowCount() - 1) {
        qDebug() << "invalid index";
        return;
     }
@@ -127,6 +139,22 @@ void GamesViewModel::deleteSelected(int index)
     } else {
         qDebug() << "cannot delete item";
     }
+}
+
+QStringList GamesViewModel::players(int index)
+{
+    QStringList result;
+    for (const auto& i : persistence::DBHandler::instance()->getPlayers(games[index].getGameId())) {
+        result << i;
+    }
+
+    if (result.empty()) {
+        for (const auto& i : persistence::DBHandler::instance()->getUsers()) {
+            result << i.getLogin();
+        }
+    }
+
+    return result;
 }
 
 } //namespace cabinet

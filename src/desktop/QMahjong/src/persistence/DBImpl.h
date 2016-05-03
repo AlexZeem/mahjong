@@ -26,6 +26,8 @@ struct impl_t
     bool deleteGame(const Game& g);
     QMap<unsigned long, Game> getGames();
 
+    QVector<QString> getPlayers(unsigned long gameId);
+
     void saveGamesData(const QString& path);
     void loadGamesData(const QString& path, unsigned int counter);
     void saveHandsData(const QString& path);

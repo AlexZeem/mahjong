@@ -21,7 +21,7 @@ DBHandler::DBHandler()
     impl->users[u1.getLogin()] = u1;*/
 
     /*impl->games.clear();
-    Game g1(1,"02/05/2016","Player 2", QVector<int>(4,678));
+    Game g1(1,"02/05/2016","User", QVector<int>(4,678));
     impl->games[g1.getGameId()] = g1;*/
 
     impl->hands.clear();
@@ -82,6 +82,11 @@ bool DBHandler::deleteGame(const Game &g)
 QMap<unsigned long, Game> DBHandler::getGames()
 {
     return impl->getGames();
+}
+
+QVector<QString> DBHandler::getPlayers(unsigned long gameId)
+{
+    return impl->getPlayers(gameId);
 }
 
 DBHandler* DBHandler::instance()
