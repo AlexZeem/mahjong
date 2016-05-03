@@ -1,3 +1,5 @@
+#include "../persistence/DBHandler.h"
+#include "../persistence/User.h"
 #include "Authorization.h"
 
 #include <QDebug>
@@ -6,9 +8,7 @@ namespace cabinet {
 
 Authorization::Authorization(QObject *parent)
     : QObject(parent)
-{
-
-}
+{ }
 
 Authorization::~Authorization()
 { }
@@ -16,9 +16,18 @@ Authorization::~Authorization()
 void Authorization::validate(const QString &login, const QString &pass)
 {
     qDebug() << "Validate" << login << pass;
-    //TODO: make request to DB
-    if (!login.isEmpty() && !pass.isEmpty() && login == pass ) {
-        emit validationSuccesfull();
+
+    if (!login.isEmpty() && !pass.isEmpty()) {
+        persistence::User u = persistence::DBHandler::instance()->selectUser(login);
+        if (u.getPass() == pass) {
+            if (u.getSuper()) {
+                emit superUserSignIn();
+            } else {
+                emit validationSuccesfull();
+            }
+        } else {
+            emit validationFailed();
+        }
     } else {
         emit validationFailed();
     }

@@ -9,45 +9,48 @@ namespace persistence {
 class Hand
 {
 public:
-    //конструктор который инициирует объект параметрами.
+    friend QDataStream &operator << (QDataStream &out, const Hand& obj);
+    friend QDataStream &operator >> (QDataStream &in, Hand& obj);
+
     Hand(unsigned long _h = 0,
          unsigned long _g = 0,
          char _w = 'E',
-         unsigned int _m = 0,
+         int _m = 0,
          QVector<unsigned int> _c = QVector<unsigned int>(4,0),
          QVector<int> _s = QVector<int>(4,0),
-         const QString& _l = "none");
+         QString _l = "none");
 
-    // getters;
-    unsigned long GetHandId() const;
-    unsigned long GetGameId() const;
-    char GetWind() const;
-    unsigned int GetMahjong() const;
-    QVector<unsigned int> GetCombo() const;
-    QVector<int> GetScore() const;
-    QString GetLimit() const;
+    unsigned long getHandId() const;
+    void setHandId(unsigned long value);
 
-    //setter;
-    void SetHandId(unsigned long value);
-    void SetGameId(unsigned long value);
-    void SetWind(char value);
-    void SetMahjong(unsigned int value);
-    void SetCombo(const QVector<unsigned int>& value);
-    void SetScore(const QVector<int>& value);
-    void SetLimit(const QString& value);
+    unsigned long getGameId() const;
+    void setGameId(unsigned long value);
 
-    friend QDataStream &operator<< (QDataStream &out, const Hand& hand);
-    friend QDataStream &operator>> (QDataStream &in, Hand & hand);
+    char getWind() const;
+    void setWind(char value);
+
+    int getMahjong() const;
+    void setMahjong(int value);
+
+    QVector<unsigned int> getCombo() const;
+    void setCombo(const QVector<unsigned int> &value);
+
+    QVector<int> getScore() const;
+    void setScore(const QVector<int> &value);
+
+    QString getLimit() const;
+    void setLimit(const QString &value);
+
+    void print() const;
 
 private:
     unsigned long handId;
     unsigned long gameId;
     char wind;
-    unsigned int mahjong;
-    QVector <unsigned int> combo;
-    QVector <int> score;
+    int mahjong;
+    QVector<unsigned int> combo;
+    QVector<int> score;
     QString limit;
-
 };
 
 } //persistence

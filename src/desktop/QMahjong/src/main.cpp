@@ -1,6 +1,7 @@
 #include <QGuiApplication>
 #include <QtQuick>
 #include "cabinet/Authorization.h"
+#include "cabinet/UsersViewModel.h"
 #include "persistence/DBHandler.h"
 
 int main(int argc, char *argv[])
@@ -13,6 +14,8 @@ int main(int argc, char *argv[])
     //object registration
     cabinet::Authorization auth;
     view.engine()->rootContext()->setContextProperty("auth", &auth);
+    cabinet::UsersViewModel usersModel;
+    view.engine()->rootContext()->setContextProperty("umodel", &usersModel);
     //
 
     //for transparency
