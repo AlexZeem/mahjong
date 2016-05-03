@@ -157,7 +157,7 @@ void impl_t::saveUsersData(const QString& path)
     QDataStream ostream(&file);
 
     for (const auto& i : users) {
-        i.print();
+        //i.print();
         ostream << i;
     }
 
@@ -171,12 +171,11 @@ void impl_t::loadUsersData(const QString& path, unsigned int counter)
     file.open(QFile::ReadOnly);
     QDataStream istream(&file);
 
-    qDebug() << path + usersDataPath << counter;
     for (unsigned int i = 0; i < counter; ++i) {
         User u;
         istream >> u;
         users[u.getLogin()] = u;
-        u.print();
+        //u.print();
     }
 
     file.close();
