@@ -10,84 +10,124 @@ Item {
         frameVisible: true
 
         TableViewColumn {
-            id: dateColumn
-            title: "Date"
-            role: "date"
+            id: windColumn
+            title: "W"
+            role: "wind"
             movable: false
             resizable: false
-            width: tableView.viewport.width / 6
+            width: 30
         }
 
         TableViewColumn {
-            id: winnerColumn
-            title: "Winner"
-            role: "winner"
+            id: mahjong1Column
+            title:"M"
+            role: "mahjong1"
             movable: false
             resizable: false
-            width: tableView.viewport.width / 6
+            width: (tableView.viewport.width  - 30) / 20
+        }
+
+        TableViewColumn {
+            id: combo1Column
+            title: "Combo"
+            role: "combo1"
+            movable: false
+            resizable: false
+            width: (tableView.viewport.width  - 30) / 10
         }
 
         TableViewColumn {
             id: score1Column
-            title: "Score 1"
+            title: "Score"
             role: "score1"
             movable: false
             resizable: false
-            width: tableView.viewport.width / 6
+            width: (tableView.viewport.width  - 30) / 10
+        }
+
+        TableViewColumn {
+            id: mahjong2Column
+            title:"M"
+            role: "mahjong2"
+            movable: false
+            resizable: false
+            width: (tableView.viewport.width  - 30) / 20
+        }
+
+        TableViewColumn {
+            id: combo2Column
+            title: "Combo"
+            role: "combo2"
+            movable: false
+            resizable: false
+            width: (tableView.viewport.width  - 30) / 10
         }
 
         TableViewColumn {
             id: score2Column
-            title: "Score 2"
+            title: "Score"
             role: "score2"
             movable: false
             resizable: false
-            width: tableView.viewport.width / 6
+            width: (tableView.viewport.width  - 30) / 10
+        }
+
+        TableViewColumn {
+            id: mahjong3Column
+            title:"M"
+            role: "mahjong3"
+            movable: false
+            resizable: false
+            width: (tableView.viewport.width  - 30) / 20
+        }
+
+        TableViewColumn {
+            id: combo3Column
+            title: "Combo"
+            role: "combo3"
+            movable: false
+            resizable: false
+            width: (tableView.viewport.width  - 30) / 10
         }
 
         TableViewColumn {
             id: score3Column
-            title: "Score 3"
+            title: "Score"
             role: "score3"
             movable: false
             resizable: false
-            width: tableView.viewport.width / 6
+            width: (tableView.viewport.width  - 30) / 10
+        }
+
+        TableViewColumn {
+            id: mahjong4Column
+            title:"M"
+            role: "mahjong4"
+            movable: false
+            resizable: false
+            width: (tableView.viewport.width  - 30) / 20
+        }
+
+        TableViewColumn {
+            id: combo4Column
+            title: "Combo"
+            role: "combo4"
+            movable: false
+            resizable: false
+            width: tableView.viewport.width / 10
         }
 
         TableViewColumn {
             id: score4Column
-            title: "Score 4"
+            title: "Score"
             role: "score4"
             movable: false
             resizable: false
-            width: tableView.viewport.width / 6
+            width: tableView.viewport.width / 10
         }
+        model: gmediator.gamesModel
 
-        model: ListModel {
-            id: countModel
-            ListElement {
-                player1wind: "E"
-                player1mahjong: true
-                player1point: 21
-                player1score: 41
-                player2wind: "S"
-                player2mahjong: false
-                player2point: 8
-                player2score: 8
-                player3wind: "W"
-                player3mahjong: false
-                player3point: 2
-                player3score: 4
-                player4wind: "N"
-                player4mahjong: false
-                player4point: 6
-                player4score: 12
-            }
-        }
-
-            //gmediator.gamesModel
-
-        /*itemDelegate: Component {
+        itemDelegate: Component {
             id: editableDelegate
             Item {
                 Text {
@@ -107,7 +147,7 @@ Item {
                     Connections {
                         target: loaderEditor.item
                         onAccepted: {
-                            gmediator.gamesModel.editItem(loaderEditor.item.text, styleData.row, styleData.column, styleData.role)
+                            //gmediator.gamesModel.editItem(loaderEditor.item.text, styleData.row, styleData.column, styleData.role)
                             tableView.selection.deselect(0, tableView.model.length - 1)
                         }
                     }
@@ -144,6 +184,6 @@ Item {
                     }
                 }
             }
-        }*/
+        }
     }
 }

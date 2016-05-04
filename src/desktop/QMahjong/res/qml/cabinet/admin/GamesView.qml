@@ -32,8 +32,18 @@ Item {
 
     GamesTable {
         id: gamesTable
+        height: 150
         anchors {
             top: addNew.bottom
+            topMargin: 15
+        }
+    }
+
+    HandsTable {
+        id: handsTable
+        height: 150
+        anchors {
+            top: gamesTable.bottom
             topMargin: 15
         }
     }
