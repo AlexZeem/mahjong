@@ -30,7 +30,7 @@ Item {
                     text: qsTr("Nickname: ")
                 }
                 Text {
-                    text: ""
+                    text: umediator.nickname
                 }
             }
 
