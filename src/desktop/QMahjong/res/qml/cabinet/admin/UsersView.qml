@@ -35,6 +35,7 @@ Item {
             topMargin: 15
             left: parent.left
             right: parent.right
+            bottom: parent.bottom
         }
         frameVisible: true
 
