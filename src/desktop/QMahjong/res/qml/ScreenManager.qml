@@ -86,7 +86,7 @@ Item {
 
         DSM.State {
             id: administrationState
-            onEntered: mainLoader.source = "cabinet/AdministrationForm.qml"
+            onEntered: mainLoader.source = "cabinet/admin/AdministrationForm.qml"
 
             DSM.SignalTransition {
                 targetState: signInState

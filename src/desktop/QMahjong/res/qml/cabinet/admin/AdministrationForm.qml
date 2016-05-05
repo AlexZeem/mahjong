@@ -1,6 +1,5 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.3
-import "admin"
 
 Item {
     id: root
@@ -34,9 +33,9 @@ Item {
             }
 
             Tab {
-                id: gamesTab
-                title: "Games"
-                GamesView {
+                id: usersTab
+                title: "Users"
+                UsersView {
                     anchors {
                         fill: parent
                         margins: 15
@@ -45,9 +44,9 @@ Item {
             }
 
             Tab {
-                id: usersTab
-                title: "Users"
-                UsersView {
+                id: gamesTab
+                title: "Games"
+                GamesView {
                     anchors {
                         fill: parent
                         margins: 15

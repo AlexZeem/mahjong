@@ -1,7 +1,7 @@
 #include <QGuiApplication>
 #include <QtQuick>
 #include "cabinet/Authorization.h"
-#include "cabinet/admin/UsersViewModel.h"
+#include "cabinet/admin/UsersTableModel.h"
 #include "cabinet/admin/GamesViewMediator.h"
 #include "persistence/DBHandler.h"
 
@@ -15,8 +15,8 @@ int main(int argc, char *argv[])
     //object registration
     cabinet::Authorization auth;
     view.engine()->rootContext()->setContextProperty("auth", &auth);
-    cabinet::UsersViewModel usersModel;
-    view.engine()->rootContext()->setContextProperty("umodel", &usersModel);
+    cabinet::UsersTableModel usersModel;
+    view.engine()->rootContext()->setContextProperty("users", &usersModel);
     cabinet::GamesViewMediator gameMediator;
     view.engine()->rootContext()->setContextProperty("gmediator", &gameMediator);
     //

@@ -12,7 +12,7 @@ Item {
             left: parent.left
         }
         onClicked: {
-            umodel.addNew()
+            users.addEntry()
         }
     }
 
@@ -20,12 +20,11 @@ Item {
         id: deleteSelected
         text: qsTr("Delete")
         anchors {
-            top: addNew.top
-            left: addNew.right
-            leftMargin: 15
+            top: parent.top
+            right: parent.right
         }
         onClicked: {
-            umodel.deleteSelected(tableView.currentRow)
+            users.removeEntry(tableView.currentRow)
         }
     }
 
@@ -102,7 +101,8 @@ Item {
             width: tableView.viewport.width / 7
         }
 
-        model: umodel
+        model: users
+
         itemDelegate: Component {
             id: editableDelegate
             Item {
@@ -123,8 +123,8 @@ Item {
                     Connections {
                         target: loaderEditor.item
                         onAccepted: {
-                            console.log("onAccepted", styleData.row, styleData.role)
-                            umodel.editItem(loaderEditor.item.text, styleData.row, styleData.column, styleData.role)
+                            users.editEntry(loaderEditor.item.text, styleData.row, styleData.column)
+                            tableView.selection.deselect(0, tableView.rowCount - 1)
                         }
                     }
                     sourceComponent: styleData.selected ? editor : null

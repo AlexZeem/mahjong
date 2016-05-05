@@ -27,10 +27,14 @@ User impl_t::selectUser(const QString &login)
 bool impl_t::updateUser(const User &u, const QString& login)
 {
     QString key = !login.isEmpty() ? login : u.getLogin();
+
     if (!users.contains(key)) {
         return false;
     } else {
-        users[key] = u;
+        if (!login.isEmpty()) {
+            users.remove(login);
+        }
+        users[u.getLogin()] = u;
         return true;
     }
 }
@@ -112,7 +116,7 @@ void impl_t::saveGamesData(const QString& path)
 
     for (const auto& i : games) {
         ostream << i;
-        i.print();
+        //i.print();
     }
 
     file.flush();
@@ -129,7 +133,7 @@ void impl_t::loadGamesData(const QString& path, unsigned int counter)
         Game g;
         istream >> g;
         games[g.getGameId()] = g;
-        g.print();
+        //g.print();
     }
 
     file.close();
@@ -143,6 +147,7 @@ void impl_t::saveHandsData(const QString& path)
 
     for (const auto& i : hands) {
         ostream << i;
+        //i.print();
     }
 
     file.flush();
@@ -173,6 +178,7 @@ void impl_t::saveLimitsData(const QString& path)
 
     for (const auto& i : limits) {
         ostream << i;
+        //qDebug() << "Limit: " << i;
     }
 
     file.flush();
@@ -202,8 +208,8 @@ void impl_t::saveUsersData(const QString& path)
     QDataStream ostream(&file);
 
     for (const auto& i : users) {
-        //i.print();
         ostream << i;
+        //i.print();
     }
 
     file.flush();
@@ -234,6 +240,7 @@ void impl_t::saveParticipantsData(const QString& path)
 
     for (const auto& i : participants) {
         ostream << i;
+        //i.print();
     }
 
     file.flush();
