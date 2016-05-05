@@ -150,6 +150,7 @@ QStringList GamesViewModel::players(int index)
 
     if (result.empty()) {
         for (const auto& i : persistence::DBHandler::instance()->getUsers()) {
+            if ("admin" == i.getLogin()) continue;
             result << i.getLogin();
         }
     }
