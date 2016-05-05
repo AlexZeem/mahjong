@@ -112,8 +112,10 @@ Item {
                             currentIndex: find(styleData.value)
                             model: gmediator.players(gmediator.gamesModel.gameId(styleData.row))
                             onCurrentIndexChanged: {
-                                console.log("onCurrentIndexChanged", combobox.get(currentIndex).text, currentIndex)
-                                gmediator.gamesModel.editEntry(combobox.model., styleData.row, styleData.column)
+                                gmediator.gamesModel.editEntry(combobox.model[currentIndex], styleData.row, styleData.column)
+                                if (find(styleData.value) > -1) {
+                                    tableView.selection.deselect(0, tableView.rowCount - 1)
+                                }
                             }
                         }
                     }
