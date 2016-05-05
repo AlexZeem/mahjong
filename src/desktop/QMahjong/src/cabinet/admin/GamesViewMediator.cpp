@@ -19,6 +19,7 @@ QStringList GamesViewMediator::players(unsigned long gameId) const
     }
 
     if (result.empty()) {
+        result << "";
         for (const auto& i : persistence::DBHandler::instance()->getUsers()) {
             if ("admin" == i.getLogin()) continue;
             result << i.getLogin();
