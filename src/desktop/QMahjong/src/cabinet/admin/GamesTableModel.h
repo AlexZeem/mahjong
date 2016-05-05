@@ -4,32 +4,32 @@
 #include <QVector>
 
 namespace persistence {
-class User;
+class Game;
 }
 
 namespace cabinet {
 
-class UsersTableModel : public QAbstractTableModel
+class GamesTableModel : public QAbstractTableModel
 {
     Q_OBJECT
 
     enum Roles {
-        LOGIN_ROLE,
-        PASS_ROLE,
-        NAME_ROLE,
-        SURNAME_ROLE,
-        PHONE_ROLE,
-        EMAIL_ROLE,
-        RANG_ROLE
+        DATE_ROLE,
+        WINNER_ROLE,
+        SCORE1_ROLE,
+        SCORE2_ROLE,
+        SCORE3_ROLE,
+        SCORE4_ROLE
     };
 
 public:
-    explicit UsersTableModel(QObject* parent = 0);
-    ~UsersTableModel();
+    explicit GamesTableModel(QObject *parent = 0);
+    ~GamesTableModel();
 
     Q_INVOKABLE void addEntry();
     Q_INVOKABLE void editEntry(const QString &value, int row, int col);
     Q_INVOKABLE void removeEntry(int row);
+    Q_INVOKABLE unsigned long gameId(int row) const;
 
 protected:
     int rowCount(const QModelIndex& parent = QModelIndex()) const override;
@@ -42,7 +42,7 @@ protected:
     bool removeRows(int position, int rows, const QModelIndex& index = QModelIndex()) override;
 
 private:
-    QVector<persistence::User> users;
+    QVector<persistence::Game> games;
 };
 
 } //namespace cabinet

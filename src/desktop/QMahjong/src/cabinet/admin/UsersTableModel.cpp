@@ -25,10 +25,10 @@ void UsersTableModel::addEntry()
     persistence::User u;
     if (persistence::DBHandler::instance()->addUser(u)) {
         users.push_back(u);
-        qDebug() << "[addEntry] item added";
-        insertRows(users.size() -1 , 1, QModelIndex());
+        qDebug() << "[UsersTableModel][addEntry] item added";
+        insertRows(users.size() - 1 , 1, QModelIndex());
     } else {
-        qDebug() << "[addEntry] skipped (item exist)";
+        qDebug() << "[UsersTableModel][addEntry] skipped (item exist)";
     }
 }
 
@@ -40,19 +40,17 @@ void UsersTableModel::editEntry(const QString& value, int row, int col)
 void UsersTableModel::removeEntry(int row)
 {
     if (row < 0 || row >= rowCount()) {
-        qDebug() << "[removeEntry]" << row << "invalid";
+        qDebug() << "[UsersTableModel][removeEntry]" << row << "invalid";
         return;
     }
 
-    if (persistence::DBHandler::instance()->deleteUser(users[ row])) {
+    if (persistence::DBHandler::instance()->deleteUser(users[row])) {
         users.removeAt(row);
         removeRows(row, 1, QModelIndex());
-        qDebug() << "[removeEntry] item deleted";
+        qDebug() << "[UsersTableModel][removeEntry] item deleted";
     } else {
-        qDebug() << "[removeEntry] skipped";
+        qDebug() << "[UsersTableModel][removeEntry] skipped";
     }
-
-    qDebug() << "[rowCount]" << rowCount();
 }
 
 int UsersTableModel::rowCount(const QModelIndex& parent) const
@@ -72,15 +70,14 @@ QVariant UsersTableModel::data(const QModelIndex& index, int role) const
     if (!index.isValid()) return QVariant();
     if (index.row() >= users.size() || index.row() < 0) return QVariant();
 
-    persistence::User item = users[index.row()];
     switch (role) {
-    case LOGIN_ROLE:   return item.getLogin();
-    case PASS_ROLE:    return item.getPass();
-    case NAME_ROLE:    return item.getName();
-    case SURNAME_ROLE: return item.getSurname();
-    case PHONE_ROLE:   return item.getPhone();
-    case EMAIL_ROLE:   return item.getEmail();
-    case RANG_ROLE:    return item.getRang();
+    case LOGIN_ROLE:   return users[index.row()].getLogin();
+    case PASS_ROLE:    return users[index.row()].getPass();
+    case NAME_ROLE:    return users[index.row()].getName();
+    case SURNAME_ROLE: return users[index.row()].getSurname();
+    case PHONE_ROLE:   return users[index.row()].getPhone();
+    case EMAIL_ROLE:   return users[index.row()].getEmail();
+    case RANG_ROLE:    return users[index.row()].getRang();
     default: return QVariant();
     }
 }
@@ -115,12 +112,12 @@ bool UsersTableModel::setData(const QModelIndex& index, const QVariant& value, i
         }
 
         if (persistence::DBHandler::instance()->updateUser(item, users[index.row()].getLogin())) {
-            qDebug() << "[setData] item updated";
+            qDebug() << "[UsersTableModel][setData] item updated";
             users.replace(index.row(), item);
             emit(dataChanged(index, index));
             return true;
         } else {
-            qDebug() << "[setData] item not updated";
+            qDebug() << "[UsersTableModel][setData] item not updated";
             return false;
         }
     }

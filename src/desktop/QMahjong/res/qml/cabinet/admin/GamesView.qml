@@ -1,50 +1,35 @@
 import QtQuick 2.0
-import QtQuick.Controls 1.3
 
 Item {
     id: root
-    state: "edit"
 
-    Button {
-        id: addNew
-        text: qsTr("Add new")
+    GamesForm {
+        id: gamesForm
         anchors {
             top: parent.top
             left: parent.left
         }
-        onClicked: {
-            gmediator.gamesModel.addNew();
-        }
+        width: 4 * parent.width / 5
+        height: parent.height / 2
     }
 
-    Button {
-        id: deleteSelected
-        text: qsTr("Delete")
+    UsersForm {
+        id: usersForm
         anchors {
-            top: addNew.top
-            left: addNew.right
-            leftMargin: 15
+            top: parent.top
+            left: gamesForm.right
         }
-        onClicked: {
-            gmediator.gamesModel.deleteSelected(gamesTable.currentRow)
-        }
+        width: parent.width / 5
+        height: parent.height / 2
     }
 
-    GamesTable {
-        id: gamesTable
-        height: 150
+    HandsForm {
+        id: handsForm
         anchors {
-            top: addNew.bottom
-            topMargin: 15
-        }
-    }
-
-    HandsTable {
-        id: handsTable
-        height: 150
-        anchors {
-            top: gamesTable.bottom
-            topMargin: 15
+            top: gamesForm.bottom
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
         }
     }
 }

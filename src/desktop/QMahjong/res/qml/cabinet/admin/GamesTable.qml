@@ -3,10 +3,11 @@ import QtQuick.Controls 1.3
 
 Item {
     id: root
+    property alias selectedRow: tableView.currentRow
 
     TableView {
         id: tableView
-        width: 500
+        anchors.fill: parent
         frameVisible: true
 
         TableViewColumn {
@@ -63,31 +64,9 @@ Item {
             width: tableView.viewport.width / 6
         }
 
-        model: ListModel {
-            id: countModel
-            ListElement {
-                player1wind: "E"
-                player1mahjong: true
-                player1point: 21
-                player1score: 41
-                player2wind: "S"
-                player2mahjong: false
-                player2point: 8
-                player2score: 8
-                player3wind: "W"
-                player3mahjong: false
-                player3point: 2
-                player3score: 4
-                player4wind: "N"
-                player4mahjong: false
-                player4point: 6
-                player4score: 12
-            }
-        }
+        model: gmediator.gamesModel
 
-            //gmediator.gamesModel
-
-        /*itemDelegate: Component {
+        itemDelegate: Component {
             id: editableDelegate
             Item {
                 Text {
@@ -107,8 +86,8 @@ Item {
                     Connections {
                         target: loaderEditor.item
                         onAccepted: {
-                            gmediator.gamesModel.editItem(loaderEditor.item.text, styleData.row, styleData.column, styleData.role)
-                            tableView.selection.deselect(0, tableView.model.length - 1)
+                            gmediator.gamesModel.editEntry(loaderEditor.item.text, styleData.row, styleData.column)
+                            tableView.selection.deselect(0, tableView.rowCount - 1)
                         }
                     }
                     sourceComponent: styleData.selected ? ( styleData.role === "winner" ? winnerEditor : editor) : null
@@ -129,21 +108,17 @@ Item {
                     Component {
                         id: winnerEditor
                         ComboBox {
-                            id: winners
-                            model: gmediator.gamesModel.players(tableView.currentRow)
-                            currentIndex: 0
-
+                            id: combobox
+                            currentIndex: find(styleData.value)
+                            model: gmediator.players(gmediator.gamesModel.gameId(styleData.row))
                             onCurrentIndexChanged: {
-                                if (currentText !== "") {
-                                    if (styleData.row > -1)
-                                        gmediator.gamesModel.editItem(currentText, styleData.row, styleData.column, styleData.role)
-                                    tableView.selection.deselect(0, tableView.model.length - 1)
-                                }
+                                console.log("onCurrentIndexChanged", combobox.get(currentIndex).text, currentIndex)
+                                gmediator.gamesModel.editEntry(combobox.model., styleData.row, styleData.column)
                             }
                         }
                     }
                 }
             }
-        }*/
+        }
     }
 }
