@@ -23,6 +23,7 @@ Item {
             top: parent.top
             right: parent.right
         }
+        enabled: tableView.currentRow > -1 ? true : false
         onClicked: {
             users.removeEntry(tableView.currentRow)
         }
