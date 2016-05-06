@@ -3,6 +3,7 @@ import QtQuick.Controls 1.3
 
 Item {
     id: root
+    property alias selectedRow: gamesTable.selectedRow
 
     Rectangle {
         anchors.fill: parent
