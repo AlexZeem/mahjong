@@ -41,6 +41,7 @@ void GamesViewMediator::addPlayer(unsigned long gameId, const QString& login)
             _players << i;
         }
         emit playersChanged();
+        qDebug() << "[GamesViewMediator][addPlayer] added";
     } else {
         qDebug() << "[GamesViewMediator][addPlayer] not added";
     }

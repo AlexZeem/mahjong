@@ -3,7 +3,8 @@ import QtQuick.Controls 1.3
 
 Item {
     id : root
-    property int gameSelected: 0
+    property int gameSelected: -1
+    property bool delegateEditable: true
 
     Rectangle {
         anchors.fill: parent
@@ -11,6 +12,34 @@ Item {
     }
     onGameSelectedChanged: {
         gmediator.getPlayers(gmediator.gamesModel ? gmediator.gamesModel.gameId(gameSelected) : 0)
+    }
+
+    Component {
+        id: listItemDelegate
+        Item {
+            id: listItem
+            width: parent.width
+            height: 15
+            Text {
+                id: login
+                text: modelData
+            }
+            MouseArea {
+                id: mouthArea
+                anchors.fill: parent
+                onClicked: {
+                    playersList.currentIndex = index
+                    if (root.delegateEditable === false) {
+                        gmediator.addPlayer(gmediator.gamesModel ? gmediator.gamesModel.gameId(gameSelected) : 0, modelData)
+                        playersList.model = gmediator.players
+                        delegateEditable = true
+                    } else {
+                        login.color = "white"
+                    }
+                    console.log("delegateEditable", delegateEditable)
+                }
+            }
+        }
     }
 
     ListView {
@@ -22,36 +51,35 @@ Item {
         }
         height: parent.height - addPlayer.height
         model: gmediator.players
-        delegate: Text {
-            text: modelData
-        }
-    }
 
-    Button {
-        id: addPlayer
-        text: qsTr("Add")
-        anchors {
-            top: playersList.bottom
-            left: playersList.left
+        delegate: listItemDelegate
+        Button {
+            id: addPlayer
+            text: qsTr("Add")
+            anchors {
+                top: playersList.bottom
+                left: playersList.left
+            }
+            width: parent.width / 2
+            enabled: gameSelected > -1 ? true : false
+            onClicked: {
+                delegateEditable = false
+                playersList.model = gmediator.users
+            }
         }
-        width: parent.width / 2
-        enabled: gameSelected > -1 ? true : false
-        onClicked: {
-            gmediator.addPlayer(gmediator.gamesModel ? gmediator.gamesModel.gameId(gameSelected) : 0, "a")
-        }
-    }
 
-    Button {
-        id: deletePlayer
-        text: qsTr("Delete")
-        anchors {
-            top: playersList.bottom
-            left: addPlayer.right
-        }
-        width: parent.width / 2
-        enabled: gameSelected > -1 ? true : false
-        onClicked: {
-            //gmediator.gamesModel.removeEntry(gamesTable.selectedRow)
+        Button {
+            id: deletePlayer
+            text: qsTr("Delete")
+            anchors {
+                top: playersList.bottom
+                left: addPlayer.right
+            }
+            width: parent.width / 2
+            enabled: gameSelected > -1 ? true : false
+            onClicked: {
+                //gmediator.gamesModel.removeEntry(gamesTable.selectedRow)
+            }
         }
     }
 }

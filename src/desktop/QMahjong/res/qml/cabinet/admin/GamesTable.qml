@@ -66,10 +66,15 @@ Item {
 
         model: gmediator.gamesModel
 
+        onCurrentRowChanged: {
+            gmediator.getPlayers(gmediator.gamesModel ? gmediator.gamesModel.gameId(currentRow) : 0, true)
+        }
+
         itemDelegate: Component {
             id: editableDelegate
             Item {
                 Text {
+                    id: itemText
                     width: parent.width
                     anchors.margins: 4
                     anchors.left: parent.left
@@ -91,6 +96,7 @@ Item {
                         }
                     }
                     sourceComponent: styleData.selected ? ( styleData.role === "winner" ? winnerEditor : editor) : null
+
                     Component {
                         id: editor
                         TextInput {
@@ -112,13 +118,11 @@ Item {
                             model: gmediator.players
 
                             onCurrentIndexChanged: {
-                                if (find(styleData.value) > 0) {
+                                if (model.length > 0 && currentIndex > -1 && currentText !== "") {
                                     gmediator.gamesModel.editEntry(combobox.model[currentIndex], styleData.row, styleData.column)
                                     tableView.selection.deselect(0, tableView.rowCount - 1)
                                 }
                             }
-
-                            Component.onCompleted: gmediator.getPlayers(gmediator.gamesModel ? gmediator.gamesModel.gameId(styleData.row) : 0, true)
                         }
                     }
                 }

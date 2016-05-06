@@ -31,9 +31,9 @@ DBHandler::DBHandler()
     impl->limits.clear();
     impl->limits << "Green dragon";
 
-    impl->participants.clear();
+    /*impl->participants.clear();
     Participant p1(1, 1, QVector<QString>(4,"q"));
-    impl->participants[p1.getGameId()] = p1;
+    impl->participants[p1.getGameId()] = p1;*/
 }
 
 DBHandler::~DBHandler()
