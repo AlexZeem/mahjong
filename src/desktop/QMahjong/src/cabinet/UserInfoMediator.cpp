@@ -1,6 +1,7 @@
 #include "UserInfoMediator.h"
 #include "../persistence/DBHandler.h"
 #include "../persistence/User.h"
+#include <QDebug>
 
 namespace cabinet {
 
@@ -10,74 +11,124 @@ UserInfoMediator::UserInfoMediator(QObject *parent)
 
 QString UserInfoMediator::nickname() const
 {
-    return _nickname;
+
+    return currentUser.getLogin();
 }
 
 QString UserInfoMediator::name() const
 {
-    return _name;
+    return currentUser.getName();
 }
 
 QString UserInfoMediator::surname() const
 {
-    return _surname;
+    return currentUser.getSurname();
 }
 
 QString UserInfoMediator::phone() const
 {
-    return _phone;
+    return currentUser.getPhone();
 }
 
 QString UserInfoMediator::email() const
 {
-    return _email;
+    return currentUser.getEmail();
 }
 
-//double UserInfoMediator::rang() const
-//{
-//    return _rang;
-//}
+double UserInfoMediator::rang() const
+{
+    return currentUser.getRang();
+}
 
 void UserInfoMediator::setNickname(QString nickname)
 {
-    if (_nickname == nickname)
+    if (currentUser.getLogin() == nickname)
         return;
-
-    if (nickname != _nickname){
-        _nickname = nickname;
-        emit userChanged(nickname);
+    persistence::User temp = currentUser;
+    temp.setLogin(nickname);
+    if (persistence::DBHandler::instance()->updateUser(temp, currentUser.getLogin()))
+    {
+        currentUser.setLogin(nickname);
+        emit nicknameChanged();
     }
+
 }
 
 void UserInfoMediator::setName(QString name)
 {
-    persistence::User currentUser = persistence::DBHandler::instance()->selectUser(name);
-    _name = currentUser.getName();
+    if (currentUser.getName()  == name)
+        return;
+    persistence::User temp = currentUser;
+    temp.setName(name);
+    if (persistence::DBHandler::instance()->updateUser(temp))
+    {
+        currentUser.setName(name);
+        emit nameChanged();
+    }
 }
 
 void UserInfoMediator::setSurname(QString surname)
 {
-    persistence::User currentUser = persistence::DBHandler::instance()->selectUser(surname);
-    _surname = currentUser.getSurname();
+
+    if (currentUser.getSurname() == surname)
+        return;
+    persistence::User temp = currentUser;
+    temp.setSurname(surname);
+    if (persistence::DBHandler::instance()->updateUser(temp))
+    {
+        currentUser.setSurname(surname);
+        emit surnameChanged();
+    }
 }
 
 void UserInfoMediator::setPhone(QString phone)
 {
-    persistence::User currentUser = persistence::DBHandler::instance()->selectUser(phone);
-    _phone = currentUser.getPhone();
+    if (currentUser.getPhone() == phone)
+        return;
+    persistence::User temp = currentUser;
+    temp.setPhone(phone);
+    if(persistence::DBHandler::instance()->updateUser(temp))
+    {
+        currentUser.setPhone(phone);
+        emit phoneChanged();
+    }
 }
 
 void UserInfoMediator::setEmail(QString email)
 {
-    persistence::User currentUser = persistence::DBHandler::instance()->selectUser(email);
-    _email = currentUser.getEmail();
+    if (currentUser.getEmail() == email)
+        return;
+    persistence::User temp = currentUser;
+    temp.setEmail(email);
+    if (persistence::DBHandler::instance()->updateUser(temp))
+    {
+        currentUser.setEmail(email);
+        emit emailChanged();
+    }
 }
 
-//void UserInfoMediator::setRang(double rang)
-//{
-//    persistence::User currentUser = persistence::DBHandler::instance()->u;
-//    _rang = currentUser.rang;
-//}
+void UserInfoMediator::setRang(double rang)
+{
+    if (currentUser.getRang() == rang)
+        return;
+    persistence::User temp = currentUser;
+    temp.setRang(rang);
+    if (persistence::DBHandler::instance()->updateUser(temp))
+    {
+        currentUser.setRang(rang);
+        emit rangChanged();
+    }
+}
+
+void UserInfoMediator::setUser(QString login)
+{
+    qDebug() << login;
+
+    currentUser.print();
+    /*currentUser = */persistence::DBHandler::instance()->selectUser(login).print();
+    persistence::DBHandler::instance()->selectUser(login).print();
+    emit nicknameChanged();
+}
 
 
 

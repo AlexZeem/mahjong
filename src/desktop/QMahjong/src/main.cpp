@@ -15,22 +15,19 @@ int main(int argc, char *argv[])
 
     //object registration
     cabinet::Authorization auth;
+    cabinet::UserInfoMediator userMediator;
+    //Connect:
+    QObject::connect(&auth, SIGNAL(validationSuccesfull(QString)), &userMediator, SLOT(setUser(QString)));
+
     view.engine()->rootContext()->setContextProperty("auth", &auth);
     cabinet::UsersViewModel usersModel;
     view.engine()->rootContext()->setContextProperty("umodel", &usersModel);
     cabinet::GamesViewMediator gameMediator;
     view.engine()->rootContext()->setContextProperty("gmediator", &gameMediator);
-    cabinet::UserInfoMediator userMediator;
+
     view.engine()->rootContext()->setContextProperty("umediator", &userMediator);
     //
 
-    //Connect:
-    QObject::connect(&auth, SIGNAL(validationSuccesfull(QString)), &userMediator, SLOT(setNickname(QString)));
-    QObject::connect(&auth, SIGNAL(validationSuccesfull(QString)), &userMediator, SLOT(setName(QString)));
-    QObject::connect(&auth, SIGNAL(validationSuccesfull(QString)), &userMediator, SLOT(setSurname(QString)));
-    QObject::connect(&auth, SIGNAL(validationSuccesfull(QString)), &userMediator, SLOT(setPhone(QString)));
-    QObject::connect(&auth, SIGNAL(validationSuccesfull(QString)), &userMediator, SLOT(setEmail(QString)));
-    //QObject::connect(&auth, SIGNAL(validationSuccesfull(QString)), &userMediator, SLOT(setRang(double)));
 
     //for transparency
     QQuickWindow::setDefaultAlphaBuffer(true);

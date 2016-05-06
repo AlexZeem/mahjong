@@ -21,7 +21,10 @@ impl_t::~impl_t()
 
 User impl_t::selectUser(const QString &login)
 {
+    qDebug() << "Select user:";
+    users.value(login).print();
     return users.value(login);
+
 }
 
 bool impl_t::updateUser(const User &u, const QString& login)
@@ -30,7 +33,8 @@ bool impl_t::updateUser(const User &u, const QString& login)
     if (!users.contains(key)) {
         return false;
     } else {
-        users[key] = u;
+        if (!login.isEmpty()) users.remove(login);
+        users[u.getLogin()] = u;
         return true;
     }
 }
