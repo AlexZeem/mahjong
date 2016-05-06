@@ -109,7 +109,7 @@ Item {
                         id: winnerEditor
                         ComboBox {
                             id: combobox
-                            model: gmediator.players(gmediator.gamesModel ? gmediator.gamesModel.gameId(styleData.row) : 0)
+                            model: gmediator.players(gmediator.gamesModel ? gmediator.gamesModel.gameId(styleData.row) : 0, true)
                             onCurrentIndexChanged: {
                                 if (find(styleData.value) > 0) {
                                     gmediator.gamesModel.editEntry(combobox.model[currentIndex], styleData.row, styleData.column)

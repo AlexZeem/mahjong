@@ -11,14 +11,14 @@ GamesViewMediator::GamesViewMediator(QObject *parent) : QObject(parent)
 GamesViewMediator::~GamesViewMediator()
 { }
 
-QStringList GamesViewMediator::players(unsigned long gameId) const
+QStringList GamesViewMediator::players(unsigned long gameId, bool all) const
 {
     QStringList result;
     for (const auto& i : persistence::DBHandler::instance()->getPlayers(gameId)) {
         result << i;
     }
 
-    if (result.empty()) {
+    if (result.empty() && all) {
         result << "";
         for (const auto& i : persistence::DBHandler::instance()->getUsers()) {
             if ("admin" == i.getLogin()) continue;

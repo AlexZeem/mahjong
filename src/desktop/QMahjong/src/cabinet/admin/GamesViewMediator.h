@@ -13,7 +13,7 @@ public:
     explicit GamesViewMediator(QObject *parent = 0);
     virtual ~GamesViewMediator();
 
-    Q_INVOKABLE QStringList players(unsigned long gameId) const;
+    Q_INVOKABLE QStringList players(unsigned long gameId, bool all = false) const;
 
     QObject *gamesModel();
 
@@ -22,6 +22,5 @@ signals:
 
 private:
     GamesTableModel _gamesModel;
-    QString m_nickname;
 };
 } // namespace cabinet
