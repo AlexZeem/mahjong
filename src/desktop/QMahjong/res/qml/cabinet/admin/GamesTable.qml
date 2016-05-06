@@ -109,13 +109,16 @@ Item {
                         id: winnerEditor
                         ComboBox {
                             id: combobox
-                            model: gmediator.players(gmediator.gamesModel ? gmediator.gamesModel.gameId(styleData.row) : 0, true)
+                            model: gmediator.players
+
                             onCurrentIndexChanged: {
                                 if (find(styleData.value) > 0) {
                                     gmediator.gamesModel.editEntry(combobox.model[currentIndex], styleData.row, styleData.column)
                                     tableView.selection.deselect(0, tableView.rowCount - 1)
                                 }
                             }
+
+                            Component.onCompleted: gmediator.getPlayers(gmediator.gamesModel ? gmediator.gamesModel.gameId(styleData.row) : 0, true)
                         }
                     }
                 }

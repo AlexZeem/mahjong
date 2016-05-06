@@ -99,6 +99,12 @@ QMap<unsigned long, Game> impl_t::getGames()
     return games;
 }
 
+bool impl_t::updateParticipant(const Participant &p)
+{
+    participants[p.getGameId()] = p;
+    return true;
+}
+
 QVector<QString> impl_t::getPlayers(unsigned long gameId)
 {
     if (!participants.contains(gameId)) {

@@ -84,6 +84,11 @@ QMap<unsigned long, Game> DBHandler::getGames()
     return impl->getGames();
 }
 
+bool DBHandler::updateParticipant(const Participant &p)
+{
+    return impl->updateParticipant(p);
+}
+
 QVector<QString> DBHandler::getPlayers(unsigned long gameId)
 {
     return impl->getPlayers(gameId);

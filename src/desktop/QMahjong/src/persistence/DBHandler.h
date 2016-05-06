@@ -30,6 +30,7 @@ public:
     bool deleteGame(const Game& g);
     QMap<unsigned long, Game> getGames();
 
+    bool updateParticipant(const Participant& p);
     QVector<QString> getPlayers(unsigned long gameId);
 
 public:
