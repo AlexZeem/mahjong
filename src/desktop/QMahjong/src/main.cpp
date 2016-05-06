@@ -26,6 +26,11 @@ int main(int argc, char *argv[])
 
     //Connect:
     QObject::connect(&auth, SIGNAL(validationSuccesfull(QString)), &userMediator, SLOT(setNickname(QString)));
+    QObject::connect(&auth, SIGNAL(validationSuccesfull(QString)), &userMediator, SLOT(setName(QString)));
+    QObject::connect(&auth, SIGNAL(validationSuccesfull(QString)), &userMediator, SLOT(setSurname(QString)));
+    QObject::connect(&auth, SIGNAL(validationSuccesfull(QString)), &userMediator, SLOT(setPhone(QString)));
+    QObject::connect(&auth, SIGNAL(validationSuccesfull(QString)), &userMediator, SLOT(setEmail(QString)));
+    //QObject::connect(&auth, SIGNAL(validationSuccesfull(QString)), &userMediator, SLOT(setRang(double)));
 
     //for transparency
     QQuickWindow::setDefaultAlphaBuffer(true);
