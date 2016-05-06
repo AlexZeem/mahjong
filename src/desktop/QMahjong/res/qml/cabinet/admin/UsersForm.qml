@@ -17,7 +17,6 @@ Item {
     Component {
         id: listItemDelegate
         Item {
-            id: listItem
             width: parent.width
             height: 15
             Text {
@@ -25,18 +24,17 @@ Item {
                 text: modelData
             }
             MouseArea {
-                id: mouthArea
                 anchors.fill: parent
                 onClicked: {
                     playersList.currentIndex = index
-                    if (root.delegateEditable === false) {
+                    if (delegateEditable === false) {
+                        delegateEditable = true
                         gmediator.addPlayer(gmediator.gamesModel ? gmediator.gamesModel.gameId(gameSelected) : 0, modelData)
                         playersList.model = gmediator.players
-                        delegateEditable = true
+
                     } else {
                         login.color = "white"
                     }
-                    console.log("delegateEditable", delegateEditable)
                 }
             }
         }
@@ -51,35 +49,35 @@ Item {
         }
         height: parent.height - addPlayer.height
         model: gmediator.players
-
         delegate: listItemDelegate
-        Button {
-            id: addPlayer
-            text: qsTr("Add")
-            anchors {
-                top: playersList.bottom
-                left: playersList.left
-            }
-            width: parent.width / 2
-            enabled: gameSelected > -1 ? true : false
-            onClicked: {
-                delegateEditable = false
-                playersList.model = gmediator.users
-            }
-        }
+    }
 
-        Button {
-            id: deletePlayer
-            text: qsTr("Delete")
-            anchors {
-                top: playersList.bottom
-                left: addPlayer.right
-            }
-            width: parent.width / 2
-            enabled: gameSelected > -1 ? true : false
-            onClicked: {
-                //gmediator.gamesModel.removeEntry(gamesTable.selectedRow)
-            }
+    Button {
+        id: addPlayer
+        text: qsTr("Add")
+        anchors {
+            top: playersList.bottom
+            left: playersList.left
+        }
+        width: parent.width / 2
+        enabled: gameSelected > -1 ? true : false
+        onClicked: {
+            delegateEditable = false
+            playersList.model = gmediator.users
+        }
+    }
+
+    Button {
+        id: deletePlayer
+        text: qsTr("Delete")
+        anchors {
+            top: playersList.bottom
+            left: addPlayer.right
+        }
+        width: parent.width / 2
+        enabled: gameSelected > -1 ? true : false
+        onClicked: {
+            //gmediator.gamesModel.removeEntry(gamesTable.selectedRow)
         }
     }
 }
