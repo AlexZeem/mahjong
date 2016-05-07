@@ -17,7 +17,7 @@ public:
 
 signals:
     void validationFailed();
-    void validationSuccesfull();
+    void validationSuccesfull(QString);
     void superUserSignIn();
 
 private:

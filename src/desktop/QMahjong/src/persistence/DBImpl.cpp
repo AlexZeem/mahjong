@@ -21,7 +21,10 @@ impl_t::~impl_t()
 
 User impl_t::selectUser(const QString &login)
 {
+    qDebug() << "Select user:";
+    users.value(login).print();
     return users.value(login);
+
 }
 
 bool impl_t::updateUser(const User &u, const QString& login)

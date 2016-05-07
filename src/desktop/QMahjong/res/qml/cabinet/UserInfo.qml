@@ -30,7 +30,7 @@ Item {
                     text: qsTr("Nickname: ")
                 }
                 Text {
-                    text: ""
+                    text: umediator.nickname
                 }
             }
 
@@ -40,7 +40,7 @@ Item {
                     text: qsTr("Name: ")
                 }
                 Text {
-                    text: ""
+                    text: umediator.name
                 }
             }
 
@@ -50,7 +50,27 @@ Item {
                     text: qsTr("Surname: ")
                 }
                 Text {
-                    text: ""
+                    text: umediator.surname
+                }
+            }
+
+            Row {
+                id: phone
+                Text {
+                    text: qsTr("Phone: ")
+                }
+                Text {
+                    text: umediator.phone
+                }
+            }
+
+            Row {
+                id: email
+                Text {
+                    text: qsTr("Surname: ")
+                }
+                Text {
+                    text: umediator.email
                 }
             }
 
@@ -60,7 +80,7 @@ Item {
                     text: qsTr("Rang: ")
                 }
                 Text {
-                    text: ""
+                    text: umediator.rang
                     font.italic: true
                 }
             }

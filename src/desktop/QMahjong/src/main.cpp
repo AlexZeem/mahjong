@@ -3,6 +3,7 @@
 #include "cabinet/Authorization.h"
 #include "cabinet/admin/UsersTableModel.h"
 #include "cabinet/admin/GamesViewMediator.h"
+#include "cabinet/UserInfoMediator.h"
 #include "persistence/DBHandler.h"
 
 int main(int argc, char *argv[])
@@ -14,12 +15,19 @@ int main(int argc, char *argv[])
 
     //object registration
     cabinet::Authorization auth;
+    cabinet::UserInfoMediator userMediator;
+    //Connect:
+    QObject::connect(&auth, SIGNAL(validationSuccesfull(QString)), &userMediator, SLOT(setUser(QString)));
+
     view.engine()->rootContext()->setContextProperty("auth", &auth);
     cabinet::UsersTableModel usersModel;
     view.engine()->rootContext()->setContextProperty("users", &usersModel);
     cabinet::GamesViewMediator gameMediator;
     view.engine()->rootContext()->setContextProperty("gmediator", &gameMediator);
+
+    view.engine()->rootContext()->setContextProperty("umediator", &userMediator);
     //
+
 
     //for transparency
     QQuickWindow::setDefaultAlphaBuffer(true);

@@ -23,7 +23,7 @@ void Authorization::validate(const QString &login, const QString &pass)
             if (u.getSuper()) {
                 emit superUserSignIn();
             } else {
-                emit validationSuccesfull();
+                emit validationSuccesfull(login);
             }
         } else {
             emit validationFailed();
