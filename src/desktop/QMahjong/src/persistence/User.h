@@ -12,13 +12,13 @@ public:
     friend QDataStream &operator >> (QDataStream &in, User& obj);
 
     User(bool _a = false,
-         QString _l = "a",
-         QString _p = "a",
+         QString _l = "login",
+         QString _p = "pass",
          QString _n = "Player",
          QString _s = "First",
-         QString _ph = "000 123 45 67",
+         QString _ph = "000 000 00 00",
          QString _e = "some@email.com",
-         double _r = 0.10);
+         double _r = 0.0);
 
     bool getSuper() const;
     void setSuper(bool value);

@@ -12,7 +12,7 @@ Item {
 
     DSM.StateMachine {
         id: stateMachine
-        initialState: administrationState
+        initialState: signInState
         running: true
 
         DSM.State {

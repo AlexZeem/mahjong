@@ -49,7 +49,7 @@ void UserInfoMediator::setNickname(QString nickname)
     if (persistence::DBHandler::instance()->updateUser(temp, currentUser.getLogin()))
     {
         currentUser.setLogin(nickname);
-        emit nicknameChanged();
+        emit userChanged();
     }
 
 }
@@ -63,7 +63,7 @@ void UserInfoMediator::setName(QString name)
     if (persistence::DBHandler::instance()->updateUser(temp))
     {
         currentUser.setName(name);
-        emit nameChanged();
+        emit userChanged();
     }
 }
 
@@ -77,7 +77,7 @@ void UserInfoMediator::setSurname(QString surname)
     if (persistence::DBHandler::instance()->updateUser(temp))
     {
         currentUser.setSurname(surname);
-        emit surnameChanged();
+        emit userChanged();
     }
 }
 
@@ -90,7 +90,7 @@ void UserInfoMediator::setPhone(QString phone)
     if(persistence::DBHandler::instance()->updateUser(temp))
     {
         currentUser.setPhone(phone);
-        emit phoneChanged();
+        emit userChanged();
     }
 }
 
@@ -103,7 +103,7 @@ void UserInfoMediator::setEmail(QString email)
     if (persistence::DBHandler::instance()->updateUser(temp))
     {
         currentUser.setEmail(email);
-        emit emailChanged();
+        emit userChanged();
     }
 }
 
@@ -116,18 +116,14 @@ void UserInfoMediator::setRang(double rang)
     if (persistence::DBHandler::instance()->updateUser(temp))
     {
         currentUser.setRang(rang);
-        emit rangChanged();
+        emit userChanged();
     }
 }
 
 void UserInfoMediator::setUser(QString login)
 {
-    qDebug() << login;
-
-    currentUser.print();
-    /*currentUser = */persistence::DBHandler::instance()->selectUser(login).print();
-    persistence::DBHandler::instance()->selectUser(login).print();
-    emit nicknameChanged();
+    currentUser = persistence::DBHandler::instance()->selectUser(login);
+    emit userChanged();
 }
 
 

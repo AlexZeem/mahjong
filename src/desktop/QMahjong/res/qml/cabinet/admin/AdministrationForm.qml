@@ -32,27 +32,27 @@ Item {
                 margins: 15
             }
 
-//            Tab {
-//                id: usersTab
-//                title: "Users"
-//                UsersView {
-//                    anchors {
-//                        fill: parent
-//                        margins: 15
-//                    }
-//                }
-//            }
-
             Tab {
-                id: gamesTab
-                title: "Games"
-                GamesView {
+                id: usersTab
+                title: "Users"
+                UsersView {
                     anchors {
                         fill: parent
                         margins: 15
                     }
                 }
             }
+
+//            Tab {
+//                id: gamesTab
+//                title: "Games"
+//                GamesView {
+//                    anchors {
+//                        fill: parent
+//                        margins: 15
+//                    }
+//                }
+//            }
         }
     }
 }
