@@ -31,9 +31,6 @@ Item {
                         delegateEditable = true
                         gmediator.addPlayer(gmediator.gamesModel ? gmediator.gamesModel.gameId(gameSelected) : 0, modelData)
                         playersList.model = gmediator.players
-
-                    } else {
-                        login.color = "white"
                     }
                 }
             }
@@ -50,6 +47,8 @@ Item {
         height: parent.height - addPlayer.height
         model: gmediator.players
         delegate: listItemDelegate
+        highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
+        focus: true
     }
 
     Button {
@@ -77,7 +76,9 @@ Item {
         width: parent.width / 2
         enabled: gameSelected > -1 ? true : false
         onClicked: {
-            //gmediator.gamesModel.removeEntry(gamesTable.selectedRow)
+            if (delegateEditable) {
+                gmediator.removePlayer(gmediator.gamesModel ? gmediator.gamesModel.gameId(gameSelected) : 0, playersList.currentIndex)
+            }
         }
     }
 }

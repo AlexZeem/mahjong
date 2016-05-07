@@ -47,6 +47,29 @@ void GamesViewMediator::addPlayer(unsigned long gameId, const QString& login)
     }
 }
 
+void GamesViewMediator::removePlayer(unsigned long gameId, int index)
+{
+    QVector<QString> pls = persistence::DBHandler::instance()->getPlayers(gameId);
+    if (index < 0 || index >= pls.size()) {
+        qDebug() << "[GamesViewMediator][removePlayer]" << index << "invalid";
+        return;
+    }
+
+    pls.removeAt(index);
+    persistence::Participant p(qrand(), gameId, pls);
+
+    if (persistence::DBHandler::instance()->updateParticipant(p)) {
+        _players.clear();
+        for (const auto& i : pls) {
+            _players << i;
+        }
+        emit playersChanged();
+        qDebug() << "[GamesViewMediator][removePlayer] removed";
+    } else {
+        qDebug() << "[GamesViewMediator][removePlayer] not removed";
+    }
+}
+
 QObject *GamesViewMediator::gamesModel()
 {
     return &_gamesModel;

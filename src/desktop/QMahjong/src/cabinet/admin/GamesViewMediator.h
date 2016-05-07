@@ -21,6 +21,7 @@ public:
 
     Q_INVOKABLE void getPlayers(unsigned long gameId);
     Q_INVOKABLE void addPlayer(unsigned long gameId, const QString& login);
+    Q_INVOKABLE void removePlayer(unsigned long gameId, int index);
 
 signals:
     void never();
