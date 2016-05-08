@@ -3,10 +3,11 @@ import QtQuick.Controls 1.3
 
 Item {
     id: root
+    //property alias selectedRow: tableView.currentRow
 
     TableView {
         id: tableView
-        width: 500
+        anchors.fill: parent
         frameVisible: true
 
         TableViewColumn {
@@ -15,122 +16,128 @@ Item {
             role: "wind"
             movable: false
             resizable: false
-            width: 30
+            width: tableView.viewport.width / 13
         }
 
         TableViewColumn {
             id: mahjong1Column
-            title:"M"
+            title: "M"
             role: "mahjong1"
             movable: false
             resizable: false
-            width: (tableView.viewport.width  - 30) / 20
+            width: tableView.viewport.width / 13
         }
 
         TableViewColumn {
             id: combo1Column
-            title: "Combo"
+            title: "C 1"
             role: "combo1"
             movable: false
             resizable: false
-            width: (tableView.viewport.width  - 30) / 10
+            width: tableView.viewport.width / 13
         }
 
         TableViewColumn {
             id: score1Column
-            title: "Score"
+            title: "S 1"
             role: "score1"
             movable: false
             resizable: false
-            width: (tableView.viewport.width  - 30) / 10
+            width: tableView.viewport.width / 13
         }
 
         TableViewColumn {
             id: mahjong2Column
-            title:"M"
+            title: "M"
             role: "mahjong2"
             movable: false
             resizable: false
-            width: (tableView.viewport.width  - 30) / 20
+            width: tableView.viewport.width / 13
         }
 
         TableViewColumn {
             id: combo2Column
-            title: "Combo"
+            title: "C 2"
             role: "combo2"
             movable: false
             resizable: false
-            width: (tableView.viewport.width  - 30) / 10
+            width: tableView.viewport.width / 13
         }
 
         TableViewColumn {
             id: score2Column
-            title: "Score"
+            title: "S 2"
             role: "score2"
             movable: false
             resizable: false
-            width: (tableView.viewport.width  - 30) / 10
+            width: tableView.viewport.width / 13
         }
 
         TableViewColumn {
             id: mahjong3Column
-            title:"M"
+            title: "M"
             role: "mahjong3"
             movable: false
             resizable: false
-            width: (tableView.viewport.width  - 30) / 20
+            width: tableView.viewport.width / 13
         }
 
         TableViewColumn {
             id: combo3Column
-            title: "Combo"
+            title: "C 3"
             role: "combo3"
             movable: false
             resizable: false
-            width: (tableView.viewport.width  - 30) / 10
+            width: tableView.viewport.width / 13
         }
 
         TableViewColumn {
             id: score3Column
-            title: "Score"
+            title: "S 3"
             role: "score3"
             movable: false
             resizable: false
-            width: (tableView.viewport.width  - 30) / 10
+            width: tableView.viewport.width / 13
         }
 
         TableViewColumn {
             id: mahjong4Column
-            title:"M"
+            title: "M"
             role: "mahjong4"
             movable: false
             resizable: false
-            width: (tableView.viewport.width  - 30) / 20
+            width: tableView.viewport.width / 13
         }
 
         TableViewColumn {
             id: combo4Column
-            title: "Combo"
+            title: "C 4"
             role: "combo4"
             movable: false
             resizable: false
-            width: tableView.viewport.width / 10
+            width: tableView.viewport.width / 13
         }
 
         TableViewColumn {
             id: score4Column
-            title: "Score"
+            title: "S 4"
             role: "score4"
             movable: false
             resizable: false
-            width: tableView.viewport.width / 10
+            width: tableView.viewport.width / 13
         }
-        model: gmediator.gamesModel
+
+        model: gmediator.handsModel
+
+        onCurrentRowChanged: {
+            //gmediator.getPlayers(gmediator.gamesModel ? gmediator.gamesModel.gameId(currentRow) : 0, true)
+        }
 
         itemDelegate: Component {
             id: editableDelegate
             Item {
                 Text {
+                    id: itemText
                     width: parent.width
                     anchors.margins: 4
                     anchors.left: parent.left
@@ -147,11 +154,12 @@ Item {
                     Connections {
                         target: loaderEditor.item
                         onAccepted: {
-                            //gmediator.gamesModel.editItem(loaderEditor.item.text, styleData.row, styleData.column, styleData.role)
-                            tableView.selection.deselect(0, tableView.model.length - 1)
+                            //gmediator.gamesModel.editEntry(loaderEditor.item.text, styleData.row, styleData.column)
+                            tableView.selection.deselect(0, tableView.rowCount - 1)
                         }
                     }
-                    sourceComponent: styleData.selected ? ( styleData.role === "winner" ? winnerEditor : editor) : null
+                    sourceComponent: styleData.selected ? editor : null
+
                     Component {
                         id: editor
                         TextInput {
@@ -163,22 +171,6 @@ Item {
                                 anchors.fill: parent
                                 hoverEnabled: true
                                 onClicked: textinput.forceActiveFocus()
-                            }
-                        }
-                    }
-                    Component {
-                        id: winnerEditor
-                        ComboBox {
-                            id: winners
-                            model: gmediator.gamesModel.players(tableView.currentRow)
-                            currentIndex: 0
-
-                            onCurrentIndexChanged: {
-                                if (currentText !== "") {
-                                    if (styleData.row > -1)
-                                        gmediator.gamesModel.editItem(currentText, styleData.row, styleData.column, styleData.role)
-                                    tableView.selection.deselect(0, tableView.model.length - 1)
-                                }
                             }
                         }
                     }

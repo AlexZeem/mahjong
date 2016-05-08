@@ -33,6 +33,11 @@ public:
     bool updateParticipant(const Participant& p);
     QVector<QString> getPlayers(unsigned long gameId);
 
+    bool updateHand(const Hand& h);
+    bool addHand(const Hand& h);
+    bool deleteHand(const Hand& h);
+    QMap<unsigned long, persistence::Hand> getHands(unsigned long gameId = 0);
+
 public:
     static DBHandler* instance();
 

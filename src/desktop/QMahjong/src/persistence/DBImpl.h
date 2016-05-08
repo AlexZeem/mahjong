@@ -29,6 +29,11 @@ struct impl_t
     bool updateParticipant(const Participant& p);
     QVector<QString> getPlayers(unsigned long gameId);
 
+    bool updateHand(const Hand& h);
+    bool addHand(const Hand& h);
+    bool deleteHand(const Hand& h);
+    QMap<unsigned long, persistence::Hand> getHands(unsigned long gameId = 0);
+
     void saveGamesData(const QString& path);
     void loadGamesData(const QString& path, unsigned int counter);
     void saveHandsData(const QString& path);

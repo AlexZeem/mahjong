@@ -114,6 +114,51 @@ QVector<QString> impl_t::getPlayers(unsigned long gameId)
     }
 }
 
+bool impl_t::updateHand(const Hand &h)
+{
+    if (!hands.contains(h.getHandId())) {
+        return false;
+    } else {
+        hands[h.getHandId()] = h;
+        return true;
+    }
+}
+
+bool impl_t::addHand(const Hand &h)
+{
+    if (hands.contains(h.getHandId())) {
+        return false;
+    } else {
+        hands[h.getHandId()] = h;
+        return true;
+    }
+}
+
+bool impl_t::deleteHand(const Hand &h)
+{
+    if (!hands.contains(h.getHandId())) {
+        return false;
+    } else {
+        hands.erase(hands.find(h.getHandId()));
+        return true;
+    }
+}
+
+QMap<unsigned long, Hand> impl_t::getHands(unsigned long gameId)
+{
+    if (gameId == 0) return hands;
+
+    QMap<unsigned long, Hand> result;
+
+    for (const auto& i: hands) {
+        if (i.getGameId() == gameId) {
+            result[i.getHandId()] = i;
+        }
+    }
+
+    return result;
+}
+
 void impl_t::saveGamesData(const QString& path)
 {
     QFile file(path + gamesDataPath);

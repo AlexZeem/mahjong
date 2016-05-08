@@ -94,6 +94,26 @@ QVector<QString> DBHandler::getPlayers(unsigned long gameId)
     return impl->getPlayers(gameId);
 }
 
+bool DBHandler::updateHand(const Hand &h)
+{
+    return impl->updateHand(h);
+}
+
+bool DBHandler::addHand(const Hand &h)
+{
+    return impl->addHand(h);
+}
+
+bool DBHandler::deleteHand(const Hand &h)
+{
+    return impl->deleteHand(h);
+}
+
+QMap<unsigned long, Hand> DBHandler::getHands(unsigned long gameId)
+{
+    return impl->getHands(gameId);
+}
+
 DBHandler* DBHandler::instance()
 {
     static DBHandler*  ptr = 0;

@@ -75,6 +75,11 @@ QObject *GamesViewMediator::gamesModel()
     return &_gamesModel;
 }
 
+QObject *GamesViewMediator::handsModel()
+{
+    return &_handsModel;
+}
+
 QStringList GamesViewMediator::users() const
 {
     QStringList result;
