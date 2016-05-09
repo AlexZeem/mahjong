@@ -20,7 +20,7 @@ Item {
             role: "wind"
             movable: false
             resizable: false
-            width: tableView.viewport.width / 13
+            width: tableView.viewport.width / 14
         }
 
         TableViewColumn {
@@ -29,7 +29,7 @@ Item {
             role: "mahjong1"
             movable: false
             resizable: false
-            width: tableView.viewport.width / 13
+            width: tableView.viewport.width / 14
         }
 
         TableViewColumn {
@@ -38,7 +38,7 @@ Item {
             role: "combo1"
             movable: false
             resizable: false
-            width: tableView.viewport.width / 13
+            width: tableView.viewport.width / 14
         }
 
         TableViewColumn {
@@ -47,7 +47,7 @@ Item {
             role: "score1"
             movable: false
             resizable: false
-            width: tableView.viewport.width / 13
+            width: tableView.viewport.width / 14
         }
 
         TableViewColumn {
@@ -56,7 +56,7 @@ Item {
             role: "mahjong2"
             movable: false
             resizable: false
-            width: tableView.viewport.width / 13
+            width: tableView.viewport.width / 14
         }
 
         TableViewColumn {
@@ -65,7 +65,7 @@ Item {
             role: "combo2"
             movable: false
             resizable: false
-            width: tableView.viewport.width / 13
+            width: tableView.viewport.width / 14
         }
 
         TableViewColumn {
@@ -74,7 +74,7 @@ Item {
             role: "score2"
             movable: false
             resizable: false
-            width: tableView.viewport.width / 13
+            width: tableView.viewport.width / 14
         }
 
         TableViewColumn {
@@ -83,7 +83,7 @@ Item {
             role: "mahjong3"
             movable: false
             resizable: false
-            width: tableView.viewport.width / 13
+            width: tableView.viewport.width / 14
         }
 
         TableViewColumn {
@@ -92,7 +92,7 @@ Item {
             role: "combo3"
             movable: false
             resizable: false
-            width: tableView.viewport.width / 13
+            width: tableView.viewport.width / 14
         }
 
         TableViewColumn {
@@ -101,7 +101,7 @@ Item {
             role: "score3"
             movable: false
             resizable: false
-            width: tableView.viewport.width / 13
+            width: tableView.viewport.width / 14
         }
 
         TableViewColumn {
@@ -110,7 +110,7 @@ Item {
             role: "mahjong4"
             movable: false
             resizable: false
-            width: tableView.viewport.width / 13
+            width: tableView.viewport.width / 14
         }
 
         TableViewColumn {
@@ -119,7 +119,7 @@ Item {
             role: "combo4"
             movable: false
             resizable: false
-            width: tableView.viewport.width / 13
+            width: tableView.viewport.width / 14
         }
 
         TableViewColumn {
@@ -128,7 +128,15 @@ Item {
             role: "score4"
             movable: false
             resizable: false
-            width: tableView.viewport.width / 13
+            width: tableView.viewport.width / 14
+        }
+
+        TableViewColumn {
+            id: limitColumn
+            title: "L"
+            role: "limit"
+            movable: false
+            resizable: false
         }
 
         model: gmediator.handsModel
@@ -158,7 +166,7 @@ Item {
                             tableView.selection.deselect(0, tableView.rowCount - 1)
                         }
                     }
-                    sourceComponent: styleData.selected ? editor : null
+                    sourceComponent: styleData.selected ? ( styleData.role === "limit" ? limitEditor : editor) : null
 
                     Component {
                         id: editor
@@ -171,6 +179,22 @@ Item {
                                 anchors.fill: parent
                                 hoverEnabled: true
                                 onClicked: textinput.forceActiveFocus()
+                            }
+                        }
+                    }
+
+                    Component {
+                        id: limitEditor
+                        ComboBox {
+                            id: combobox
+                            model: gmediator.limits
+                            currentIndex: find(styleData.value)
+
+                            onCurrentIndexChanged: {
+                                if (model.length > 0 && currentIndex > -1 && currentText !== "") {
+                                    gmediator.handsModel.editEntry(loaderEditor.item.text, styleData.row, styleData.column)
+                                    tableView.selection.deselect(0, tableView.rowCount - 1)
+                                }
                             }
                         }
                     }

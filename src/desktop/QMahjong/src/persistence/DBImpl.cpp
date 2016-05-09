@@ -159,6 +159,11 @@ QMap<unsigned long, Hand> impl_t::getHands(unsigned long gameId)
     return result;
 }
 
+QSet<QString> impl_t::getLimits()
+{
+    return limits;
+}
+
 void impl_t::saveGamesData(const QString& path)
 {
     QFile file(path + gamesDataPath);

@@ -5,7 +5,7 @@
 #include "HandTableModel.h"
 
 namespace cabinet {
-const int HTABLE_COL_COUNTER = 13;
+const int HTABLE_COL_COUNTER = 14;
 
 HandTableModel::HandTableModel(QObject *parent)
     : QAbstractTableModel(parent)
@@ -95,6 +95,7 @@ QVariant HandTableModel::data(const QModelIndex& index, int role) const
     case PLAYER4_MAHJONG_ROLE: return (hands[index.row()].getMahjong() == 3) ? true : false;
     case PLAYER4_COMBO_ROLE:   return hands[index.row()].getCombo()[3];
     case PLAYER4_SCORE_ROLE:   return hands[index.row()].getScore()[3];
+    case LIMIT_ROLE:           return hands[index.row()].getLimit();
     default: return QVariant();
     }
 }
@@ -115,6 +116,7 @@ QHash<int, QByteArray> HandTableModel::roleNames() const
     roles[PLAYER4_MAHJONG_ROLE] = "mahjong4";
     roles[PLAYER4_COMBO_ROLE]   = "combo4";
     roles[PLAYER4_SCORE_ROLE]   = "score4";
+    roles[LIMIT_ROLE]           = "limit";
     return roles;
 }
 
@@ -143,6 +145,7 @@ bool HandTableModel::setData(const QModelIndex& index, const QVariant& value, in
         case PLAYER4_MAHJONG_ROLE: if (value.toBool()) item.setMahjong(3);         break;
         case PLAYER4_COMBO_ROLE:   combo[3] = value.toInt(); item.setCombo(combo); break;
         case PLAYER4_SCORE_ROLE:   score[3] = value.toInt(); item.setScore(score); break;
+        case LIMIT_ROLE:           item.setLimit(value.toString());                break;
         default: return false;
         }
 

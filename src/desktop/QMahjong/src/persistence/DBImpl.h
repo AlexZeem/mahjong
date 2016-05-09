@@ -34,6 +34,8 @@ struct impl_t
     bool deleteHand(const Hand& h);
     QMap<unsigned long, persistence::Hand> getHands(unsigned long gameId = 0);
 
+    QSet<QString> getLimits();
+
     void saveGamesData(const QString& path);
     void loadGamesData(const QString& path, unsigned int counter);
     void saveHandsData(const QString& path);

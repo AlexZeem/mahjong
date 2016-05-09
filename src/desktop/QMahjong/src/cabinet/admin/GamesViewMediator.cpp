@@ -97,5 +97,14 @@ QStringList GamesViewMediator::players() const
     return _players;
 }
 
+QStringList GamesViewMediator::limits() const
+{
+    QStringList result;
+    for (const auto& i : persistence::DBHandler::instance()->getLimits()) {
+        result << i;
+    }
+    return result;
+}
+
 } // namespace cabinet
 

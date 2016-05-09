@@ -28,8 +28,12 @@ DBHandler::DBHandler()
     Hand h1(1, 1, 'E', 2, QVector<unsigned int>(4,6), QVector<int>(4,45), "none");
     impl->hands[h1.getHandId()] = h1;*/
 
-    impl->limits.clear();
-    impl->limits << "Green dragon";
+    /*impl->limits.clear();
+    impl->limits << "Blessing of Heaven" << "Blessing of Earth" << "Four Concealed Pungs" << "Four Kongs"
+                 << "All Terminals" << "All Honors" << "Thirteen Orphans" << "Nine Gates" << "The Three great Scholars"
+                 << "Little Four Winds" << "Four large Blessings" << "Plucking the Moon from the Bottom of the Sea"
+                 << "Gathering the Plumb Blossom from the Roof" << "Scratching a Carrying Pole"
+                 << "Two-Fold Fortune" << "The Thirteen Unique Wonder" << "Imperial Jade";*/
 
     /*impl->participants.clear();
     Participant p1(1, 1, QVector<QString>(4,"q"));
@@ -112,6 +116,11 @@ bool DBHandler::deleteHand(const Hand &h)
 QMap<unsigned long, Hand> DBHandler::getHands(unsigned long gameId)
 {
     return impl->getHands(gameId);
+}
+
+QSet<QString> DBHandler::getLimits()
+{
+    return impl->getLimits();
 }
 
 DBHandler* DBHandler::instance()

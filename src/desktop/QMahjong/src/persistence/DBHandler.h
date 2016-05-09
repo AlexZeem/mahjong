@@ -38,6 +38,8 @@ public:
     bool deleteHand(const Hand& h);
     QMap<unsigned long, persistence::Hand> getHands(unsigned long gameId = 0);
 
+    QSet<QString> getLimits();
+
 public:
     static DBHandler* instance();
 

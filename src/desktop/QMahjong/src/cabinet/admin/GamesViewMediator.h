@@ -12,6 +12,7 @@ class GamesViewMediator : public QObject
     Q_PROPERTY(QObject* handsModel READ handsModel NOTIFY never)
     Q_PROPERTY(QStringList users READ users NOTIFY never)
     Q_PROPERTY(QStringList players READ players NOTIFY playersChanged)
+    Q_PROPERTY(QStringList limits READ limits NOTIFY never)
 
 public:
     explicit GamesViewMediator(QObject *parent = 0);
@@ -21,6 +22,7 @@ public:
     QObject *handsModel();
     QStringList users() const;
     QStringList players() const;
+    QStringList limits() const;
 
     Q_INVOKABLE void getPlayers(unsigned long gameId);
     Q_INVOKABLE void addPlayer(unsigned long gameId, const QString& login);

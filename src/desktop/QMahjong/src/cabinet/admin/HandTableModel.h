@@ -26,7 +26,8 @@ class HandTableModel : public QAbstractTableModel
         PLAYER3_SCORE_ROLE,
         PLAYER4_MAHJONG_ROLE,
         PLAYER4_COMBO_ROLE,
-        PLAYER4_SCORE_ROLE
+        PLAYER4_SCORE_ROLE,
+        LIMIT_ROLE
     };
 
 public:
