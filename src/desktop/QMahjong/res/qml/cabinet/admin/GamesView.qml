@@ -12,7 +12,10 @@ Item {
         width: 4 * parent.width / 5
         height: parent.height / 2
 
-        onSelectedRowChanged: usersForm.gameSelected = gamesForm.selectedRow
+        onSelectedRowChanged: {
+            usersForm.gameSelected = gamesForm.selectedRow
+            handsForm.gameSelected = gamesForm.selectedRow
+        }
     }
 
     UsersForm {

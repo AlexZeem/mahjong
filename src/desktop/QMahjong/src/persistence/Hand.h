@@ -26,8 +26,8 @@ public:
     unsigned long getGameId() const;
     void setGameId(unsigned long value);
 
-    char getWind() const;
-    void setWind(char value);
+    QChar getWind() const;
+    void setWind(QChar value);
 
     int getMahjong() const;
     void setMahjong(int value);
@@ -46,7 +46,7 @@ public:
 private:
     unsigned long handId;
     unsigned long gameId;
-    char wind;
+    QChar wind;
     int mahjong;
     QVector<unsigned int> combo;
     QVector<int> score;

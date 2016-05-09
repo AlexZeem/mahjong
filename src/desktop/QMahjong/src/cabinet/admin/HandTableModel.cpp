@@ -19,16 +19,20 @@ HandTableModel::~HandTableModel()
 
 void HandTableModel::setGame(unsigned long gameId)
 {
+    beginResetModel();
     hands.clear();
+
     QMap<unsigned long, persistence::Hand> h = persistence::DBHandler::instance()->getHands(gameId);
     for (const auto& i : h) {
         hands.push_back(i);
     }
+    qDebug() << "[HandTableModel][setGame]" << gameId << hands.size();
+    endResetModel();
 }
 
 void HandTableModel::addEntry(unsigned long gameId)
 {
-    persistence::Hand h(qrand());
+    persistence::Hand h(qrand()); qDebug() << "[HandTableModel][addEntry]"<<gameId;
     h.setGameId(gameId);
     if (persistence::DBHandler::instance()->addHand(h)) {
         hands.push_back(h);
@@ -78,7 +82,7 @@ QVariant HandTableModel::data(const QModelIndex& index, int role) const
     if (index.row() >= hands.size() || index.row() < 0) return QVariant();
 
     switch (role) {
-    case WIND_ROLE:            return hands[index.row()].getWind();
+    case WIND_ROLE:            return QString(hands[index.row()].getWind());
     case PLAYER1_MAHJONG_ROLE: return (hands[index.row()].getMahjong() == 0) ? true : false;
     case PLAYER1_COMBO_ROLE:   return hands[index.row()].getCombo()[0];
     case PLAYER1_SCORE_ROLE:   return hands[index.row()].getScore()[0];
@@ -122,7 +126,11 @@ bool HandTableModel::setData(const QModelIndex& index, const QVariant& value, in
         QVector<int> score = hands[index.row()].getScore();
         QVector<unsigned int> combo = hands[index.row()].getCombo();
         switch (index.column()) {
-        case WIND_ROLE:            item.setWind(value.toInt());                   break;
+        case WIND_ROLE: {
+            QString tmp = value.toString();
+            if (!tmp.isEmpty()) item.setWind(tmp.toUtf8().at(tmp.length() - 1));
+            break;
+        }
         case PLAYER1_MAHJONG_ROLE: if (value.toBool()) item.setMahjong(0);         break;
         case PLAYER1_COMBO_ROLE:   combo[0] = value.toInt(); item.setCombo(combo); break;
         case PLAYER1_SCORE_ROLE:   score[0] = value.toInt(); item.setScore(score); break;
@@ -130,7 +138,7 @@ bool HandTableModel::setData(const QModelIndex& index, const QVariant& value, in
         case PLAYER2_COMBO_ROLE:   combo[1] = value.toInt(); item.setCombo(combo); break;
         case PLAYER2_SCORE_ROLE:   score[1] = value.toInt(); item.setScore(score); break;
         case PLAYER3_MAHJONG_ROLE: if (value.toBool()) item.setMahjong(2);         break;
-        case PLAYER3_COMBO_ROLE:   combo[1] = value.toInt(); item.setCombo(combo); break;
+        case PLAYER3_COMBO_ROLE:   combo[2] = value.toInt(); item.setCombo(combo); break;
         case PLAYER3_SCORE_ROLE:   score[2] = value.toInt(); item.setScore(score); break;
         case PLAYER4_MAHJONG_ROLE: if (value.toBool()) item.setMahjong(3);         break;
         case PLAYER4_COMBO_ROLE:   combo[3] = value.toInt(); item.setCombo(combo); break;

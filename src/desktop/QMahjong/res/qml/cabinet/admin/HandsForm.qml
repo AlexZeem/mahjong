@@ -3,6 +3,7 @@ import QtQuick.Controls 1.3
 
 Item {
     id: root
+    property alias gameSelected: handsTable.gameSelected
 
     Rectangle {
         anchors.fill: parent
@@ -16,8 +17,9 @@ Item {
             top: parent.top
             left: parent.left
         }
+        enabled: gameSelected > -1 ? true : false
         onClicked: {
-            //gmediator.gamesModel.addEntry()
+            gmediator.handsModel.addEntry(gmediator.gamesModel ? gmediator.gamesModel.gameId(gameSelected) : 0)
         }
     }
 
@@ -28,9 +30,9 @@ Item {
             top: parent.top
             right: parent.right
         }
-        enabled: false//gamesTable.selectedRow > -1 ? true : false
+        enabled: handsTable.selectedRow > -1 ? true : false
         onClicked: {
-            //gmediator.gamesModel.removeEntry(gamesTable.selectedRow)
+            gmediator.handsModel.removeEntry(handsTable.selectedRow)
         }
     }
 
@@ -43,5 +45,6 @@ Item {
             right: parent.right
             bottom: parent.bottom
         }
+
     }
 }

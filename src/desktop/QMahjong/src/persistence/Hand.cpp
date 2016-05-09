@@ -7,7 +7,7 @@ QDataStream &operator << (QDataStream &out, const Hand& obj)
 {
     out << QString::number(obj.handId);
     out << QString::number(obj.gameId);
-    out << (qint8)obj.wind;
+    out << obj.wind;
     out << QString::number(obj.mahjong);
     for (const auto& i : obj.combo) {
         out << i;
@@ -26,9 +26,7 @@ QDataStream &operator >> (QDataStream &in, Hand& obj)
     obj.handId = temp.toULong();
     in >> temp;
     obj.gameId = temp.toULong();
-    qint8 ch;
-    in >> ch;
-    obj.wind = ch;
+    in >> obj.wind;
     in >> temp;
     obj.mahjong = temp.toInt();
     for (auto& i : obj.combo) {
@@ -77,12 +75,12 @@ void Hand::setGameId(unsigned long value)
     if (value != gameId) gameId = value;
 }
 
-char Hand::getWind() const
+QChar Hand::getWind() const
 {
     return wind;
 }
 
-void Hand::setWind(char value)
+void Hand::setWind(QChar value)
 {
     if (value != wind) wind = value;
 }

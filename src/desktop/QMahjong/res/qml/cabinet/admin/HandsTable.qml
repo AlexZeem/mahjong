@@ -3,7 +3,11 @@ import QtQuick.Controls 1.3
 
 Item {
     id: root
-    //property alias selectedRow: tableView.currentRow
+    property alias selectedRow: tableView.currentRow
+    property int gameSelected: -1
+    onGameSelectedChanged: {
+        gmediator.handsModel.setGame(gmediator.gamesModel ? gmediator.gamesModel.gameId(gameSelected) : 0)
+    }
 
     TableView {
         id: tableView
@@ -129,10 +133,6 @@ Item {
 
         model: gmediator.handsModel
 
-        onCurrentRowChanged: {
-            //gmediator.getPlayers(gmediator.gamesModel ? gmediator.gamesModel.gameId(currentRow) : 0, true)
-        }
-
         itemDelegate: Component {
             id: editableDelegate
             Item {
@@ -154,7 +154,7 @@ Item {
                     Connections {
                         target: loaderEditor.item
                         onAccepted: {
-                            //gmediator.gamesModel.editEntry(loaderEditor.item.text, styleData.row, styleData.column)
+                            gmediator.handsModel.editEntry(loaderEditor.item.text, styleData.row, styleData.column)
                             tableView.selection.deselect(0, tableView.rowCount - 1)
                         }
                     }

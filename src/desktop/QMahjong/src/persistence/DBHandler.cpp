@@ -24,9 +24,9 @@ DBHandler::DBHandler()
     Game g1(1,"02/05/2016","User", QVector<int>(4,678));
     impl->games[g1.getGameId()] = g1;*/
 
-    impl->hands.clear();
+    /*impl->hands.clear();
     Hand h1(1, 1, 'E', 2, QVector<unsigned int>(4,6), QVector<int>(4,45), "none");
-    impl->hands[h1.getHandId()] = h1;
+    impl->hands[h1.getHandId()] = h1;*/
 
     impl->limits.clear();
     impl->limits << "Green dragon";
