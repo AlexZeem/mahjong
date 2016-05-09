@@ -8,8 +8,9 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        color: "green"
+        color: "white"
     }
+
     onGameSelectedChanged: {
         gmediator.getPlayers(gmediator.gamesModel ? gmediator.gamesModel.gameId(gameSelected) : 0)
     }

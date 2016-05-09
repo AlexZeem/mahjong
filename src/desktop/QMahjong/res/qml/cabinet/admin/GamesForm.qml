@@ -5,11 +5,6 @@ Item {
     id: root
     property alias selectedRow: gamesTable.selectedRow
 
-    Rectangle {
-        anchors.fill: parent
-        color: "blue"
-    }
-
     Button {
         id: addNew
         text: qsTr("Add new")

@@ -5,11 +5,6 @@ Item {
     id: root
     property alias gameSelected: handsTable.gameSelected
 
-    Rectangle {
-        anchors.fill: parent
-        color: "white"
-    }
-
     Button {
         id: addNew
         text: qsTr("Add new")

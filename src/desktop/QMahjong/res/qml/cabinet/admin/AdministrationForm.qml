@@ -43,16 +43,16 @@ Item {
                 }
             }
 
-//            Tab {
-//                id: gamesTab
-//                title: "Games"
-//                GamesView {
-//                    anchors {
-//                        fill: parent
-//                        margins: 15
-//                    }
-//                }
-//            }
+            Tab {
+                id: gamesTab
+                title: "Games"
+                GamesView {
+                    anchors {
+                        fill: parent
+                        margins: 15
+                    }
+                }
+            }
         }
     }
 }
