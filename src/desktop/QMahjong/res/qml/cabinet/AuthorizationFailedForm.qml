@@ -5,6 +5,13 @@ import QtQuick.Controls.Styles 1.3
 Item {
     id: root
 
+    Image {
+        id: background
+        anchors.fill: parent
+        opacity: 0.2
+        source: "qrc:///res/icons/cabinet/lightBackground.png"
+    }
+
     Rectangle {
         id: backgr
         anchors.centerIn: parent
