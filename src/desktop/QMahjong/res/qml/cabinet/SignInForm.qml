@@ -5,11 +5,11 @@ import QtQuick.Controls.Styles 1.3
 Item{
     id: root
 
-    Image {
+    Rectangle {
         id: background
         anchors.fill: parent
-        opacity: 0.2
-        source: "qrc:///res/icons/cabinet/lightBackground.png"
+        //opacity: 0.2
+        color: cScheme.backgroungColor
     }
 
     Rectangle {

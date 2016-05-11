@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
         <file>res/icons/cabinet/UserIcon.png</file>
-        <file>res/icons/cabinet/lightBackground.png</file>
     </qresource>
 </RCC>
