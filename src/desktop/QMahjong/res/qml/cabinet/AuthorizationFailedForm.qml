@@ -10,19 +10,14 @@ Item {
     TItem {
         id: background
         iActiveFocus: false
+        anchors.fill: parent
     }
 
-    Rectangle {
+    TItem {
         id: backgr
         anchors.centerIn: parent
         width: parent.width / 2
         height: parent.height / 2
-        color: cScheme.itemBackgroungColor
-        radius: 5
-        border {
-            width: 3
-            color: cScheme.borderColor
-        }
     }
 
     Text {
