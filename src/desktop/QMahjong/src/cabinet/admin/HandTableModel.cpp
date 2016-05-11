@@ -1,4 +1,3 @@
-#include <QTime>
 #include <QDebug>
 #include "../../persistence/DBHandler.h"
 #include "../../persistence/Hand.h"
@@ -9,10 +8,7 @@ const int HTABLE_COL_COUNTER = 14;
 
 HandTableModel::HandTableModel(QObject *parent)
     : QAbstractTableModel(parent)
-{
-    QTime curr(QTime::currentTime());
-    qsrand(curr.msecsSinceStartOfDay());
-}
+{ }
 
 HandTableModel::~HandTableModel()
 { }
@@ -32,7 +28,8 @@ void HandTableModel::setGame(unsigned long gameId)
 
 void HandTableModel::addEntry(unsigned long gameId)
 {
-    persistence::Hand h(qrand()); qDebug() << "[HandTableModel][addEntry]"<<gameId;
+    qDebug() << "[HandTableModel][addEntry]"<< gameId;
+    persistence::Hand h(gameId + hands.size() + 1);
     h.setGameId(gameId);
     if (persistence::DBHandler::instance()->addHand(h)) {
         hands.push_back(h);
