@@ -29,62 +29,74 @@ Item {
 
         Row {
             id: nickname
-            Text {
+            TLableText {
                 text: qsTr("Nickname: ")
             }
-            Text {
+            TTextInput {
+                id: nicknameTI
                 text: umediator.nickname
+                readOnly: true
             }
         }
 
         Row {
             id: name
-            Text {
+            TLableText {
                 text: qsTr("Name: ")
             }
-            Text {
+            TTextInput {
+                id: nameTI
                 text: umediator.name
+                readOnly:true
             }
         }
 
         Row {
             id: surname
-            Text {
+            TLableText {
                 text: qsTr("Surname: ")
             }
-            Text {
+            TTextInput {
+                id: surnameTI
                 text: umediator.surname
+                readOnly:true
             }
         }
 
         Row {
             id: phone
-            Text {
+            TLableText {
                 text: qsTr("Phone: ")
             }
-            Text {
+            TTextInput {
+                id: phoneTI
                 text: umediator.phone
+                readOnly: true
             }
         }
 
         Row {
             id: email
-            Text {
-                text: qsTr("Surname: ")
+            TLableText {
+                text: qsTr("Email: ")
             }
-            Text {
+            TTextInput{
+                id: emailTI
                 text: umediator.email
+                readOnly: true
             }
         }
 
         Row {
             id: rang
-            Text {
+            TLableText {
                 text: qsTr("Rang: ")
             }
-            Text {
+            TTextInput {
                 text: umediator.rang
                 font.italic: true
+                readOnly: true
+                maximumLength: 6
             }
         }
 
@@ -92,42 +104,77 @@ Item {
             id:buttonRow
             spacing: 3
 
-            Button {
+            TButton {
                 id: editButton
                 text: qsTr("Edit")
                 visible: true
                 onClicked: {
                     console.log("Edit button clicked")
+
+                    //Edit click visibility
                     saveButton.visible = true
                     cancelButton.visible = true
                     editButton.visible = false
+
+                    // open cells for editi
+                    nicknameTI.readOnly = false
+                    nameTI.readOnly = false
+                    surnameTI.readOnly = false
+
                 }
             } // editButton
 
             Column {
                 spacing: 3
 
-                Button {
+                TButton {
                     id: saveButton
                     text: qsTr("Save")
                     visible: false
                     onClicked: {
                         console.log("Save button clicked")
+
+                        //Save click visibility
                         saveButton.visible = false
                         cancelButton.visible = false
                         editButton.visible = true
+
+                        //accessibility to edit
+                        nicknameTI.readOnly = true
+                        nameTI.readOnly = true
+                        surnameTI.readOnly = true
+
+                        //set block
+                        console.log(nicknameTI.text)
+                        if(nicknameTI.text != umediator.nickname){umediator.setNickname(nicknameTI.text)}
+
+                        console.log(nameTI.text)
+                        if(nameTI.text != umediator.name){umediator.name = nameTI.text}
+
+                        if (surnameTI.text != umediator.surname) {umediator.setSurname(surnameTI.text)}
                     }
                 } // saveButton
 
-                Button {
+                TButton {
                     id: cancelButton
                     text: qsTr("Cancel")
                     visible: false
                     onClicked: {
                         console.log("Save button clicked")
+                        //visible block
                         saveButton.visible = false
                         cancelButton.visible = false
                         editButton.visible = true
+
+                        //accesability
+                        nicknameTI.readOnly = true
+                        nameTI.readOnly = true
+                        surnameTI.readOnly = true
+
+                        //cancel block
+                        nicknameTI.text = umediator.nickname
+                        nameTI.text = umediator.name
+                        surnameTI.text = umediator.surname
                     }
                 } // cancelButton
 
