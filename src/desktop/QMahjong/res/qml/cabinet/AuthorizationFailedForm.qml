@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.3
 import QtQuick.Controls.Styles 1.3
+import mahjong.cabinet.authorization 1.0
 
 Item {
     id: root
@@ -26,11 +27,35 @@ Item {
     }
 
     Text {
-        id:header
+        id: header
         anchors.centerIn: parent
         text: qsTr("Authorization Failed")
         font.pixelSize: 30
         color: cScheme.activeFocusTitleColor
+    }
+
+    Text {
+        id: prompt
+        anchors {
+            top: header.bottom
+            right: header.right
+        }
+        text: {
+            var promptText = qsTr("* ")
+
+            if (auth.error === Errors.FAILED_PASS) {
+                promptText = promptText + qsTr("incorrect password")
+            } else if (auth.error === Errors.FAILED_NO_USER) {
+                promptText = promptText + qsTr("no such login")
+            } else {
+                promptText = promptText + qsTr("sorry, something went wrong")
+            }
+
+            return promptText
+        }
+        font.pixelSize: 10
+        horizontalAlignment: Text.AlignRight
+        color: cScheme.textColor
     }
 
     Button {

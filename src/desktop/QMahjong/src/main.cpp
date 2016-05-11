@@ -16,16 +16,17 @@ int main(int argc, char *argv[])
     //object registration
     cabinet::Authorization auth;
     cabinet::UserInfoMediator userMediator;
+    cabinet::UsersTableModel usersModel;
+    cabinet::GamesViewMediator gameMediator;
     //Connect:
     QObject::connect(&auth, SIGNAL(validationSuccesfull(QString)), &userMediator, SLOT(setUser(QString)));
 
     view.engine()->rootContext()->setContextProperty("auth", &auth);
-    cabinet::UsersTableModel usersModel;
     view.engine()->rootContext()->setContextProperty("users", &usersModel);
-    cabinet::GamesViewMediator gameMediator;
     view.engine()->rootContext()->setContextProperty("gmediator", &gameMediator);
-
     view.engine()->rootContext()->setContextProperty("umediator", &userMediator);
+
+    qmlRegisterType<cabinet::Authorization>("mahjong.cabinet.authorization", 1, 0, "Errors");
     //
 
 
