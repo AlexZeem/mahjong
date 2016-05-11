@@ -151,7 +151,8 @@ Item {
                         console.log(nameTI.text)
                         if(nameTI.text != umediator.name){umediator.name = nameTI.text}
 
-                        if (surnameTI.text != umediator.surname) {umediator.setSurname(surnameTI.text)}
+                        console.log(surnameTI.text)
+                        if (surnameTI.text != umediator.surname) {umediator.surname = surnameTI.text}
                     }
                 } // saveButton
 
@@ -172,9 +173,9 @@ Item {
                         surnameTI.readOnly = true
 
                         //cancel block
-                        nicknameTI.text = umediator.nickname
-                        nameTI.text = umediator.name
-                        surnameTI.text = umediator.surname
+//                        nicknameTI.text = umediator.nickname
+//                        nameTI.text = umediator.name
+//                        surnameTI.text = umediator.surname
                     }
                 } // cancelButton
 
