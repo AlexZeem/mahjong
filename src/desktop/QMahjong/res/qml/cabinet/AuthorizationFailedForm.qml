@@ -2,15 +2,14 @@ import QtQuick 2.0
 import QtQuick.Controls 1.3
 import QtQuick.Controls.Styles 1.3
 import mahjong.cabinet.authorization 1.0
+import "../controls"
 
 Item {
     id: root
 
-    Rectangle {
+    TItem {
         id: background
-        anchors.fill: parent
-        //opacity: 0.2
-        color: cScheme.backgroungColor
+        iActiveFocus: false
     }
 
     Rectangle {

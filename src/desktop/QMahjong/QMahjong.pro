@@ -30,6 +30,7 @@ QML_FILES = \
     $$PWD/res/qml/ScreenManager.qml \
     $$PWD/res/qml/FSMEvent.qml \
     $$PWD/res/qml/ColorScheme.qml \
+    $$PWD/res/qml/controls/*.qml \
     $$PWD/res/qml/cabinet/*.qml \
     $$PWD/res/qml/cabinet/admin/*.qml \
 
