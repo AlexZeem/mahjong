@@ -1,6 +1,6 @@
 import QtQuick 2.0
 
 Text {
-    font.pixelSize: 30
+    font.pixelSize: nConst.titlePixelSize
     color: cScheme.activeFocusTitleColor
 }

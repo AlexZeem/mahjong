@@ -1,7 +1,7 @@
 import QtQuick 2.0
 
 Text {
-    font.pixelSize: 16
+    font.pixelSize: nConst.labelPixelSize
     color: cScheme.textColor
 }
 

@@ -7,8 +7,9 @@ Item {
 
     TItem {
         id: background
-        iActiveFocus: false
+        focused: false
         anchors.fill: parent
+        radius: 0
     }
 
     TItem {
@@ -46,8 +47,8 @@ Item {
         anchors {
             top: backgr.top
             right: backgr.right
-            topMargin: 15
-            rightMargin: 15
+            topMargin: nConst.margin
+            rightMargin: nConst.margin
         }
         text: qsTr("Back")
         onClicked: {

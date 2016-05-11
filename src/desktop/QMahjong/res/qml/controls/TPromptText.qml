@@ -5,7 +5,7 @@ Text {
     property string promptText: ""
 
     text: "* " + prompt.promptText
-    font.pixelSize: 10
+    font.pixelSize: nConst.promptPixelSize
     horizontalAlignment: Text.AlignRight
     color: cScheme.textColor
 }

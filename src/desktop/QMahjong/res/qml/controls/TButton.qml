@@ -8,18 +8,18 @@ Button {
     style: ButtonStyle {
         background: Rectangle {
             id: styleRect
-            implicitWidth: 75
-            implicitHeight: 25
-            radius: 5
+            implicitWidth: nConst.btnImplicitWidth
+            implicitHeight: nConst.btnImplicitHeight
+            radius: nConst.cornerRadius
             border {
-                width: 1
+                width: nConst.borderWidth
                 color: cScheme.borderColor
             }
         }
         label: Text {
             text: btn.text
             color: btn.pressed ? cScheme.activeFocusTextColor : cScheme.inactiveFocusTextColor
-            font.pixelSize: 16
+            font.pixelSize: nConst.btnPixelSize
             horizontalAlignment: Text.AlignHCenter
         }
     }

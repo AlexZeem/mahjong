@@ -4,6 +4,7 @@ import QtQml.StateMachine 1.0 as DSM
 Item {
     id: screenManager
     property FSMEvent fsmEvent: FSMEvent {}
+    property NumericConstants nConst: NumericConstants {}
     property ColorScheme cScheme: ColorScheme {}
 
     Loader{

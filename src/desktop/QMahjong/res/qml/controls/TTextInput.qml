@@ -7,9 +7,9 @@ TextField {
     style: TextFieldStyle {
         textColor: input.activeFocus ? cScheme.activeFocusTextColor : cScheme.inactiveFocusTextColor
         background: Rectangle {
-            radius: 5
+            radius: nConst.cornerRadius
             border {
-                width: 1
+                width: nConst.borderWidth
                 color: cScheme.borderColor
             }
         }

@@ -6,8 +6,9 @@ Item{
 
     TItem {
         id: background
-        iActiveFocus: false
+        focused: false
         anchors.fill: parent
+        radius: 0
     }
 
     TItem {
@@ -21,7 +22,7 @@ Item{
         id: header
         anchors {
             top: form.top
-            topMargin: 30
+            topMargin: nConst.margin * 2
             horizontalCenter: form.horizontalCenter
         }
         text: qsTr("SIGN IN")
@@ -33,7 +34,7 @@ Item{
         spacing: 5
         anchors {
             top: header.bottom
-            topMargin: 16
+            topMargin: nConst.margin
             horizontalCenter: header.horizontalCenter
         }
 
@@ -52,7 +53,7 @@ Item{
 
         TTextInput {
             id: passInput
-            maximumLength: 10
+            maximumLength: nConst.inputMaxLength
             echoMode: TextInput.Password
         }
     }
@@ -61,13 +62,13 @@ Item{
         id: button
         anchors {
             top: body.bottom
-            topMargin: 10
+            topMargin: nConst.inputMaxLength
             right: body.right
         }
         text: qsTr("Sign in")
         onClicked: {
             console.log("Sign in button clicked")
-            auth.validate(loginInput.text, passInput.text);
+            auth.validate(loginInput.text, passInput.text)
         }
     }
 }

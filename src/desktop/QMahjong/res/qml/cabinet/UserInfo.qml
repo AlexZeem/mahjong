@@ -1,97 +1,99 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.3
+import "../controls"
 
 Item {
     id: root
 
-    Rectangle {
+    TItem {
+        id: background
+        focused: true
         anchors.fill: parent
-        color: "white"
+    }
 
-        Column {
-            spacing: 5
-            anchors {
-                top: parent.top
-                horizontalCenter: parent.horizontalCenter
-                topMargin: 15
+    Column {
+        spacing: 5
+        anchors {
+            top: parent.top
+            horizontalCenter: parent.horizontalCenter
+            topMargin: 15
+        }
+
+        Image {
+            id: avatar
+            width: 150
+            height: 150
+            fillMode: Image.PreserveAspectFit
+            source: "qrc:///res/icons/cabinet/UserIcon.png"
+        }
+
+        Row {
+            id: nickname
+            Text {
+                text: qsTr("Nickname: ")
             }
-
-            Image {
-                id: avatar
-                width: 150
-                height: 150
-                fillMode: Image.PreserveAspectFit
-                source: "qrc:///res/icons/cabinet/UserIcon.png"
+            Text {
+                text: umediator.nickname
             }
+        }
 
-            Row {
-                id: nickname
-                Text {
-                    text: qsTr("Nickname: ")
-                }
-                Text {
-                    text: umediator.nickname
-                }
+        Row {
+            id: name
+            Text {
+                text: qsTr("Name: ")
             }
-
-            Row {
-                id: name
-                Text {
-                    text: qsTr("Name: ")
-                }
-                Text {
-                    text: umediator.name
-                }
+            Text {
+                text: umediator.name
             }
+        }
 
-            Row {
-                id: surname
-                Text {
-                    text: qsTr("Surname: ")
-                }
-                Text {
-                    text: umediator.surname
-                }
+        Row {
+            id: surname
+            Text {
+                text: qsTr("Surname: ")
             }
-
-            Row {
-                id: phone
-                Text {
-                    text: qsTr("Phone: ")
-                }
-                Text {
-                    text: umediator.phone
-                }
+            Text {
+                text: umediator.surname
             }
+        }
 
-            Row {
-                id: email
-                Text {
-                    text: qsTr("Surname: ")
-                }
-                Text {
-                    text: umediator.email
-                }
+        Row {
+            id: phone
+            Text {
+                text: qsTr("Phone: ")
             }
-
-            Row {
-                id: rang
-                Text {
-                    text: qsTr("Rang: ")
-                }
-                Text {
-                    text: umediator.rang
-                    font.italic: true
-                }
+            Text {
+                text: umediator.phone
             }
+        }
 
-            Button {
-                id: editButton
-                text: qsTr("Edit")
+        Row {
+            id: email
+            Text {
+                text: qsTr("Surname: ")
+            }
+            Text {
+                text: umediator.email
+            }
+        }
 
-                onClicked: {
-                    console.log("Edit button clicked")
-                }
+        Row {
+            id: rang
+            Text {
+                text: qsTr("Rang: ")
+            }
+            Text {
+                text: umediator.rang
+                font.italic: true
+            }
+        }
+
+        Button {
+            id: editButton
+            text: qsTr("Edit")
+
+            onClicked: {
+                console.log("Edit button clicked")
             }
         }
     }
