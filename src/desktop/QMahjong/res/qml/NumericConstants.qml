@@ -4,6 +4,7 @@ QtObject {
     readonly property int titlePixelSize:    30
     readonly property int btnPixelSize:      16
     readonly property int labelPixelSize:    16
+    readonly property int textPixelSize:     14
     readonly property int promptPixelSize:   10
     readonly property int btnImplicitWidth:  75
     readonly property int btnImplicitHeight: 25
@@ -15,4 +16,5 @@ QtObject {
     readonly property int mahjongInfoHeight: 75
     readonly property int limitInfoHeight:   200
     readonly property int inputMaxLength:    10
+    readonly property int headerTableHeight: 40
 }

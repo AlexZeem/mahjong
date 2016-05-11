@@ -7,5 +7,5 @@ Text {
     text: "* " + prompt.promptText
     font.pixelSize: nConst.promptPixelSize
     horizontalAlignment: Text.AlignRight
-    color: cScheme.textColor
+    color: cScheme.lableTextColor
 }

@@ -6,23 +6,189 @@ Item {
     id: root
 
     TItem {
-        id: background
-        focused: true
+        id: backgroundL0
+        focused: false
         anchors.fill: parent
+        radius: 0
     }
 
-    Button {
-        id: button
-        text: qsTr("Back")
+    TItem {
+        id: backgroundL1
+        focused: true
         anchors {
-            top: parent.top
+            margins: nConst.margin
+            top: button.bottom
+            left: parent.left
             right: parent.right
-            topMargin: 15
-            rightMargin: 15
+            bottom: parent.bottom
         }
+    }
+
+    TButton {
+        id: button
+        anchors {
+            top: backgroundL0.top
+            right: backgroundL0.right
+            topMargin: nConst.margin
+            rightMargin: nConst.margin
+        }
+        text: qsTr("Back")
         onClicked: {
             console.log ("Back is pressed")
             fsmEvent.back()
+        }
+    }
+
+    TTableView {
+        id: headerTable
+        model: scoreModel
+        width: backgroundL1.width - nConst.margin * 4
+        height: nConst.headerTableHeight
+        anchors {
+            top: backgroundL1.top
+            topMargin: nConst.margin
+            horizontalCenter: backgroundL1.horizontalCenter
+        }
+        selectionMode: SelectionMode.NoSelection
+
+        TableViewColumn {
+            role: "player1Score"
+            title: qsTr("Player1")
+            width: headerTable.width / headerTable.columnCount
+        }
+        TableViewColumn {
+            role: "player2Score"
+            title: qsTr("Player2")
+            width: headerTable.width / headerTable.columnCount
+        }
+        TableViewColumn {
+            role: "player3Score"
+            title: qsTr("Player3")
+            width: headerTable.width / headerTable.columnCount
+        }
+        TableViewColumn {
+            role: "player4Score"
+            title: qsTr("Player4")
+            width: headerTable.width / headerTable.columnCount
+        }
+    }
+
+    TTableView {
+        id: countTable
+        model: countModel
+        anchors {
+            top: headerTable.bottom
+            bottom: backgroundL1.bottom
+            bottomMargin: 15
+            horizontalCenter: backgroundL1.horizontalCenter
+        }
+        width: headerTable.width
+        headerVisible: false
+        selectionMode: SelectionMode.NoSelection
+
+        TableViewColumn {
+            role: "player1wind"
+            title: qsTr("W")
+            width: headerTable.width / countTable.columnCount
+        }
+
+        TableViewColumn {
+            role: "player1mahjong"
+            title: qsTr("M")
+            width: headerTable.width / countTable.columnCount
+            delegate: CheckBox {
+                anchors.fill: parent
+                checked: model.player1mahjong
+                enabled: false
+            }
+        }
+        TableViewColumn {
+            role: "player1point"
+            title: qsTr("C")
+            width: headerTable.width / countTable.columnCount
+        }
+        TableViewColumn {
+            role: "player1score"
+            title: qsTr("S")
+            width: headerTable.width / countTable.columnCount
+        }
+
+        TableViewColumn {
+            role: "player2wind"
+            title: qsTr("W")
+            width: headerTable.width / countTable.columnCount
+        }
+
+        TableViewColumn {
+            role: "player2mahjong"
+            title: qsTr("M")
+            width: headerTable.width / countTable.columnCount
+            delegate: CheckBox {
+                checked: model.player2mahjong
+                enabled: false
+            }
+        }
+        TableViewColumn {
+            role: "player2point"
+            title: qsTr("C")
+            width: headerTable.width / countTable.columnCount
+        }
+        TableViewColumn {
+            role: "player2score"
+            title: qsTr("S")
+            width: headerTable.width / countTable.columnCount
+        }
+
+        TableViewColumn {
+            role: "player3wind"
+            title: qsTr("W")
+            width: headerTable.width / countTable.columnCount
+        }
+
+        TableViewColumn {
+            role: "player3mahjong"
+            title: qsTr("M")
+            width: headerTable.width / countTable.columnCount
+            delegate: CheckBox {
+                checked: model.player3mahjong
+                enabled: false
+            }
+        }
+        TableViewColumn {
+            role: "player3point"
+            title: qsTr("C")
+            width: headerTable.width / countTable.columnCount
+        }
+        TableViewColumn {
+            role: "player3score"
+            title: qsTr("S")
+            width: headerTable.width / countTable.columnCount
+        }
+
+        TableViewColumn {
+            role: "player4wind"
+            title: qsTr("W")
+            width: headerTable.width / countTable.columnCount
+        }
+
+        TableViewColumn {
+            role: "player4mahjong"
+            title: qsTr("M")
+            width: headerTable.width / countTable.columnCount
+            delegate: CheckBox {
+                checked: model.player4mahjong
+                enabled: false
+            }
+        }
+        TableViewColumn {
+            role: "player4point"
+            title: qsTr("C")
+            width: headerTable.width / countTable.columnCount
+        }
+        TableViewColumn {
+            role: "player4score"
+            title: qsTr("S")
+            width: headerTable.width / countTable.columnCount
         }
     }
 
@@ -37,153 +203,26 @@ Item {
         }
     }
 
-    TableView {
-        id: headerTable
-        model: scoreModel
-        width: parent.width
-        height: 40
-        anchors {
-            top: button.bottom
-            topMargin: 15
-            horizontalCenter: parent.horizontalCenter
-        }
-
-        TableViewColumn {
-            role: "player1Score"
-            title: qsTr("Player1")
-            width: 120
-        }
-        TableViewColumn {
-            role: "player2Score"
-            title: qsTr("Player2")
-            width: 120
-        }
-        TableViewColumn {
-            role: "player3Score"
-            title: qsTr("Player3")
-            width: 120
-        }
-        TableViewColumn {
-            role: "player4Score"
-            title: qsTr("Player4")
-            width: 120
-        }
-    }
-
     // count table part
-    ListModel {
-        id: countModel
-        ListElement {
-            player1wind: "E"
-            player1mahjong: true
-            player1point: 21
-            player1score: 41
-            player2wind: "S"
-            player2mahjong: false
-            player2point: 8
-            player2score: 8
-            player3wind: "W"
-            player3mahjong: false
-            player3point: 2
-            player3score: 4
-            player4wind: "N"
-            player4mahjong: false
-            player4point: 6
-            player4score: 12
-        }
-    }
-
-    TableView {
-        id: countTable
-        model: countModel
-        headerVisible: false
-        anchors {
-            top: headerTable.bottom
-        }
-        width: headerTable.width
-
-        TableViewColumn {
-            role: "player1wind"
-            width: 30
-        }
-        TableViewColumn {
-            role: "player1mahjong"
-            width: 30
-            delegate: CheckBox {
-                checked: model.player1mahjong
-                enabled: false
+        ListModel {
+            id: countModel
+            ListElement {
+                player1wind: "E"
+                player1mahjong: true
+                player1point: 21
+                player1score: 41
+                player2wind: "S"
+                player2mahjong: false
+                player2point: 8
+                player2score: 8
+                player3wind: "W"
+                player3mahjong: false
+                player3point: 2
+                player3score: 4
+                player4wind: "N"
+                player4mahjong: false
+                player4point: 6
+                player4score: 12
             }
         }
-        TableViewColumn {
-            role: "player1point"
-            width: 30
-        }
-        TableViewColumn {
-            role: "player1score"
-            width: 30
-        }
-
-        TableViewColumn {
-            role: "player2wind"
-            width: 30
-        }
-        TableViewColumn {
-            role: "player2mahjong"
-            width: 30
-            delegate: CheckBox {
-                checked: model.player2mahjong
-                enabled: false
-            }
-        }
-        TableViewColumn {
-            role: "player2point"
-            width: 30
-        }
-        TableViewColumn {
-            role: "player2score"
-            width: 30
-        }
-
-        TableViewColumn {
-            role: "player3wind"
-            width: 30
-        }
-        TableViewColumn {
-            role: "player3mahjong"
-            width: 30
-            delegate: CheckBox {
-                checked: model.player3mahjong
-                enabled: false
-            }
-        }
-        TableViewColumn {
-            role: "player3point"
-            width: 30
-        }
-        TableViewColumn {
-            role: "player3score"
-            width: 30
-        }
-
-        TableViewColumn {
-            role: "player4wind"
-            width: 30
-        }
-        TableViewColumn {
-            role: "player4mahjong"
-            width: 30
-            delegate: CheckBox {
-                checked: model.player4mahjong
-                enabled: false
-            }
-        }
-        TableViewColumn {
-            role: "player4point"
-            width: 30
-        }
-        TableViewColumn {
-            role: "player4score"
-            width: 30
-        }
-    }
 }
