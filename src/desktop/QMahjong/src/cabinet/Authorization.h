@@ -8,7 +8,7 @@ namespace cabinet {
 class Authorization : public QObject
 {
     Q_OBJECT
-
+    Q_ENUMS(FailCodes)
     Q_PROPERTY(FailCodes error READ error WRITE setError NOTIFY errorChanged)
 
 public:
@@ -17,8 +17,6 @@ public:
         FAILED_NO_USER,
         FAILED_PASS
     };
-
-    Q_ENUM(FailCodes)
 
 public:
     Authorization(QObject* parent = 0);

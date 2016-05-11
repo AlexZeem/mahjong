@@ -1,6 +1,4 @@
 import QtQuick 2.0
-import QtQuick.Controls 1.3
-import QtQuick.Controls.Styles 1.3
 import "../controls"
 
 Item{
@@ -19,17 +17,14 @@ Item{
         height: parent.height / 2
     }
 
-    Text {
+    TTitleText {
         id: header
         anchors {
             top: form.top
             topMargin: 30
             horizontalCenter: form.horizontalCenter
         }
-
         text: qsTr("SIGN IN")
-        font.pixelSize: 30
-        color: cScheme.activeFocusTitleColor
     }
 
     Grid {
@@ -42,77 +37,34 @@ Item{
             horizontalCenter: header.horizontalCenter
         }
 
-        Text {
+        TLableText {
             text: qsTr("Login:")
-            font.pixelSize: 16
-            color: cScheme.textColor
         }
 
-        TextField {
+        TTextInput {
             id: loginInput
             maximumLength: 10
-            style: TextFieldStyle {
-                textColor: loginInput.activeFocus ? cScheme.activeFocusTextColor : cScheme.inactiveFocusTextColor
-                background: Rectangle {
-                    radius: 5
-                    border {
-                        width: 1
-                        color: cScheme.borderColor
-                    }
-                }
-            }
         }
 
-        Text {
+        TLableText {
             text: qsTr("Password:")
-            font.pixelSize: 16
-            color: cScheme.textColor
         }
 
-        TextField {
+        TTextInput {
             id: passInput
             maximumLength: 10
             echoMode: TextInput.Password
-            style: TextFieldStyle {
-                textColor: passInput.activeFocus ? cScheme.activeFocusTextColor : cScheme.inactiveFocusTextColor
-                background: Rectangle {
-                    radius: 5
-                    border {
-                        width: 1
-                        color: cScheme.borderColor
-                    }
-                }
-            }
         }
     }
 
-    Button {
+    TButton {
         id: button
         anchors {
             top: body.bottom
             topMargin: 10
             right: body.right
         }
-
-        style: ButtonStyle {
-            background: Rectangle {
-                id: styleRect
-                implicitWidth: 75
-                implicitHeight: 25
-                radius: 5
-                border {
-                    width: 1
-                    color: cScheme.borderColor
-                }
-            }
-            label: Text {
-                text: qsTr("Sign in")
-                color: button.pressed ? cScheme.activeFocusTextColor : cScheme.inactiveFocusTextColor
-                font.pixelSize: 16
-                horizontalAlignment: Text.AlignHCenter
-            }
-        }
-
+        text: qsTr("Sign in")
         onClicked: {
             console.log("Sign in button clicked")
             auth.validate(loginInput.text, passInput.text);
