@@ -85,14 +85,52 @@ Item {
                 }
             }
 
-            Button {
-                id: editButton
-                text: qsTr("Edit")
+            Row {
+                id:buttonRow
+                spacing: 3
 
-                onClicked: {
-                    console.log("Edit button clicked")
-                }
-            }
+                Button {
+                    id: editButton
+                    text: qsTr("Edit")
+                    visible: true
+                    onClicked: {
+                        console.log("Edit button clicked")
+                        saveButton.visible = true
+                        cancelButton.visible = true
+                        editButton.visible = false
+                    }
+                } // editButton
+
+                Column {
+                    spacing: 3
+
+                    Button {
+                        id: saveButton
+                        text: qsTr("Save")
+                        visible: false
+                        onClicked: {
+                            console.log("Save button clicked")
+                            saveButton.visible = false
+                            cancelButton.visible = false
+                            editButton.visible = true
+                        }
+                    } // saveButton
+
+                    Button {
+                        id: cancelButton
+                        text: qsTr("Cancel")
+                        visible: false
+                        onClicked: {
+                            console.log("Save button clicked")
+                            saveButton.visible = false
+                            cancelButton.visible = false
+                            editButton.visible = true
+                        }
+                    } // cancelButton
+
+                } // end column
+
+            } // buttonRow
         }
     }
 }
