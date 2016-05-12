@@ -10,7 +10,6 @@ QtObject {
 
     readonly property int moreBtnWidth:      25
     readonly property int cornerRadius:      5
-    readonly property int borderWidth:       1
 
     readonly property int userInfoWidth:     250
     readonly property int gameInfoHeight:    95
@@ -20,12 +19,16 @@ QtObject {
     readonly property int headerTableHeight: 40
 
     readonly property int margin:            15
+    readonly property int borderWidth:       1
     readonly property int btnImplicitWidth:  120
     readonly property int btnImplicitHeight: 50
     readonly property int btnRadius:         4
-    readonly property int btnBorderWidth:    1
+
     readonly property int btnTextSize:       12
     readonly property int titleSize:         18
     readonly property int promptSize:        11
     readonly property int labelSize:         16
+    readonly property int inputLength:       10
+    readonly property int inputRadius:       10
+    readonly property int inputTextSize:     12
 }

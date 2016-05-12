@@ -15,7 +15,7 @@ Item {
                 implicitHeight: nConst.btnImplicitHeight
                 radius: nConst.btnRadius
                 border {
-                    width: nConst.btnBorderWidth
+                    width: nConst.borderWidth
                     color: cScheme.border
                 }
                 color: cScheme.backgroung

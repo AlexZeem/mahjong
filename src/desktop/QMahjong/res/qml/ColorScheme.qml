@@ -17,5 +17,7 @@ QtObject {
     readonly property string title:             "#1A1A28"
     readonly property string prompt:            "#AAA7BF"
     readonly property string label:             "#404354"
+    readonly property string focusedInputText:  "#1659CE"
+    readonly property string inputText:         "#8B91A7"
 }
 
