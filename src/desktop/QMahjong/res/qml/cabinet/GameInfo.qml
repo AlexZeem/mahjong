@@ -11,43 +11,46 @@ Item {
         anchors.fill: parent
     }
 
-    Column {
+    Grid {
+        id: body
+        columns: 2
         spacing: 5
         anchors {
+            margins: nConst.margin
             top: parent.top
-            horizontalCenter: parent.horizontalCenter
-            topMargin: 15
+            left: parent.left
+            right: parent.right
         }
 
-        Row {
-            id: lastGame
-            Text {
-                text: qsTr("Last Game: ")
-            }
-            Text {
-                text: qsTr(new Date().toLocaleDateString(Locale.ShortFormat))
-            }
+        TLableText {
+            text: qsTr("Last Game: ")
+        }
+        TText {
+            text: qsTr(new Date().toLocaleDateString(Locale.ShortFormat))
         }
 
-        Row {
-            id: participated
-            Text {
-                text: qsTr("Participated in: ")
-            }
-            Text {
-                width: 25
-                text: "2"
-            }
-            Button {
-                id: button
-                width: 25
-                text: qsTr("...")
+        TLableText {
+            text: qsTr("Participated in: ")
+        }
+        TText {
+            text: "2"
+        }
+    }
 
-                onClicked: {
-                    console.log("More in button clicked")
-                    fsmEvent.gameStat()
-                }
-            }
+    TButton {
+        id: button
+        width: nConst.moreBtnWidth
+        anchors {
+            top: body.bottom
+            topMargin: nConst.margins
+            right: body.right
+        }
+
+        text: qsTr("...")
+
+        onClicked: {
+            console.log("More in button clicked")
+            fsmEvent.gameStat()
         }
     }
 }
