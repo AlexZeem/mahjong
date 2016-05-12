@@ -12,7 +12,7 @@ TableView {
 
         headerDelegate: TText {
             verticalAlignment: Text.AlignVCenter
-            horizontalAlignment: Text.AlignHCenter
+            horizontalAlignment: Text.AlignLeft
             text: styleData.value
         }
 

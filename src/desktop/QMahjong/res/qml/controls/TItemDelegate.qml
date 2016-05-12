@@ -5,7 +5,7 @@ Item {
     Text {
         anchors.centerIn: parent
         verticalAlignment: Text.AlignVCenter
-        horizontalAlignment: Text.AlignHCenter
+        horizontalAlignment: Text.AlignLeft
         color: styleData.selected ? cScheme.activeFocusTextColor : cScheme.textColor
         text: styleData.value
         font.pixelSize: nConst.textPixelSize
