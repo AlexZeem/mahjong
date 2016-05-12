@@ -95,15 +95,15 @@ Item {
             maximumLength: 6
             width: parent.width / 2 + nConst.margin
         }
-    }
+    } // grid
 
-    Row {
-        id:buttonRow
+    Column {
+        id:buttonClmn
         anchors {
             top: body.bottom
+            left: body.left
             topMargin: nConst.margin
         }
-
         spacing: 3
 
         TButton {
@@ -113,66 +113,78 @@ Item {
             onClicked: {
                 console.log("Edit button clicked")
 
-                //Edit click visibility
+                //Save/Cancel visibility on
+                //Edit - off
                 saveButton.visible = true
                 cancelButton.visible = true
                 editButton.visible = false
 
-                // open cells for editi
+                // Open cells for edit
                 nicknameTI.readOnly = false
                 nameTI.readOnly = false
                 surnameTI.readOnly = false
-
+                emailTI.readOnly = false
+                phoneTI.readOnly = false
             }
         } // editButton
 
-        Column {
-            spacing: 3
+        TButton {
+            id: saveButton
+            text: qsTr("Save")
+            visible: false
+            onClicked: {
+                console.log("Save button clicked")
 
-            TButton {
-                id: saveButton
-                text: qsTr("Save")
-                visible: false
-                onClicked: {
-                    console.log("Save button clicked")
+                //set
+                if(nicknameTI.text != umediator.nickname){umediator.nickname = nicknameTI.text}
+                if(nameTI.text != umediator.name){umediator.name = nameTI.text}
+                if(surnameTI.text != umediator.surname) {umediator.surname = surnameTI.text}
+                if(emailTI.text != umediator.email) {umediator.email = emailTI.text}
+                if (phoneTI.text != umediator.phone) {umediator.phone = phoneTI.text}
 
-                    //set block
-                    if(nicknameTI.text != umediator.nickname){umediator.setNickname(nicknameTI.text)}
-                    if(nameTI.text != umediator.name){umediator.name = nameTI.text}
-                    if (surnameTI.text != umediator.surname) {umediator.surname = surnameTI.text}
+                //Save/Cancel visibility off
+                //Edit - on
+                saveButton.visible = false
+                cancelButton.visible = false
+                editButton.visible = true
 
-                    //Save click visibility
-                    saveButton.visible = false
-                    cancelButton.visible = false
-                    editButton.visible = true
+                // Close cells for edit
+                nicknameTI.readOnly = true
+                nameTI.readOnly = true
+                surnameTI.readOnly = true
+                emailTI.readOnly = true
+                phoneTi.readOnly = true
+            }
+        } // saveButton
 
-                    //accessibility to edit
-                    nicknameTI.readOnly = true
-                    nameTI.readOnly = true
-                    surnameTI.readOnly = true
-                }
-            } // saveButton
+        TButton {
+            id: cancelButton
+            text: qsTr("Cancel")
+            visible: false
+            onClicked: {
+                console.log("Cancel button clicked")
 
-            TButton {
-                id: cancelButton
-                text: qsTr("Cancel")
-                visible: false
-                onClicked: {
-                    console.log("Save button clicked")
-                    //visible block
-                    saveButton.visible = false
-                    cancelButton.visible = false
-                    editButton.visible = true
+                //Save/Cancel visibility off
+                //Edit - on
+                saveButton.visible = false
+                cancelButton.visible = false
+                editButton.visible = true
 
-                    //accesability
-                    nicknameTI.readOnly = true
-                    nameTI.readOnly = true
-                    surnameTI.readOnly = true
-                }
-            } // cancelButton
+                //Set basic user info
+                nicknameTI.text = umediator.nickname
+                nameTI.text = umediator.name
+                surnameTI.text = umediator.surname
+                emailTI.text = umediator.email
+                phoneTI.text = umediator.phone
 
-        } // end column
-
-    } // buttonRow
+                // Close cells for edit
+                nicknameTI.readOnly = true
+                nameTI.readOnly = true
+                surnameTI.readOnly = true
+                emailTI.readOnly = true
+                phoneTi.readOnly = true
+            }
+        } // cancelButton
+    } // end column
 }
 
