@@ -27,4 +27,5 @@ QtObject {
     readonly property int btnTextSize:       12
     readonly property int titleSize:         18
     readonly property int promptSize:        11
+    readonly property int labelSize:         16
 }

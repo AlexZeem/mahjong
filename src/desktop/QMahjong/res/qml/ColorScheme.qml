@@ -16,5 +16,6 @@ QtObject {
     readonly property string btnText:           "#908DAA"
     readonly property string title:             "#1A1A28"
     readonly property string prompt:            "#AAA7BF"
+    readonly property string label:             "#404354"
 }
 
