@@ -95,15 +95,15 @@ Item {
             maximumLength: 6
             width: parent.width / 2 + nConst.margin
         }
-    }
+    } // grid
 
-    Row {
-        id:buttonRow
+    Column {
+        id:buttonClmn
         anchors {
             top: body.bottom
+            left: body.left
             topMargin: nConst.margin
         }
-
         spacing: 3
 
         TButton {
@@ -126,53 +126,48 @@ Item {
             }
         } // editButton
 
-        Column {
-            spacing: 3
+        TButton {
+            id: saveButton
+            text: qsTr("Save")
+            visible: false
+            onClicked: {
+                console.log("Save button clicked")
 
-            TButton {
-                id: saveButton
-                text: qsTr("Save")
-                visible: false
-                onClicked: {
-                    console.log("Save button clicked")
+                //set block
+                if(nicknameTI.text != umediator.nickname){umediator.setNickname(nicknameTI.text)}
+                if(nameTI.text != umediator.name){umediator.name = nameTI.text}
+                if (surnameTI.text != umediator.surname) {umediator.surname = surnameTI.text}
 
-                    //set block
-                    if(nicknameTI.text != umediator.nickname){umediator.setNickname(nicknameTI.text)}
-                    if(nameTI.text != umediator.name){umediator.name = nameTI.text}
-                    if (surnameTI.text != umediator.surname) {umediator.surname = surnameTI.text}
+                //Save click visibility
+                saveButton.visible = false
+                cancelButton.visible = false
+                editButton.visible = true
 
-                    //Save click visibility
-                    saveButton.visible = false
-                    cancelButton.visible = false
-                    editButton.visible = true
+                //accessibility to edit
+                nicknameTI.readOnly = true
+                nameTI.readOnly = true
+                surnameTI.readOnly = true
+            }
+        } // saveButton
 
-                    //accessibility to edit
-                    nicknameTI.readOnly = true
-                    nameTI.readOnly = true
-                    surnameTI.readOnly = true
-                }
-            } // saveButton
+        TButton {
+            id: cancelButton
+            text: qsTr("Cancel")
+            visible: false
+            onClicked: {
+                console.log("Save button clicked")
+                //visible block
+                saveButton.visible = false
+                cancelButton.visible = false
+                editButton.visible = true
 
-            TButton {
-                id: cancelButton
-                text: qsTr("Cancel")
-                visible: false
-                onClicked: {
-                    console.log("Save button clicked")
-                    //visible block
-                    saveButton.visible = false
-                    cancelButton.visible = false
-                    editButton.visible = true
+                //accesability
+                nicknameTI.readOnly = true
+                nameTI.readOnly = true
+                surnameTI.readOnly = true
+            }
+        } // cancelButton
 
-                    //accesability
-                    nicknameTI.readOnly = true
-                    nameTI.readOnly = true
-                    surnameTI.readOnly = true
-                }
-            } // cancelButton
-
-        } // end column
-
-    } // buttonRow
+    } // end column
 }
 
