@@ -11,128 +11,168 @@ Item {
         anchors.fill: parent
     }
 
-    Column {
-        spacing: 5
+    Image {
+        id: avatar
         anchors {
             top: parent.top
+            topMargin: nConst.margin
             horizontalCenter: parent.horizontalCenter
-            topMargin: 15
+        }
+        width: 150
+        height: avatar.width
+        fillMode: Image.PreserveAspectFit
+        source: "qrc:///res/icons/cabinet/UserIcon.png"
+    }
+
+    Grid {
+        id: body
+        columns: 2
+        spacing: 5
+        anchors {
+            margins: nConst.margin
+            top: avatar.bottom
+            left: parent.left
+            right: parent.right
         }
 
-        Image {
-            id: avatar
-            width: 150
-            height: 150
-            fillMode: Image.PreserveAspectFit
-            source: "qrc:///res/icons/cabinet/UserIcon.png"
+        TLableText {
+            text: qsTr("Nickname: ")
+        }
+        TTextInput {
+            id: nicknameTI
+            text: umediator.nickname
+            readOnly: true
+            width: parent.width / 2 + nConst.margin
         }
 
-        Row {
-            id: nickname
-            Text {
-                text: qsTr("Nickname: ")
-            }
-            Text {
-                text: umediator.nickname
-            }
+        TLableText {
+            text: qsTr("Name: ")
+        }
+        TTextInput {
+            id: nameTI
+            text: umediator.name
+            readOnly:true
+            width: parent.width / 2 + nConst.margin
         }
 
-        Row {
-            id: name
-            Text {
-                text: qsTr("Name: ")
-            }
-            Text {
-                text: umediator.name
-            }
+        TLableText {
+            text: qsTr("Surname: ")
+        }
+        TTextInput {
+            id: surnameTI
+            text: umediator.surname
+            readOnly:true
+            width: parent.width / 2 + nConst.margin
         }
 
-        Row {
-            id: surname
-            Text {
-                text: qsTr("Surname: ")
-            }
-            Text {
-                text: umediator.surname
-            }
+        TLableText {
+            text: qsTr("Phone: ")
+        }
+        TTextInput {
+            id: phoneTI
+            text: umediator.phone
+            readOnly: true
+            width: parent.width / 2 + nConst.margin
         }
 
-        Row {
-            id: phone
-            Text {
-                text: qsTr("Phone: ")
-            }
-            Text {
-                text: umediator.phone
-            }
+        TLableText {
+            text: qsTr("Email: ")
+        }
+        TTextInput{
+            id: emailTI
+            text: umediator.email
+            readOnly: true
+            width: parent.width / 2 + nConst.margin
         }
 
-        Row {
-            id: email
-            Text {
-                text: qsTr("Surname: ")
-            }
-            Text {
-                text: umediator.email
-            }
+        TLableText {
+            text: qsTr("Rang: ")
+        }
+        TTextInput {
+            text: umediator.rang
+            font.italic: true
+            readOnly: true
+            maximumLength: 6
+            width: parent.width / 2 + nConst.margin
+        }
+    }
+
+    Row {
+        id:buttonRow
+        anchors {
+            top: body.bottom
+            topMargin: nConst.margin
         }
 
-        Row {
-            id: rang
-            Text {
-                text: qsTr("Rang: ")
-            }
-            Text {
-                text: umediator.rang
-                font.italic: true
-            }
-        }
+        spacing: 3
 
-        Row {
-            id:buttonRow
+        TButton {
+            id: editButton
+            text: qsTr("Edit")
+            visible: true
+            onClicked: {
+                console.log("Edit button clicked")
+
+                //Edit click visibility
+                saveButton.visible = true
+                cancelButton.visible = true
+                editButton.visible = false
+
+                // open cells for editi
+                nicknameTI.readOnly = false
+                nameTI.readOnly = false
+                surnameTI.readOnly = false
+
+            }
+        } // editButton
+
+        Column {
             spacing: 3
 
-            Button {
-                id: editButton
-                text: qsTr("Edit")
-                visible: true
+            TButton {
+                id: saveButton
+                text: qsTr("Save")
+                visible: false
                 onClicked: {
-                    console.log("Edit button clicked")
-                    saveButton.visible = true
-                    cancelButton.visible = true
-                    editButton.visible = false
+                    console.log("Save button clicked")
+
+                    //set block
+                    if(nicknameTI.text != umediator.nickname){umediator.setNickname(nicknameTI.text)}
+                    if(nameTI.text != umediator.name){umediator.name = nameTI.text}
+                    if (surnameTI.text != umediator.surname) {umediator.surname = surnameTI.text}
+
+                    //Save click visibility
+                    saveButton.visible = false
+                    cancelButton.visible = false
+                    editButton.visible = true
+
+                    //accessibility to edit
+                    nicknameTI.readOnly = true
+                    nameTI.readOnly = true
+                    surnameTI.readOnly = true
                 }
-            } // editButton
+            } // saveButton
 
-            Column {
-                spacing: 3
+            TButton {
+                id: cancelButton
+                text: qsTr("Cancel")
+                visible: false
+                onClicked: {
+                    console.log("Save button clicked")
+                    //visible block
+                    saveButton.visible = false
+                    cancelButton.visible = false
+                    editButton.visible = true
 
-                Button {
-                    id: saveButton
-                    text: qsTr("Save")
-                    visible: false
-                    onClicked: {
-                        console.log("Save button clicked")
-                        saveButton.visible = false
-                        cancelButton.visible = false
-                        editButton.visible = true
-                    }
-                } // saveButton
+                    //accesability
+                    nicknameTI.readOnly = true
+                    nameTI.readOnly = true
+                    surnameTI.readOnly = true
+                }
+            } // cancelButton
 
-                Button {
-                    id: cancelButton
-                    text: qsTr("Cancel")
-                    visible: false
-                    onClicked: {
-                        console.log("Save button clicked")
-                        saveButton.visible = false
-                        cancelButton.visible = false
-                        editButton.visible = true
-                    }
-                } // cancelButton
+        } // end column
 
-            } // end column
-
-        } // buttonRow
-    }
+    } // buttonRow
 }
+

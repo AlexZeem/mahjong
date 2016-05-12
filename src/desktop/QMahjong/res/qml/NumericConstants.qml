@@ -11,7 +11,7 @@ QtObject {
     readonly property int cornerRadius:      5
     readonly property int borderWidth:       1
     readonly property int margin:            15
-    readonly property int userInfoWidth:     200
+    readonly property int userInfoWidth:     250
     readonly property int gameInfoHeight:    75
     readonly property int mahjongInfoHeight: 75
     readonly property int limitInfoHeight:   200

@@ -23,4 +23,6 @@ Button {
             horizontalAlignment: Text.AlignHCenter
         }
     }
+
+    onClicked: focus = true
 }
