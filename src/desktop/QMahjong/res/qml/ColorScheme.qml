@@ -14,5 +14,6 @@ QtObject {
     readonly property string border:            "#D3D3D3"
     readonly property string focusedBtnText:    "#1659CE"
     readonly property string btnText:           "#908DAA"
+    readonly property string title:             "#1A1A28"
 }
 

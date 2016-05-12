@@ -25,4 +25,5 @@ QtObject {
     readonly property int btnRadius:         4
     readonly property int btnBorderWidth:    1
     readonly property int btnTextSize:       12
+    readonly property int titleSize:         18
 }
