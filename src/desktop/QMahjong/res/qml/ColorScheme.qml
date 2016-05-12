@@ -11,6 +11,7 @@ QtObject {
     readonly property string inactiveFocusTextColor:    "#908DAA"
 
     readonly property string backgroung:        "#FFFFFF"
+    readonly property string backgroungItem:    "#F4F5F9"
     readonly property string border:            "#D3D3D3"
     readonly property string focusedBtnText:    "#1659CE"
     readonly property string btnText:           "#908DAA"

@@ -17,6 +17,8 @@ QtObject {
 
     readonly property int margin:            15
     readonly property int borderWidth:       1
+    readonly property int radius:            5
+
     readonly property int btnImplicitWidth:  120
     readonly property int btnImplicitHeight: 50
     readonly property int moreBtnWidth:      10
