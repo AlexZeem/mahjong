@@ -1,17 +1,22 @@
 #include "UserInfoMediator.h"
 #include "../persistence/DBHandler.h"
 #include "../persistence/User.h"
-#include <QDebug>
 
 namespace cabinet {
 
 UserInfoMediator::UserInfoMediator(QObject *parent)
     :QObject(parent)
-{}
+{
+    QObject::connect(this, SIGNAL(userChanged()), SIGNAL(nicknameChanged()));
+    QObject::connect(this, SIGNAL(userChanged()), SIGNAL(nameChanged()));
+    QObject::connect(this, SIGNAL(userChanged()), SIGNAL(surnameChanged()));
+    QObject::connect(this, SIGNAL(userChanged()), SIGNAL(phoneChanged()));
+    QObject::connect(this, SIGNAL(userChanged()), SIGNAL(emailChanged()));
+    QObject::connect(this, SIGNAL(userChanged()), SIGNAL(rangChanged()));
+}
 
 QString UserInfoMediator::nickname() const
 {
-
     return currentUser.getLogin();
 }
 
@@ -49,9 +54,8 @@ void UserInfoMediator::setNickname(QString nickname)
     if (persistence::DBHandler::instance()->updateUser(temp, currentUser.getLogin()))
     {
         currentUser.setLogin(nickname);
-        emit userChanged();
+        emit nicknameChanged();
     }
-
 }
 
 void UserInfoMediator::setName(QString name)
@@ -63,7 +67,7 @@ void UserInfoMediator::setName(QString name)
     if (persistence::DBHandler::instance()->updateUser(temp))
     {
         currentUser.setName(name);
-        emit userChanged();
+        emit nameChanged();
     }
 }
 
@@ -77,7 +81,7 @@ void UserInfoMediator::setSurname(QString surname)
     if (persistence::DBHandler::instance()->updateUser(temp))
     {
         currentUser.setSurname(surname);
-        emit userChanged();
+        emit surnameChanged();
     }
 }
 
@@ -90,7 +94,7 @@ void UserInfoMediator::setPhone(QString phone)
     if(persistence::DBHandler::instance()->updateUser(temp))
     {
         currentUser.setPhone(phone);
-        emit userChanged();
+        emit phoneChanged();
     }
 }
 
@@ -103,7 +107,7 @@ void UserInfoMediator::setEmail(QString email)
     if (persistence::DBHandler::instance()->updateUser(temp))
     {
         currentUser.setEmail(email);
-        emit userChanged();
+        emit emailChanged();
     }
 }
 
@@ -116,7 +120,7 @@ void UserInfoMediator::setRang(double rang)
     if (persistence::DBHandler::instance()->updateUser(temp))
     {
         currentUser.setRang(rang);
-        emit userChanged();
+        emit rangChanged();
     }
 }
 
