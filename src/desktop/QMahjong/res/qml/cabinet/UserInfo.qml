@@ -113,16 +113,18 @@ Item {
             onClicked: {
                 console.log("Edit button clicked")
 
-                //Edit click visibility
+                //Save/Cancel visibility on
+                //Edit - off
                 saveButton.visible = true
                 cancelButton.visible = true
                 editButton.visible = false
 
-                // open cells for editi
+                // Open cells for edit
                 nicknameTI.readOnly = false
                 nameTI.readOnly = false
                 surnameTI.readOnly = false
-
+                emailTI.readOnly = false
+                phoneTI.readOnly = false
             }
         } // editButton
 
@@ -133,20 +135,25 @@ Item {
             onClicked: {
                 console.log("Save button clicked")
 
-                //set block
-                if(nicknameTI.text != umediator.nickname){umediator.setNickname(nicknameTI.text)}
+                //set
+                if(nicknameTI.text != umediator.nickname){umediator.nickname = nicknameTI.text}
                 if(nameTI.text != umediator.name){umediator.name = nameTI.text}
-                if (surnameTI.text != umediator.surname) {umediator.surname = surnameTI.text}
+                if(surnameTI.text != umediator.surname) {umediator.surname = surnameTI.text}
+                if(emailTI.text != umediator.email) {umediator.email = emailTI.text}
+                if (phoneTI.text != umediator.phone) {umediator.phone = phoneTI.text}
 
-                //Save click visibility
+                //Save/Cancel visibility off
+                //Edit - on
                 saveButton.visible = false
                 cancelButton.visible = false
                 editButton.visible = true
 
-                //accessibility to edit
+                // Close cells for edit
                 nicknameTI.readOnly = true
                 nameTI.readOnly = true
                 surnameTI.readOnly = true
+                emailTI.readOnly = true
+                phoneTi.readOnly = true
             }
         } // saveButton
 
@@ -155,19 +162,29 @@ Item {
             text: qsTr("Cancel")
             visible: false
             onClicked: {
-                console.log("Save button clicked")
-                //visible block
+                console.log("Cancel button clicked")
+
+                //Save/Cancel visibility off
+                //Edit - on
                 saveButton.visible = false
                 cancelButton.visible = false
                 editButton.visible = true
 
-                //accesability
+                //Set basic user info
+                nicknameTI.text = umediator.nickname
+                nameTI.text = umediator.name
+                surnameTI.text = umediator.surname
+                emailTI.text = umediator.email
+                phoneTI.text = umediator.phone
+
+                // Close cells for edit
                 nicknameTI.readOnly = true
                 nameTI.readOnly = true
                 surnameTI.readOnly = true
+                emailTI.readOnly = true
+                phoneTi.readOnly = true
             }
         } // cancelButton
-
     } // end column
 }
 
