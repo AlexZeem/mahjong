@@ -6,9 +6,6 @@ QtObject {
     readonly property int labelPixelSize:    16
     readonly property int textPixelSize:     14
     readonly property int promptPixelSize:   10
-
-
-    readonly property int moreBtnWidth:      25
     readonly property int cornerRadius:      5
 
     readonly property int userInfoWidth:     250
@@ -22,6 +19,8 @@ QtObject {
     readonly property int borderWidth:       1
     readonly property int btnImplicitWidth:  120
     readonly property int btnImplicitHeight: 50
+    readonly property int moreBtnWidth:      10
+    readonly property int moreBtnHeight:     10
     readonly property int btnRadius:         4
 
     readonly property int btnTextSize:       12
