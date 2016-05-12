@@ -224,5 +224,23 @@ Item {
                 player4point: 6
                 player4score: 12
             }
+            ListElement {
+                player1wind: "E"
+                player1mahjong: true
+                player1point: 21
+                player1score: 41
+                player2wind: "S"
+                player2mahjong: false
+                player2point: 8
+                player2score: 8
+                player3wind: "W"
+                player3mahjong: false
+                player3point: 2
+                player3score: 4
+                player4wind: "N"
+                player4mahjong: false
+                player4point: 6
+                player4score: 12
+            }
         }
 }
