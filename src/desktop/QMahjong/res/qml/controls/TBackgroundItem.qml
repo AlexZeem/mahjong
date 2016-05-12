@@ -10,10 +10,10 @@ Item{
         id: background
         anchors.fill: parent
         opacity: 1
-        color: cScheme.backgroung
-        radius: nConst.radius
+        color: cScheme.backgroungItem
+        radius: 0
         border {
-            width: nConst.borderWidth
+            width: 0
             color: cScheme.border
         }
     }
