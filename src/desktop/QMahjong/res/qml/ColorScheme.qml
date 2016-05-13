@@ -1,14 +1,14 @@
 import QtQuick 2.0
 
 QtObject {
-    readonly property string backgroungColor:           "#F4F5F9"
-    readonly property string itemBackgroungColor:       "#FFFFFF"
-    readonly property string borderColor:               "#D3D3D3"
-    readonly property string activeFocusTitleColor:     "#41282B"
-    readonly property string textColor:                 "#5E666C"
-    readonly property string lableTextColor:            "#959DB8"
-    readonly property string activeFocusTextColor:      "#1659CE"
-    readonly property string inactiveFocusTextColor:    "#908DAA"
+//    readonly property string backgroungColor:           "#F4F5F9"
+//    readonly property string itemBackgroungColor:       "#FFFFFF"
+//    readonly property string borderColor:               "#D3D3D3"
+//    readonly property string activeFocusTitleColor:     "#41282B"
+//    readonly property string textColor:                 "#5E666C"
+//    readonly property string lableTextColor:            "#959DB8"
+//    readonly property string activeFocusTextColor:      "#1659CE"
+//    readonly property string inactiveFocusTextColor:    "#908DAA"
 
     readonly property string backgroung:        "#FFFFFF"
     readonly property string backgroungItem:    "#F4F5F9"
@@ -20,5 +20,6 @@ QtObject {
     readonly property string label:             "#404354"
     readonly property string focusedInputText:  "#1659CE"
     readonly property string inputText:         "#8B91A7"
+    readonly property string tableHighlighter:  "#50C14E"
 }
 

@@ -21,8 +21,8 @@ QtObject {
 
     readonly property int btnImplicitWidth:  120
     readonly property int btnImplicitHeight: 50
-    readonly property int moreBtnWidth:      10
-    readonly property int moreBtnHeight:     10
+    readonly property int moreBtnWidth:      25
+    readonly property int moreBtnHeight:     25
     readonly property int backBtnWidth:      80
     readonly property int backBtnHeight:     30
     readonly property int btnRadius:         4
@@ -34,4 +34,6 @@ QtObject {
     readonly property int inputLength:       10
     readonly property int inputRadius:       10
     readonly property int inputTextSize:     12
+    readonly property int tableRowHeight:    40
+    readonly property int chBoxMargin:       5
 }

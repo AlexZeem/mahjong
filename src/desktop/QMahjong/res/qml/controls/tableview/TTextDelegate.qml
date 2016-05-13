@@ -1,13 +1,19 @@
-import QtQuick 2.0
+import QtQuick 2.4
 
 Item {
-    anchors.fill: parent
+    id: control
+    height: textItem.implicitHeight
+    width: textItem.implicitWidth
     Text {
-        anchors.centerIn: parent
+        id: textItem
+        text: styleData.value
+        anchors.fill: parent
+        anchors.leftMargin: nConst.margin
+        clip: true
+        wrapMode: Text.WordWrap
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignLeft
-        color: styleData.selected ? cScheme.activeFocusTextColor : cScheme.textColor
-        text: styleData.value
-        font.pixelSize: nConst.textPixelSize
+        color: styleData.selected ? cScheme.backgroung : cScheme.label
+        font.pixelSize: nConst.labelSize
     }
 }

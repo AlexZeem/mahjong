@@ -5,6 +5,7 @@ Item{
     property alias border: background.border
     property alias radius: background.radius
     property alias backgroundOpacity: background.opacity
+    property alias color: background.color
 
     Rectangle {
         id: background

@@ -1,14 +1,21 @@
 import QtQuick 2.0
+import "../"
 
-Rectangle {
-    property bool focused: true
+Item {
+    id: control
+    height: nConst.tableRowHeight
 
-    anchors.fill: parent
-    color: focused ? cScheme.itemBackgroungColor : cScheme.backgroungColor
-    radius: nConst.cornerRadius
-    border {
-        width: focused ? nConst.borderWidth : 0
-        color: cScheme.borderColor
+    TBackgroundItem {
+        id: background
+        anchors.fill: parent
+        color: cScheme.backgroung
+
+        TItem {
+            id: row
+            anchors.fill: parent
+            anchors.margins: 4 * nConst.borderWidth
+            color: styleData.selected ? cScheme.tableHighlighter : cScheme.backgroungItem
+        }
     }
 }
 

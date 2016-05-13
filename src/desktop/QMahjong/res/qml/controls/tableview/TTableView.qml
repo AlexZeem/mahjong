@@ -1,26 +1,20 @@
-import QtQuick 2.0
+import QtQuick 2.4
 import QtQuick.Controls 1.3
 import QtQuick.Controls.Styles 1.3
 
 TableView {
     style: TableViewStyle {
-        textColor: cScheme.textColor
-        backgroundColor: cScheme.itemBackgroungColor
-        alternateBackgroundColor: cScheme.backgroungColor
+        textColor: cScheme.label
+        backgroundColor: cScheme.backgroung
+        alternateBackgroundColor: cScheme.backgroungItem
 
         frame: Rectangle {}
 
-        headerDelegate: TText {
-            verticalAlignment: Text.AlignVCenter
-            horizontalAlignment: Text.AlignLeft
-            text: styleData.value
-        }
+        headerDelegate: THeaderDelegate{}
 
-        itemDelegate: TItemDelegate {}
+        rowDelegate: TRowDelegate {}
 
-        rowDelegate: TRowDelegate {
-           focused: styleData.selected
-        }
+        itemDelegate: TTextDelegate {}
     }
 }
 
