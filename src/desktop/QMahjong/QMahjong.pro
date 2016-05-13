@@ -32,6 +32,8 @@ QML_FILES = \
     $$PWD/res/qml/ColorScheme.qml \
     $$PWD/res/qml/NumericConstants.qml \
     $$PWD/res/qml/controls/*.qml \
+    $$PWD/res/qml/controls/tableview/*.qml \
+    $$PWD/res/qml/controls/listview/*.qml \
     $$PWD/res/qml/cabinet/*.qml \
     $$PWD/res/qml/cabinet/admin/*.qml \
 
