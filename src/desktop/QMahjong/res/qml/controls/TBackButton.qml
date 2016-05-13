@@ -10,67 +10,45 @@ Item {
     Button {
         id: btn
         style: ButtonStyle {
-            background: /*Rectangle {
-                implicitWidth: nConst.btnImplicitWidth
-                implicitHeight: nConst.btnImplicitHeight
-                radius: nConst.btnRadius
-                border {
-                    width: nConst.borderWidth
-                    color: cScheme.border
-                }
-                color: cScheme.backgroung
-
-
-            }*/
-                Canvas {
+            background: Canvas {
                 id: canvas
-                implicitWidth: nConst.btnImplicitWidth
-                implicitHeight: nConst.btnImplicitHeight
+                implicitWidth: nConst.backBtnWidth
+                implicitHeight: nConst.backBtnHeight
                 antialiasing: true
 
-                property color strokeStyle:  Qt.darker(fillStyle, 1.6)
+                property color strokeStyle:  cScheme.border
                 property color fillStyle: cScheme.backgroung
                 property int lineWidth: nConst.borderWidth
                 property bool fill: true
                 property bool stroke: true
 
-                onLineWidthChanged:requestPaint();
-                onFillChanged:requestPaint();
-                onStrokeChanged:requestPaint();
+                onLineWidthChanged:requestPaint()
+                onFillChanged:requestPaint()
+                onStrokeChanged:requestPaint()
 
                 onPaint: {
-                    var ctx = canvas.getContext('2d');
-                    var originX = btn.horizontalCenter
-                    var originY = btn.verticalCenter
-                    ctx.save();
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    ctx.translate(originX, originX);
-                    ctx.globalAlpha = canvas.alpha;
-                    ctx.strokeStyle = canvas.strokeStyle;
-                    ctx.fillStyle = canvas.fillStyle;
-                    ctx.lineWidth = canvas.lineWidth;
+                    var ctx = canvas.getContext('2d')
+                    ctx.save()
+                    ctx.clearRect(0, 0, canvas.width, canvas.height)
+                    ctx.strokeStyle = canvas.strokeStyle
+                    ctx.fillStyle = canvas.fillStyle
+                    ctx.lineWidth = canvas.lineWidth
 
-                    ctx.beginPath();
-                    ctx.moveTo(75 + 50  * Math.cos(0),
-                               75 - 50  * Math.sin(Math.PI*2));
-                    ctx.arc(75,75,50,0,Math.PI*2,true); // Outer circle
-                    ctx.moveTo(75,70);
-                    ctx.arc(75,70,35,0,Math.PI,false);   // Mouth (clockwise)
-                    ctx.moveTo(60,65);
-                    ctx.arc(60,65,5,0,Math.PI*2,true);  // Left eye
-                    ctx.moveTo(90 + 5  * Math.cos(0),
-                               65 - 5  * Math.sin(Math.PI*2));
-                    ctx.moveTo(90,65);
-                    ctx.arc(90,65,5,0,Math.PI*2,true);  // Right eye
-                    ctx.closePath();
-                    if (canvas.fill)
-                        ctx.fill();
-                    if (canvas.stroke)
-                        ctx.stroke();
+                    ctx.beginPath()
+                    ctx.moveTo(0, btn.height / 2)
+                    ctx.lineTo(btn.height / 2, 0)
+                    ctx.lineTo(btn.width - btn.height / 4, 0)
+                    ctx.quadraticCurveTo(btn.width, 0, btn.width, btn.height / 4)
+                    ctx.lineTo(btn.width, btn.height - btn.height / 4)
+                    ctx.quadraticCurveTo(btn.width, btn.height, btn.width  - btn.height / 4, btn.height)
+                    ctx.lineTo(btn.height / 2, btn.height)
+                    ctx.closePath()
+
+                    if (canvas.fill) ctx.fill()
+                    if (canvas.stroke) ctx.stroke()
                     ctx.restore();
                 }
             }
-
 
             label: Component {
                 Text {

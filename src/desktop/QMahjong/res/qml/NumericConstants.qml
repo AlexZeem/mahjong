@@ -23,9 +23,11 @@ QtObject {
     readonly property int btnImplicitHeight: 50
     readonly property int moreBtnWidth:      10
     readonly property int moreBtnHeight:     10
+    readonly property int backBtnWidth:      80
+    readonly property int backBtnHeight:     30
     readonly property int btnRadius:         4
-
     readonly property int btnTextSize:       12
+
     readonly property int titleSize:         18
     readonly property int promptSize:        11
     readonly property int labelSize:         16
