@@ -36,4 +36,6 @@ QtObject {
     readonly property int inputTextSize:     12
     readonly property int tableRowHeight:    40
     readonly property int chBoxMargin:       5
+    readonly property int listItemHeight:    30
+    readonly property int listItemWidth:     100
 }
