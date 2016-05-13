@@ -6,9 +6,10 @@ Item {
     id: root
 
     TItem {
-        id: background
-        focused: true
-        anchors.fill: parent
+        id: form
+        anchors.centerIn: background
+        width: parent.width / 2
+        height: parent.height / 2
     }
 
     Column {

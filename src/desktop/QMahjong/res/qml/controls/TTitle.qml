@@ -2,6 +2,8 @@ import QtQuick 2.4
 
 Item {
     id: control
+    width: title.implicitWidth
+    height: title.implicitHeight
     property alias text: title.text
 
     Text {

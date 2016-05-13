@@ -5,48 +5,46 @@ import "../controls"
 Item {
     id: root
 
-    TItem {
+    TBackgroundItem {
         id: background
-        focused: false
         anchors.fill: parent
-        radius: 0
     }
 
     TItem {
-        id: backgr
-        anchors.centerIn: parent
+        id: form
+        anchors.centerIn: background
         width: parent.width / 2
         height: parent.height / 2
     }
 
-    TTitleText {
+    TTitle {
         id: header
         anchors.centerIn: parent
         text: qsTr("Authorization Failed")
     }
 
-    TPromptText {
+    TPrompt {
         id: prompt
         anchors {
             top: header.bottom
             right: header.right
         }
-        promptText: {
+        text: {
             if (auth.error === Errors.FAILED_PASS) {
-                return qsTr("incorrect password")
+                return qsTr("* incorrect password")
             } else if (auth.error === Errors.FAILED_NO_USER) {
-                return qsTr("no such login")
+                return qsTr("* no such login")
             } else {
-                return qsTr("sorry, something went wrong")
+                return qsTr("* sorry, something went wrong")
             }
         }
     }
 
-    TButton {
+    TBackButton {
         id: backBtn
         anchors {
-            top: backgr.top
-            right: backgr.right
+            top: form.top
+            right: form.right
             topMargin: nConst.margin
             rightMargin: nConst.margin
         }

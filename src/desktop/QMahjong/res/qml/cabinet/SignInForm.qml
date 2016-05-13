@@ -1,24 +1,22 @@
-import QtQuick 2.0
+import QtQuick 2.4
 import "../controls"
 
 Item{
     id: root
 
-    TItem {
+    TBackgroundItem {
         id: background
-        focused: false
         anchors.fill: parent
-        radius: 0
     }
 
     TItem {
         id: form
-        anchors.centerIn: parent
+        anchors.centerIn: background
         width: parent.width / 2
         height: parent.height / 2
     }
 
-    TTitleText {
+    TTitle {
         id: header
         anchors {
             top: form.top
@@ -38,22 +36,20 @@ Item{
             horizontalCenter: header.horizontalCenter
         }
 
-        TLableText {
+        TLable {
             text: qsTr("Login:")
         }
 
-        TTextInput {
+        TInputText {
             id: loginInput
-            maximumLength: 10
         }
 
-        TLableText {
+        TLable {
             text: qsTr("Password:")
         }
 
-        TTextInput {
+        TInputText {
             id: passInput
-            maximumLength: nConst.inputMaxLength
             echoMode: TextInput.Password
         }
     }
@@ -62,7 +58,7 @@ Item{
         id: button
         anchors {
             top: body.bottom
-            topMargin: nConst.inputMaxLength
+            topMargin: nConst.margin
             right: body.right
         }
         text: qsTr("Sign in")

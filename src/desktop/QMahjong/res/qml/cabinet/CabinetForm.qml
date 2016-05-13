@@ -6,11 +6,9 @@ import "../controls"
 Item {
     id: root
 
-    TItem {
+    TBackgroundItem {
         id: background
-        focused: false
         anchors.fill: parent
-        radius: 0
     }
 
     UserInfo {
@@ -24,43 +22,58 @@ Item {
         }
     }
 
-    GameInfo {
-        id: gamesInfo
-        width: parent.width - button.width - userInfo.width - nConst.margin * 4
-        height: nConst.gameInfoHeight
-        anchors {
-            margins: nConst.margin
-            top: parent.top
-            left: userInfo.right
-        }
-    }
+//    GameInfo {
+//        id: gamesInfo
+//        width: parent.width - button.width - userInfo.width - nConst.margin * 4
+//        height: nConst.gameInfoHeight
+//        anchors {
+//            margins: nConst.margin
+//            top: parent.top
+//            left: userInfo.right
+//        }
+//    }
 
-    MahjongInfo {
-        id: mahjongsInfo
-        width: gamesInfo.width
-        height: nConst.mahjongInfoHeight
-        anchors {
-            margins: nConst.margin
-            top: gamesInfo.bottom
-            left: userInfo.right
-        }
-    }
+//    MahjongInfo {
+//        id: mahjongsInfo
+//        width: gamesInfo.width
+//        height: nConst.mahjongInfoHeight
+//        anchors {
+//            margins: nConst.margin
+//            top: gamesInfo.bottom
+//            left: userInfo.right
+//        }
+//    }
 
-    LimitInfo {
-        id: limitsInfo
-        width: gamesInfo.width
-        height: nConst.limitInfoHeight
+//    LimitInfo {
+//        id: limitsInfo
+//        width: gamesInfo.width
+//        height: nConst.limitInfoHeight
 
-        anchors {
-            margins: nConst.margin
-            top: mahjongsInfo.bottom
-            bottom: parent.bottom
-            left: userInfo.right
-        }
-    }
+//        anchors {
+//            margins: nConst.margin
+//            top: mahjongsInfo.bottom
+//            bottom: parent.bottom
+//            left: userInfo.right
+//        }
+//    }
 
-    TButton {
-        id: button
+//    TButton {
+//        id: button
+//        anchors {
+//            top: background.top
+//            right: background.right
+//            topMargin: nConst.margin
+//            rightMargin: nConst.margin
+//        }
+//        text: qsTr("Sign out")
+//        onClicked: {
+//            console.log("Sign out button clicked")
+//            fsmEvent.signOut()
+//        }
+//    }
+
+    TBackButton {
+        id: backBtn
         anchors {
             top: background.top
             right: background.right

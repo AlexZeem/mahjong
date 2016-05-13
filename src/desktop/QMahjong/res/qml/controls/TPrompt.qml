@@ -2,6 +2,8 @@ import QtQuick 2.4
 
 Item {
     id: control
+    width: prompt.implicitWidth
+    height: prompt.implicitHeight
     property alias text: prompt.text
 
     Text {

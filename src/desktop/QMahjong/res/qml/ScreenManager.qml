@@ -14,7 +14,7 @@ Item {
 
     DSM.StateMachine {
         id: stateMachine
-        initialState: cabinetState//signInState
+        initialState: signInState
         running: true
 
         DSM.State {

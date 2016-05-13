@@ -7,7 +7,6 @@ Item {
 
     TItem {
         id: background
-        focused: true
         anchors.fill: parent
     }
 
@@ -35,98 +34,170 @@ Item {
             right: parent.right
         }
 
-        TLableText {
-            text: qsTr("Nickname: ")
+        TLable {
+            id: nicknameLbl
+            text: qsTr("Nickname:")
         }
-        TTextInput {
-            id: nicknameTI
+        TLable {
+            id: nickname
             text: umediator.nickname
-            readOnly: true
-            width: parent.width / 2 + nConst.margin
+            implicitWidth: nicknameLbl.width
+            property string enteredText: umediator.nickname
+            Loader {
+                id: nicknameLoader
+                anchors.fill: parent
+                sourceComponent: saveButton.visible ? nicknameEditor : null
+
+                Connections {
+                    target: nicknameLoader.item
+                    onEditingFinished: {
+                        nickname.enteredText = nicknameLoader.item.text
+                    }
+                }
+                Component {
+                    id: nicknameEditor
+                    TInputText {
+                        font.pixelSize: phone.font.pixelSize
+                        text: nickname.text
+                    }
+                }
+            }
         }
 
-        TLableText {
+        TLable {
             text: qsTr("Name: ")
         }
-        TTextInput {
-            id: nameTI
+        TLable {
+            id: name
             text: umediator.name
-            readOnly:true
-            width: parent.width / 2 + nConst.margin
+            property string enteredText: umediator.name
+            Loader {
+                id: nameLoader
+                anchors.fill: parent
+                sourceComponent: saveButton.visible ? nameEditor : null
+
+                Connections {
+                    target: nameLoader.item
+                    onEditingFinished: {
+                        name.enteredText = nameLoader.item.text
+                    }
+                }
+                Component {
+                    id: nameEditor
+                    TInputText {
+                        font.pixelSize: phone.font.pixelSize
+                        text: name.text
+                    }
+                }
+            }
         }
 
-        TLableText {
-            text: qsTr("Surname: ")
+
+        TLable {
+            id: surnameLbl
+            text: qsTr("Surname:")
         }
-        TTextInput {
-            id: surnameTI
+        TLable {
+            id: surname
             text: umediator.surname
-            readOnly:true
-            width: parent.width / 2 + nConst.margin
+            width: surnameLbl.width
+            height: surnameLbl.height
+            property string enteredText: umediator.surname
+            Loader {
+                id: surnameLoader
+                anchors.fill: parent
+                sourceComponent: saveButton.visible ? surnameEditor : null
+
+                Connections {
+                    target: surnameLoader.item
+                    onEditingFinished: {
+                        surname.enteredText = surnameLoader.item.text
+                    }
+                }
+                Component {
+                    id: surnameEditor
+                    TInputText {
+                        font.pixelSize: phone.font.pixelSize
+                        text: surname.text
+                    }
+                }
+            }
         }
 
-        TLableText {
+        TLable {
+            id: phoneLbl
             text: qsTr("Phone: ")
         }
-        TTextInput {
-            id: phoneTI
+        TLable {
+            id: phone
             text: umediator.phone
-            readOnly: true
-            width: parent.width / 2 + nConst.margin
+            implicitWidth: phoneLbl.width
+            property string enteredText: umediator.phone
+            Loader {
+                id: phoneLoader
+                anchors.fill: parent
+                sourceComponent: saveButton.visible ? phoneEditor : null
+
+                Connections {
+                    target: phoneLoader.item
+                    onEditingFinished: {
+                        phone.enteredText = phoneLoader.item.text
+                    }
+                }
+                Component {
+                    id: phoneEditor
+                    TInputText {
+                        font.pixelSize: phone.font.pixelSize
+                        text: phone.text
+                    }
+                }
+            }
         }
 
-        TLableText {
+        TLable {
             text: qsTr("Email: ")
         }
-        TTextInput{
-            id: emailTI
+        TLable {
+            id: email
             text: umediator.email
-            readOnly: true
-            width: parent.width / 2 + nConst.margin
+            property string enteredText: umediator.email
+            Loader {
+                id: emailLoader
+                anchors.fill: parent
+                sourceComponent: saveButton.visible ? emailEditor : null
+
+                Connections {
+                    target: emailLoader.item
+                    onEditingFinished: {
+                        email.enteredText = emailLoader.item.text
+                    }
+                }
+                Component {
+                    id: emailEditor
+                    TInputText {
+                        font.pixelSize: phone.font.pixelSize
+                        text: email.text
+                    }
+                }
+            }
         }
 
-        TLableText {
+        TLable {
             text: qsTr("Rang: ")
         }
-        TTextInput {
+        TLable {
             text: umediator.rang
             font.italic: true
-            readOnly: true
-            maximumLength: 6
-            width: parent.width / 2 + nConst.margin
         }
     } // grid
 
-    Column {
-        id:buttonClmn
+    Row {
         anchors {
             top: body.bottom
             left: body.left
             topMargin: nConst.margin
         }
-        spacing: 3
-
-        TButton {
-            id: editButton
-            text: qsTr("Edit")
-            visible: true
-            onClicked: {
-                console.log("Edit button clicked")
-
-                //Save/Cancel visibility on
-                //Edit - off
-                saveButton.visible = true
-                cancelButton.visible = true
-                editButton.visible = false
-
-                // Open cells for edit
-                nicknameTI.readOnly = false
-                nameTI.readOnly = false
-                surnameTI.readOnly = false
-                emailTI.readOnly = false
-                phoneTI.readOnly = false
-            }
-        } // editButton
+        spacing: 5
 
         TButton {
             id: saveButton
@@ -136,55 +207,34 @@ Item {
                 console.log("Save button clicked")
 
                 //set
-                if(nicknameTI.text != umediator.nickname){umediator.nickname = nicknameTI.text}
-                if(nameTI.text != umediator.name){umediator.name = nameTI.text}
-                if(surnameTI.text != umediator.surname) {umediator.surname = surnameTI.text}
-                if(emailTI.text != umediator.email) {umediator.email = emailTI.text}
-                if (phoneTI.text != umediator.phone) {umediator.phone = phoneTI.text}
+                if (nickname.enteredText !== umediator.nickname) { umediator.nickname = nickname.enteredText; nickname.text = umediator.nickname }
+                if (name.enteredText !== umediator.name)         { umediator.name = name.enteredText; name.text = umediator.name }
+                if (surname.enteredText !== umediator.surname)   { umediator.surname = surname.enteredText; surname.text = umediator.surname }
+                if (email.enteredText !== umediator.email)       { umediator.email = email.enteredText; email.text = umediator.email }
+                if (phone.enteredText !== umediator.phone)       { umediator.phone = phone.enteredText; phone.text = umediator.phone }
 
-                //Save/Cancel visibility off
-                //Edit - on
                 saveButton.visible = false
-                cancelButton.visible = false
-                editButton.visible = true
-
-                // Close cells for edit
-                nicknameTI.readOnly = true
-                nameTI.readOnly = true
-                surnameTI.readOnly = true
-                emailTI.readOnly = true
-                phoneTi.readOnly = true
+                editButton.text = qsTr("Edit")
             }
         } // saveButton
 
         TButton {
-            id: cancelButton
-            text: qsTr("Cancel")
-            visible: false
+            id: editButton
+            text: qsTr("Edit")
+            visible: true
             onClicked: {
-                console.log("Cancel button clicked")
+                saveButton.visible = !saveButton.visible
+                editButton.text = saveButton.visible ? qsTr("Cancel") : qsTr("Edit")
 
-                //Save/Cancel visibility off
-                //Edit - on
-                saveButton.visible = false
-                cancelButton.visible = false
-                editButton.visible = true
-
-                //Set basic user info
-                nicknameTI.text = umediator.nickname
-                nameTI.text = umediator.name
-                surnameTI.text = umediator.surname
-                emailTI.text = umediator.email
-                phoneTI.text = umediator.phone
-
-                // Close cells for edit
-                nicknameTI.readOnly = true
-                nameTI.readOnly = true
-                surnameTI.readOnly = true
-                emailTI.readOnly = true
-                phoneTi.readOnly = true
+                if (saveButton.visible) {
+                    nickname.text = umediator.nickname
+                    name.text     = umediator.name
+                    surname.text  = umediator.surname
+                    email.text    = umediator.email
+                    phone.text    = umediator.phone
+                }
             }
-        } // cancelButton
-    } // end column
+        } // editButton
+    }
 }
 

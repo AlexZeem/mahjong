@@ -4,6 +4,8 @@ import QtQuick.Controls.Styles 1.3
 
 Item {
     id: control
+    width: btn.implicitWidth
+    height: btn.implicitHeight
     property alias text: btn.text
     signal clicked
 

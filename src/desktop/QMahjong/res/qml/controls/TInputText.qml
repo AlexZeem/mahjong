@@ -4,9 +4,12 @@ import QtQuick.Controls.Styles 1.3
 
 Item {
     id: control
+    width: input.implicitWidth
+    height: input.implicitHeight
     property alias text: input.text
     property alias maximumLength: input.maximumLength
     property alias echoMode: input.echoMode
+    property alias font: input.font
     signal accepted
     signal editingFinished
 
@@ -26,8 +29,8 @@ Item {
         }
         font.pixelSize: nConst.inputTextSize
 
-        onAccepted: control.accepted
-        onEditingFinished: control.editingFinished
+        onAccepted: control.accepted()
+        onEditingFinished: control.editingFinished()
     }
 }
 
