@@ -2,7 +2,7 @@ import QtQuick 2.0
 import QtQuick.Controls 1.3
 import "../controls"
 
-Item {
+TItem {
     id: root
 
     TItem {
@@ -14,34 +14,42 @@ Item {
     Column {
         spacing: 5
         anchors {
-            top: parent.top
-            horizontalCenter: parent.horizontalCenter
-            topMargin: 15
+            top: root.top
+            left: root.left
+            leftMargin: 5
+            topMargin: 10
         }
 
         Row {
             id: lastGame
-            Text {
+            spacing: 5
+            TLableText {
                 text: qsTr("Last Game: ")
             }
-            Text {
+            TTextInput {
                 text: qsTr(new Date().toLocaleDateString(Locale.ShortFormat))
+                readOnly: true;
+                horizontalAlignment: TextInput.AlignHCenter
+
             }
         }
 
         Row {
             id: participated
-            Text {
+            spacing: 5
+            TLableText {
                 text: qsTr("Participated in: ")
             }
-            Text {
-                width: 25
-                text: "2"
+            TTextInput {
+                text: ginfomediator.ParticipatedIn
+                readOnly: true
+                horizontalAlignment: TextInput.AlignHCenter
+                width: 40
             }
-            Button {
+            TButton {
                 id: button
-                width: 25
-                text: qsTr("...")
+                width: 60
+                text: qsTr("Details")
 
                 onClicked: {
                     console.log("More in button clicked")

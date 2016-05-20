@@ -5,6 +5,7 @@
 #include "cabinet/admin/GamesViewMediator.h"
 #include "cabinet/UserInfoMediator.h"
 #include "persistence/DBHandler.h"
+#include "cabinet/GameInfoMediator.h"
 
 int main(int argc, char *argv[])
 {
@@ -18,13 +19,17 @@ int main(int argc, char *argv[])
     cabinet::UserInfoMediator userMediator;
     cabinet::UsersTableModel usersModel;
     cabinet::GamesViewMediator gameMediator;
+    cabinet::GameInfoMediator gameInfoMediator;
+
     //Connect:
     QObject::connect(&auth, SIGNAL(validationSuccesfull(QString)), &userMediator, SLOT(setUser(QString)));
+    QObject::connect(&auth, SIGNAL(validationSuccesfull(QString)), &gameInfoMediator, SLOT(setParticipation(QString)));
 
     view.engine()->rootContext()->setContextProperty("auth", &auth);
     view.engine()->rootContext()->setContextProperty("users", &usersModel);
     view.engine()->rootContext()->setContextProperty("gmediator", &gameMediator);
     view.engine()->rootContext()->setContextProperty("umediator", &userMediator);
+    view.engine()->rootContext()->setContextProperty("ginfomediator", &gameInfoMediator);
 
     qmlRegisterType<cabinet::Authorization>("mahjong.cabinet.authorization", 1, 0, "Errors");
     //
