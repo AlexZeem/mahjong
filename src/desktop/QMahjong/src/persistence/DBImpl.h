@@ -27,6 +27,7 @@ struct impl_t
     QMap<unsigned long, Game> getGames();
 
     bool updateParticipant(const Participant& p);
+    QVector <Participant> getParticipant(QString login);
     QVector<QString> getPlayers(unsigned long gameId);
 
     bool updateHand(const Hand& h);

@@ -93,6 +93,11 @@ bool DBHandler::updateParticipant(const Participant &p)
     return impl->updateParticipant(p);
 }
 
+QVector <Participant> DBHandler::getParticipant(QString &login)
+{
+    return impl->getParticipant(login);
+}
+
 QVector<QString> DBHandler::getPlayers(unsigned long gameId)
 {
     return impl->getPlayers(gameId);

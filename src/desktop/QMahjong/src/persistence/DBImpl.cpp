@@ -105,6 +105,20 @@ bool impl_t::updateParticipant(const Participant &p)
     return true;
 }
 
+QVector <Participant> impl_t::getParticipant(QString login)
+{
+    QVector <Participant> result;
+    for (const auto & i : participants) {
+       QVector <QString> userId = i.getUserId();
+       for (auto & j : userId){
+           if (j == login){
+               result.push_back(i);
+           }
+       }
+    }
+    return result;
+}
+
 QVector<QString> impl_t::getPlayers(unsigned long gameId)
 {
     if (!participants.contains(gameId)) {

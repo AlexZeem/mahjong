@@ -2,6 +2,7 @@
 #include <memory>
 #include <QString>
 #include <QMap>
+#include <QVector>
 
 namespace persistence {
 
@@ -31,6 +32,7 @@ public:
     QMap<unsigned long, Game> getGames();
 
     bool updateParticipant(const Participant& p);
+    QVector <Participant> getParticipant(QString &login);
     QVector<QString> getPlayers(unsigned long gameId);
 
     bool updateHand(const Hand& h);
