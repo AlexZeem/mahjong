@@ -42,7 +42,7 @@ Item {
 
         FSM.State {
             id: interactiveTable
-            //onEntered: mainLoader.source = ".qml"
+            onEntered: mainLoader.source = "itable/ITView.qml"
         }
 
         FSM.State {

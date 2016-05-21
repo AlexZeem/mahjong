@@ -26,7 +26,8 @@ QML_FILES = \
     $$PWD/res/qml/ScreenManager.qml \
     $$PWD/res/qml/controls/background/*.qml \
     $$PWD/res/qml/controls/button/*.qml \
-    $$PWD/res/qml/menu/*.qml
+    $$PWD/res/qml/menu/*.qml \
+    $$PWD/res/qml/itable/*.qml
 
 JS_FILES = \
 
