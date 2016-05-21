@@ -7,8 +7,8 @@ Canvas {
     antialiasing: true
 
     property color strokeStyle:  cScheme.border
-    property color fillStyle: cScheme.backgroung
-    property int lineWidth: nConst.border
+    property color fillStyle: cScheme.table
+    property int lineWidth: 2 * nConst.border
     property bool fill: true
     property bool stroke: true
 
