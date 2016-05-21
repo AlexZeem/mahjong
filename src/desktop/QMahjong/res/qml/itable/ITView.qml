@@ -8,4 +8,10 @@ Item {
         id: background
         anchors.fill: parent
     }
+
+    TableBase {
+        anchors.centerIn: parent
+        implicitWidth: nConst.tableSize
+        implicitHeight: nConst.tableSize
+    }
 }

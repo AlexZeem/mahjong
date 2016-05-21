@@ -11,4 +11,6 @@ QtObject {
     readonly property int btnWidth:    90
     readonly property int btnHeight:   30
     readonly property int btnTextSize: 16
+    //table
+    readonly property int tableSize:   appHeight - 100
 }
