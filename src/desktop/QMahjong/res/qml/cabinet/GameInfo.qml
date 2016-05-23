@@ -27,7 +27,7 @@ TItem {
                 text: qsTr("Last Game: ")
             }
             TTextInput {
-                text: qsTr(new Date().toLocaleDateString(Locale.ShortFormat))
+                text: qsTr(ginfomediator.lastPlayed)
                 readOnly: true;
                 horizontalAlignment: TextInput.AlignHCenter
 
@@ -41,7 +41,7 @@ TItem {
                 text: qsTr("Participated in: ")
             }
             TTextInput {
-                text: ginfomediator.ParticipatedIn
+                text: ginfomediator.participatedIn
                 readOnly: true
                 horizontalAlignment: TextInput.AlignHCenter
                 width: 40
