@@ -20,12 +20,14 @@ Item {
 
         Row {
             id: wins
-            Text {
+            TTextInput {
                 text: qsTr("Mahjongs: ")
+                readOnly: true
             }
-            Text {
+            TTextInput {
                 width: 25
-                text: "2"
+                text: ginfomediator.countMahjong
+                readOnly: true
             }
         }
 
