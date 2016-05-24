@@ -21,6 +21,7 @@ class GameInfoMediator : public QObject
     void participationChanged();
     void participatedInChanged();
     void lastPlayedChanged();
+    void countMahjongChanged();
 
  public slots:
     void setParticipation(QString login);

@@ -3,6 +3,7 @@
 #include "../persistence/Participant.h"
 #include "../persistence/Game.h"
 #include "../persistence/User.h"
+#include <QDebug>
 
 void Quicksort(QVector <persistence::Game>);
 
@@ -10,9 +11,9 @@ namespace cabinet {
 GameInfoMediator::GameInfoMediator(QObject *parent)
     :QObject(parent)
 {
-    QObject::connect(this, SIGNAL(participationChanged()), SIGNAL(participatedInChanged()));
-    QObject::connect(this, SIGNAL(participationChanged()), SIGNAL(lastPlayedChanged()));
-    QObject::connect(this, SIGNAL(participationChanged()), SIGNAL(countMahjongChanged()));
+//    QObject::connect(this, SIGNAL(participationChanged()), SIGNAL(participatedInChanged()));
+//    QObject::connect(this, SIGNAL(participationChanged()), SIGNAL(lastPlayedChanged()));
+//    QObject::connect(this, SIGNAL(participationChanged()), SIGNAL(countMahjongChanged()));
 }
 
 int GameInfoMediator::participatedIn() const
@@ -46,11 +47,13 @@ void GameInfoMediator::setParticipation(QString login)
     }
 
     // получим кол-во сыгранных маджонгов
-    int mcount = 0;
+    int count = 0;
     for (const auto & i : participatedGames){
         if (i.getWinner() == persistence::DBHandler::instance()->selectUser(login).getLogin()){
-            mcount++;
+            count++;
         }
+        mcount = count;
+        //qDebug() << "Mcount value:" << mcount; // test
     }
     emit participationChanged();
 }

@@ -14,20 +14,19 @@ Item {
     Column {
         anchors {
             top: parent.top
-            horizontalCenter: parent.horizontalCenter
-            topMargin: 15
+            left: parent.left
         }
 
         Row {
             id: wins
-            TTextInput {
+            TLableText {
                 text: qsTr("Mahjongs: ")
-                readOnly: true
             }
             TTextInput {
                 width: 25
                 text: ginfomediator.countMahjong
                 readOnly: true
+                horizontalAlignment: TextInput.AlignHCenter
             }
         }
 
