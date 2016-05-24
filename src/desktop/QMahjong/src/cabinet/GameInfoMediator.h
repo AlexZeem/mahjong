@@ -27,12 +27,23 @@ class GameInfoMediator : public QObject
     void setParticipation(QString login);
 
  private:
+
+    enum Place{
+        first,
+        second,
+        third,
+        fourth};
+
     QVector <persistence::Participant> participated;
     QVector <persistence::Game> participatedGames;
     int mcount;
+    int mbest;
+    int mworst;
+    QString mbestDate;
+    QString mworstDate;
     struct userPlace {
         unsigned long gameId;
-        enum Place{first, second, third, fourth};
+        Place place;
     };
 
 }; // gameInfoMediator

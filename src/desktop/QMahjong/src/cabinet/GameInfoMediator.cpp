@@ -11,9 +11,9 @@ namespace cabinet {
 GameInfoMediator::GameInfoMediator(QObject *parent)
     :QObject(parent)
 {
-//    QObject::connect(this, SIGNAL(participationChanged()), SIGNAL(participatedInChanged()));
-//    QObject::connect(this, SIGNAL(participationChanged()), SIGNAL(lastPlayedChanged()));
-//    QObject::connect(this, SIGNAL(participationChanged()), SIGNAL(countMahjongChanged()));
+    //    QObject::connect(this, SIGNAL(participationChanged()), SIGNAL(participatedInChanged()));
+    //    QObject::connect(this, SIGNAL(participationChanged()), SIGNAL(lastPlayedChanged()));
+    //    QObject::connect(this, SIGNAL(participationChanged()), SIGNAL(countMahjongChanged()));
 }
 
 int GameInfoMediator::participatedIn() const
@@ -55,43 +55,54 @@ void GameInfoMediator::setParticipation(QString login)
         mcount = count;
         //qDebug() << "Mcount value:" << mcount; // test
     }
+
+    //заполним вектор структур, чтобы получить позицию нашего игрока в играх, где он выиграл маджонг)
+    QVector <userPlace> up;
+    userPlace temp;
+    for (const auto & j : participated){
+        temp.gameId = j.getGameId();
+        qDebug() << "Temp gameId:" << temp.gameId;
+        QVector<QString> tempUser = j.getUserId();
+        for (auto & t : tempUser) {
+            if (tempUser[0] == persistence::DBHandler::instance()->selectUser(login).getLogin()){
+                temp.place = first;
+            }
+            if (tempUser[1] == persistence::DBHandler::instance()->selectUser(login).getLogin()){
+                temp.place = second;
+            }
+            if (tempUser[2] == persistence::DBHandler::instance()->selectUser(login).getLogin()){
+                temp.place = third;
+            }
+            if (tempUser[3] == persistence::DBHandler::instance()->selectUser(login).getLogin()){
+                temp.place = fourth;
+            }
+        }
+        qDebug() << "Place:" << temp.place;
+    }
+    up.push_back(temp);
+
+    // получит лучший/худщий маджонги и их даты игр.
+    //    for (auto & k : persistence::Dbhandler::instance()->getHands(participatedGamed(gameId))){
+    //        mworst, mbest = k.getScore();
+    //        date = k.getDate();
+    //        /* а теперь я так понимаю что надо пройтись по вектору структур, и поле place сделать индектаром поля score у вектора QVector<int> score, оесть 2 уикла 1 для вектора структур, второй для вектора очков*/
+    //        for (auto & l : u){
+    //            for (auto & n : persistence::Dbhandler::instance()->getHands(participatedGamed(gameId))){
+    //                if(n.getScore.at(u.place) > mbest) {
+    //                    mbest = n.getScore.at(u.place),
+    //                            mbestDate = n.getDate();
+    //                }
+    //                if(n.getScore.at(u.place) < mworst) {
+    //                    mworst = n.getScore.at(u.place),
+    //                            mworstDate = n.getDate();
+    //                }
+    //            }
+    //        }
+    //    }
+
+
     emit participationChanged();
 }
-
-//void GameInfoMediator::setMahjong()
-//{
-//    //заполним вектор структур, чтобы получить позицию нашего игрока в играх, где он выиграл маджонг)
-//    QVector <userPlace> u;
-//    userPlace temp;
-//    for (const auto & j : persistence::DBHandler::instance()->getParticipant(QString &login)){
-//        temp.gameId -> j.getGameId();
-//        for (auto & k : i.getUserId){
-//            temp.Place -> k.getUserId(at(login));
-//        }
-//        u.push_back(temp);
-//    }
-
-//    // получит лучший/худщий маджонги и их даты игр.
-//    for (auto & k : persistence::Dbhandler::instance()->getHands(participatedGamed(gameId))){
-//        mworst, mbest = k.getScore();
-//        date = k.getDate();
-//        /* а теперь я так понимаю что надо пройтись по вектору структур, и поле place сделать индектаром поля score у вектора QVector<int> score, оесть 2 уикла 1 для вектора структур, второй для вектора очков*/
-//        for (auto & l : u){
-//            for (auto & n : persistence::Dbhandler::instance()->getHands(participatedGamed(gameId))){
-//                if(n.getScore.at(u.place) > mbest) {
-//                    mbest = n.getScore.at(u.place),
-//                            mbestDate = n.getDate();
-//                }
-//                if(n.getScore.at(u.place) < mworst) {
-//                    mworst = n.getScore.at(u.place),
-//                            mworstDate = n.getDate();
-//                }
-//            }
-//        }
-
-//    }
-//}//end setMahjong
-
 } // cabinet
 
 void Quicksort (QVector <persistence::Game> participatedGames)
