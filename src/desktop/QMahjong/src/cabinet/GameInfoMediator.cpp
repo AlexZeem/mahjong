@@ -3,6 +3,7 @@
 #include "../persistence/Participant.h"
 #include "../persistence/Game.h"
 #include "../persistence/User.h"
+#include "../persistence/Hand.h"
 #include <QDebug>
 
 void Quicksort(QVector <persistence::Game>);
@@ -32,6 +33,26 @@ int GameInfoMediator::countMahjong() const
     return mcount;
 }
 
+int GameInfoMediator::bestMahjong() const
+{
+    return mbest;
+}
+
+int GameInfoMediator::worstMahjong() const
+{
+    return mworst;
+}
+
+QString GameInfoMediator::bestMDate() const
+{
+    return mbestDate;
+}
+
+QString GameInfoMediator::worstMDate() const
+{
+    return mworstDate;
+}
+
 void GameInfoMediator::setParticipation(QString login)
 {
     participated = persistence::DBHandler::instance()->getParticipant(login);
@@ -53,33 +74,62 @@ void GameInfoMediator::setParticipation(QString login)
             count++;
         }
         mcount = count;
-        //qDebug() << "Mcount value:" << mcount; // test
-    }
 
-    //заполним вектор структур, чтобы получить позицию нашего игрока в играх, где он выиграл маджонг
-    QVector <userPlace> up;
-    userPlace temp;
-    for (const auto & j : participated){
-        temp.gameId = j.getGameId();
-        qDebug() << "Temp gameId:" << temp.gameId;
-        QVector<QString> tempUser = j.getUserId();
-        for (auto & t : tempUser) {
-            if (tempUser[0] == persistence::DBHandler::instance()->selectUser(login).getLogin()){
-                temp.place = first;
+
+
+        //заполним вектор структур, чтобы получить позицию нашего игрока в играх, где он выиграл маджонг
+        QVector <userPlace> up;
+        userPlace temp;
+        for (const auto & j : participated){
+            temp.gameId = j.getGameId();
+            QVector<QString> tempUser = j.getUserId();
+            for (auto & t : tempUser) {
+                if (tempUser[0] == persistence::DBHandler::instance()->selectUser(login).getLogin()){
+                    temp.place = first;
+                }
+                if (tempUser[1] == persistence::DBHandler::instance()->selectUser(login).getLogin()){
+                    temp.place = second;
+                }
+                if (tempUser[2] == persistence::DBHandler::instance()->selectUser(login).getLogin()){
+                    temp.place = third;
+                }
+                if (tempUser[3] == persistence::DBHandler::instance()->selectUser(login).getLogin()){
+                    temp.place = fourth;
+                }
             }
-            if (tempUser[1] == persistence::DBHandler::instance()->selectUser(login).getLogin()){
-                temp.place = second;
+            up.push_back(temp);
+
+            //получим лучший маджонг и его дату.
+            int best = -10000;
+            QString mdate;
+            for (auto &k : persistence::DBHandler::instance()->getHands(j.getGameId())) {
+                if (best < k.getScore()[temp.place]) {
+                    best = k.getScore()[temp.place];
+                    mdate = persistence::DBHandler::instance()->selectGame(temp.gameId).getDate();
+                }
+                mbest = best;
+                mbestDate = mdate;
+
             }
-            if (tempUser[2] == persistence::DBHandler::instance()->selectUser(login).getLogin()){
-                temp.place = third;
-            }
-            if (tempUser[3] == persistence::DBHandler::instance()->selectUser(login).getLogin()){
-                temp.place = fourth;
+            //получим худщий маджонг и его дату.
+            int worst = 10000;
+            for (auto &k : persistence::DBHandler::instance()->getHands(j.getGameId())) {
+                if (worst > k.getScore()[temp.place]) {
+                    worst = k.getScore()[temp.place];
+                    mdate = persistence::DBHandler::instance()->selectGame(temp.gameId).getDate();
+                }
+                mworst = worst;
+                mworstDate = mdate;
             }
         }
-        qDebug() << "Place:" << temp.place;
-        up.push_back(temp);
     }
+
+    qDebug() << "Mcount value:" << mcount; // test
+    qDebug() << "Mbest:" << mbest; // test
+    qDebug() << "MbestDate:" << mbestDate; // test
+    qDebug() << "Mworst:" << mworst; // test
+    qDebug() << "MworstDate:" << mworstDate; // test
+
     emit participationChanged();
 }
 } // cabinet

@@ -11,59 +11,56 @@ Item {
         anchors.fill: parent
     }
 
-    Column {
-        anchors {
-            top: parent.top
-            left: parent.left
-        }
+        Grid {
+            columns: 3
+            anchors {
+                top: parent.top
+                left: parent.left
+            }
 
-        Row {
-            id: wins
             TLableText {
                 text: qsTr("Mahjongs: ")
             }
             TTextInput {
-                width: 25
+                width: 50
                 text: ginfomediator.countMahjong
                 readOnly: true
                 horizontalAlignment: TextInput.AlignHCenter
             }
-        }
 
-        Row {
-            id: bestResults
-            spacing: 10
-            Text {
+            TLableText {
+                text: qsTr(" ")
+                color: cScheme.itemBackgroungColor
+            }
+
+            TLableText {
                 text: qsTr("Best:")
             }
-            Text {
-                width: 25
-                text: "2"
+            TTextInput {
+                width: 50
+                text: ginfomediator.bestMahjong
+                readOnly: true
                 horizontalAlignment: Text.AlignHCenter
             }
-            Text {
-                text: qsTr(new Date().toLocaleDateString(Locale.ShortFormat))
+            TTextInput {
+                text: ginfomediator.bestMDate
+                readOnly: true
                 horizontalAlignment: Text.AlignHCenter
             }
-        }
 
-        Row {
-            id: worstResults
-            spacing: 10
-
-            Text {
+            TLableText {
                 text: qsTr("Worst:")
             }
-            Text {
-                width: 25
-                text: "2"
+            TTextInput {
+                width: 50
+                text: ginfomediator.worstMahjong
+                readOnly: true
                 horizontalAlignment: Text.AlignHCenter
             }
-            Text {
-                text: qsTr(new Date().toLocaleDateString(Locale.ShortFormat))
+            TTextInput {
+                text: ginfomediator.worstMDate
+                readOnly: true
                 horizontalAlignment: Text.AlignHCenter
             }
-        }
+        } // end grid
     }
-
-}

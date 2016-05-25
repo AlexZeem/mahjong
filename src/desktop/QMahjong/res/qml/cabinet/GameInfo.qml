@@ -30,7 +30,6 @@ TItem {
                 text: qsTr(ginfomediator.lastPlayed)
                 readOnly: true;
                 horizontalAlignment: TextInput.AlignHCenter
-
             }
         }
 
