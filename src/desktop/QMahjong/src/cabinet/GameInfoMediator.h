@@ -14,6 +14,8 @@ class GameInfoMediator : public QObject
     Q_PROPERTY(int worstMahjong READ worstMahjong NOTIFY worstMahjongChanged)
     Q_PROPERTY(QString bestMDate READ bestMDate NOTIFY bestMDateChanged)
     Q_PROPERTY(QString worstMDate READ worstMDate NOTIFY worstMDateChanged)
+    Q_PROPERTY(int countLimit READ countLimit NOTIFY countLimitChanged)
+
 
  public:
     GameInfoMediator(QObject *parent = 0);
@@ -24,6 +26,7 @@ class GameInfoMediator : public QObject
     int worstMahjong() const;
     QString bestMDate () const;
     QString worstMDate() const;
+    int countLimit () const;
 
  signals:
     void participationChanged();
@@ -34,6 +37,7 @@ class GameInfoMediator : public QObject
     void worstMahjongChanged();
     void bestMDateChanged();
     void worstMDateChanged();
+    void countLimitChanged();
 
  public slots:
     void setParticipation(QString login);
@@ -46,17 +50,25 @@ class GameInfoMediator : public QObject
         third,
         fourth};
 
+    struct userPlace {
+        unsigned long gameId;
+        Place place;
+    };
+
+    struct userLimits {
+        QString date;
+        QString limit;
+    };
+
     QVector <persistence::Participant> participated;
     QVector <persistence::Game> participatedGames;
+    QVector <userLimits> ul;
     int mcount;
     int mbest;
     int mworst;
     QString mbestDate;
     QString mworstDate;
-    struct userPlace {
-        unsigned long gameId;
-        Place place;
-    };
+
 
 }; // gameInfoMediator
 } // cabinet

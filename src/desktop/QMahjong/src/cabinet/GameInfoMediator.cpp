@@ -53,6 +53,12 @@ QString GameInfoMediator::worstMDate() const
     return mworstDate;
 }
 
+int GameInfoMediator::countLimit() const
+{
+    if (! ul.isEmpty()) return ul.size();
+    else return 0;
+}
+
 void GameInfoMediator::setParticipation(QString login)
 {
     participated = persistence::DBHandler::instance()->getParticipant(login);
@@ -74,8 +80,6 @@ void GameInfoMediator::setParticipation(QString login)
             count++;
         }
         mcount = count;
-
-
 
         //заполним вектор структур, чтобы получить позицию нашего игрока в играх, где он выиграл маджонг
         QVector <userPlace> up;
@@ -101,6 +105,7 @@ void GameInfoMediator::setParticipation(QString login)
 
             //получим лучший маджонг и его дату.
             int best = -10000;
+            int worst = 10000;
             QString mdate;
             for (auto &k : persistence::DBHandler::instance()->getHands(j.getGameId())) {
                 if (best < k.getScore()[temp.place]) {
@@ -110,16 +115,23 @@ void GameInfoMediator::setParticipation(QString login)
                 mbest = best;
                 mbestDate = mdate;
 
-            }
-            //получим худщий маджонг и его дату.
-            int worst = 10000;
-            for (auto &k : persistence::DBHandler::instance()->getHands(j.getGameId())) {
                 if (worst > k.getScore()[temp.place]) {
                     worst = k.getScore()[temp.place];
                     mdate = persistence::DBHandler::instance()->selectGame(temp.gameId).getDate();
                 }
                 mworst = worst;
                 mworstDate = mdate;
+
+                // получим инфо по лимитам
+                userLimits templ;
+                if(i.getWinner() == persistence::DBHandler::instance()->selectUser(login).getLogin() && !k.getLimit().isEmpty())
+                {
+                    templ.date = persistence::DBHandler::instance()->selectGame(temp.gameId).getDate();
+                    for (auto & l : persistence::DBHandler::instance()->getHands(j.getGameId())){
+                        templ.limit = l.getLimit();
+                    }
+                }
+                ul.push_back(templ);
             }
         }
     }
@@ -129,6 +141,7 @@ void GameInfoMediator::setParticipation(QString login)
     qDebug() << "MbestDate:" << mbestDate; // test
     qDebug() << "Mworst:" << mworst; // test
     qDebug() << "MworstDate:" << mworstDate; // test
+
 
     emit participationChanged();
 }

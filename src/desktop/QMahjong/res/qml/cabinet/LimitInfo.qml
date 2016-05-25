@@ -20,12 +20,13 @@ Item {
 
         Row {
             id: limits
-            Text {
+            TLableText {
                 text: qsTr("Limits: ")
             }
-            Text {
-                width: 25
-                text: "2"
+            TTextInput {
+                width: 50
+                text: ginfomediator.countLimit
+                readOnly: true
             }
         }
 
