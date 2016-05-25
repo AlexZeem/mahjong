@@ -21,6 +21,7 @@ struct impl_t
     bool deleteUser(const User& u);
     QMap<QString, User> getUsers();
 
+    Game selectGame(unsigned long gameId);
     bool updateGame(const Game& g);
     bool addGame(const Game& g);
     bool deleteGame(const Game& g);

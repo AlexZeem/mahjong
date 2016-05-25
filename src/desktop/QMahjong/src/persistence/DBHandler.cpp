@@ -68,6 +68,11 @@ QMap<QString, User> DBHandler::getUsers()
     return impl->getUsers();
 }
 
+Game DBHandler::selectGame(unsigned long gameId)
+{
+    return impl->selectGame(gameId);
+}
+
 bool DBHandler::updateGame(const Game &g)
 {
     return impl->updateGame(g);

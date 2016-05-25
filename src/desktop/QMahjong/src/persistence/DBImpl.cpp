@@ -64,6 +64,11 @@ QMap<QString, User> impl_t::getUsers()
     return users;
 }
 
+Game impl_t::selectGame(unsigned long gameId)
+{
+    return games.value(gameId);
+}
+
 bool impl_t::updateGame(const Game &g)
 {
     if (!games.contains(g.getGameId())) {
