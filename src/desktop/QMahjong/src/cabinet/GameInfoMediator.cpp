@@ -5,6 +5,7 @@
 #include "../persistence/User.h"
 #include "../persistence/Hand.h"
 #include <QDebug>
+#include <QVariantMap>
 
 void Quicksort(QVector <persistence::Game>);
 
@@ -55,8 +56,19 @@ QString GameInfoMediator::worstMDate() const
 
 int GameInfoMediator::countLimit() const
 {
-    if (! ul.isEmpty()) return ul.size();
-    else return 0;
+    return ul.size();
+}
+
+QVariantList GameInfoMediator::ulimit() const
+{
+    QVariantList result;
+    for (auto &i : ul){
+        QVariantMap temp;
+        temp["name"] = i.limit;
+        temp["date"] = i.date;
+        result.push_back(temp);
+    }
+    return result;
 }
 
 void GameInfoMediator::setParticipation(QString login)
@@ -123,15 +135,20 @@ void GameInfoMediator::setParticipation(QString login)
                 mworstDate = mdate;
 
                 // получим инфо по лимитам
-                userLimits templ;
-                if(i.getWinner() == persistence::DBHandler::instance()->selectUser(login).getLogin() && !k.getLimit().isEmpty())
+
+                qDebug() << "1st condition:" << (i.getWinner() == login);
+                qDebug() << "2nd condition:" << k.getLimit();
+                if(i.getWinner() == login && !k.getLimit().isEmpty())
                 {
+                    userLimits templ;
                     templ.date = persistence::DBHandler::instance()->selectGame(temp.gameId).getDate();
                     for (auto & l : persistence::DBHandler::instance()->getHands(j.getGameId())){
                         templ.limit = l.getLimit();
+                        qDebug() << "Temp limit" << templ.limit;
                     }
+                    ul.push_back(templ);
+                    emit ulimitChanged();
                 }
-                ul.push_back(templ);
             }
         }
     }

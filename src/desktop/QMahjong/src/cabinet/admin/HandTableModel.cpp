@@ -142,7 +142,7 @@ bool HandTableModel::setData(const QModelIndex& index, const QVariant& value, in
         case PLAYER4_MAHJONG_ROLE: if (value.toBool()) item.setMahjong(3);         break;
         case PLAYER4_COMBO_ROLE:   combo[3] = value.toInt(); item.setCombo(combo); break;
         case PLAYER4_SCORE_ROLE:   score[3] = value.toInt(); item.setScore(score); break;
-        case LIMIT_ROLE:           item.setLimit(value.toString());                break;
+        case LIMIT_ROLE:           qDebug() << "limit role" << value.toString(); item.setLimit(value.toString());                break;
         default: return false;
         }
 

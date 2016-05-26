@@ -42,23 +42,23 @@ Item {
                 title: qsTr("Date")
                 width: 70
             }
-            model: limitsModel
+            model: ginfomediator.ulimit
         }
     }
 
-    ListModel {
-        id: limitsModel
-        ListElement {
-            name: qsTr("13 orphans")
-            date: "13/11/16"
-        }
-        ListElement {
-            name: qsTr("Imperial jade")
-            date: "13/11/16"
-        }
-        ListElement {
-            name: qsTr("Heads and Tails")
-            date: "13/11/16"
-        }
-    }
+//    ListModel {
+//        id: limitsModel
+//        ListElement {
+//            name: qsTr("13 orphans")
+//            date: "13/11/16"
+//        }
+//        ListElement {
+//            name: qsTr("Imperial jade")
+//            date: "13/11/16"
+//        }
+//        ListElement {
+//            name: qsTr("Heads and Tails")
+//            date: "13/11/16"
+//        }
+//    }
 }

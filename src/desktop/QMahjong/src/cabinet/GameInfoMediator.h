@@ -1,5 +1,6 @@
 #pragma once
 #include <QObject>
+#include <QVariantList>
 #include "../persistence/Participant.h"
 #include "../persistence/Game.h"
 
@@ -7,6 +8,12 @@ namespace cabinet {
 class GameInfoMediator : public QObject
 {
     Q_OBJECT
+
+    enum Roles {
+        LNAME_ROLE,
+        LDATE_ROLE
+    };
+
     Q_PROPERTY(int participatedIn READ participatedIn NOTIFY participatedInChanged)
     Q_PROPERTY(QString lastPlayed READ lastPlayed NOTIFY lastPlayedChanged)
     Q_PROPERTY(int countMahjong READ countMahjong NOTIFY countMahjongChanged)
@@ -15,18 +22,20 @@ class GameInfoMediator : public QObject
     Q_PROPERTY(QString bestMDate READ bestMDate NOTIFY bestMDateChanged)
     Q_PROPERTY(QString worstMDate READ worstMDate NOTIFY worstMDateChanged)
     Q_PROPERTY(int countLimit READ countLimit NOTIFY countLimitChanged)
+    Q_PROPERTY(QVariantList ulimit READ ulimit NOTIFY ulimitChanged)
 
 
  public:
     GameInfoMediator(QObject *parent = 0);
-    int participatedIn () const;
-    QString lastPlayed () const;
-    int countMahjong () const;
-    int bestMahjong () const;
+    int participatedIn() const;
+    QString lastPlayed() const;
+    int countMahjong() const;
+    int bestMahjong() const;
     int worstMahjong() const;
-    QString bestMDate () const;
+    QString bestMDate() const;
     QString worstMDate() const;
-    int countLimit () const;
+    int countLimit() const;
+    QVariantList ulimit() const;
 
  signals:
     void participationChanged();
@@ -38,6 +47,7 @@ class GameInfoMediator : public QObject
     void bestMDateChanged();
     void worstMDateChanged();
     void countLimitChanged();
+    void ulimitChanged();
 
  public slots:
     void setParticipation(QString login);
@@ -68,7 +78,6 @@ class GameInfoMediator : public QObject
     int mworst;
     QString mbestDate;
     QString mworstDate;
-
 
 }; // gameInfoMediator
 } // cabinet

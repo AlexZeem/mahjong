@@ -192,7 +192,7 @@ Item {
 
                             onCurrentIndexChanged: {
                                 if (model.length > 0 && currentIndex > -1 && currentText !== "") {
-                                    gmediator.handsModel.editEntry(loaderEditor.item.text, styleData.row, styleData.column)
+                                    gmediator.handsModel.editEntry(model[currentIndex], styleData.row, styleData.column)
                                     tableView.selection.deselect(0, tableView.rowCount - 1)
                                 }
                             }
