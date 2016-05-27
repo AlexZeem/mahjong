@@ -148,6 +148,7 @@ void GameInfoMediator::setParticipation(QString login)
                         templ.limit = l.getLimit();
                         qDebug() << "Temp limit" << templ.limit;
                     }
+                    ul.clear();
                     ul.push_back(templ);
                     emit ulimitChanged();
                 }
