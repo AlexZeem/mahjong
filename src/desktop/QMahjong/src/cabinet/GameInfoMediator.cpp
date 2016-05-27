@@ -71,6 +71,21 @@ QVariantList GameInfoMediator::ulimit() const
     return result;
 }
 
+QVariantList GameInfoMediator::gameDetail() const
+{
+    QVariantList result;
+    for (auto &i : participatedGames){
+        QVariantMap temp;
+        temp["date"] = i.getDate();
+        for (auto &j : up){
+            temp["personalScore"] = i.getScore()[j.place];
+        }
+        temp["winner"] = i.getWinner();
+        result.push_back(temp);
+    }
+    return result;
+}
+
 void GameInfoMediator::setParticipation(QString login)
 {
     participated = persistence::DBHandler::instance()->getParticipant(login);
@@ -97,7 +112,6 @@ void GameInfoMediator::setParticipation(QString login)
         mcount = count;
 
         //заполним вектор структур, чтобы получить позицию нашего игрока в играх, где он выиграл маджонг
-        QVector <userPlace> up;
         userPlace temp;
         for (const auto & j : participated){
             temp.gameId = j.getGameId();
@@ -114,7 +128,6 @@ void GameInfoMediator::setParticipation(QString login)
             if (tempUser[3] == login){
                 temp.place = fourth;
             }
-
             up.push_back(temp);
 
             //получим лучший маджонг и его дату.

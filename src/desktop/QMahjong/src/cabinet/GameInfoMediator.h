@@ -11,7 +11,7 @@ class GameInfoMediator : public QObject
 
     enum Roles {
         LNAME_ROLE,
-        LDATE_ROLE
+        LDATE_ROLE,
     };
 
     Q_PROPERTY(int participatedIn READ participatedIn NOTIFY participatedInChanged)
@@ -23,6 +23,7 @@ class GameInfoMediator : public QObject
     Q_PROPERTY(QString worstMDate READ worstMDate NOTIFY worstMDateChanged)
     Q_PROPERTY(int countLimit READ countLimit NOTIFY countLimitChanged)
     Q_PROPERTY(QVariantList ulimit READ ulimit NOTIFY ulimitChanged)
+    Q_PROPERTY(QVariantList gameDetail READ gameDetail NOTIFY gameDetailChanged)
 
 
  public:
@@ -36,6 +37,7 @@ class GameInfoMediator : public QObject
     QString worstMDate() const;
     int countLimit() const;
     QVariantList ulimit() const;
+    QVariantList gameDetail() const;
 
  signals:
     void participationChanged();
@@ -48,6 +50,7 @@ class GameInfoMediator : public QObject
     void worstMDateChanged();
     void countLimitChanged();
     void ulimitChanged();
+    void gameDetailChanged();
 
  public slots:
     void setParticipation(QString login);
@@ -73,6 +76,7 @@ class GameInfoMediator : public QObject
     QVector <persistence::Participant> participated;
     QVector <persistence::Game> participatedGames;
     QVector <userLimits> ul;
+    QVector <userPlace> up;
     int mcount;
     int mbest;
     int mworst;

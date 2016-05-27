@@ -40,21 +40,13 @@ Item {
         }
     }
 
-    ListModel {
-        id: gameStatModel
-        ListElement {
-            date: "12/03/2012"
-            personalScore: -126
-            winner: "Player 1"
-        }
-    }
     TableView {
         id: gameStatTable
         anchors {
             top: button.bottom
             topMargin: 15
         }
-        model: gameStatModel
+        model: ginfomediator.gameDetail
         width: root.width
 
         TableViewColumn {
