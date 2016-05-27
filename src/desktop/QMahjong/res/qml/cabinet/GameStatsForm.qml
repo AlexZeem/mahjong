@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.3
+import QtQuick.Controls.Styles 1.3
 import "../controls"
 
 Item {
@@ -11,7 +12,7 @@ Item {
         anchors.fill: parent
     }
 
-    Button {
+    TButton {
         id: button
         text: qsTr("Back")
         anchors {
@@ -29,8 +30,16 @@ Item {
     Component {
         id: detailsBtnDelegate
         Item{
-            Button {
-                text: qsTr("see more")
+            TButton {
+                style: ButtonStyle {
+                    label: Text {
+                        text: qsTr("see more")
+                        font.pixelSize: 10
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        color: cScheme.textColor
+                    }
+                }
                 height: 15;
                 onClicked: {
                     console.log ("User wants more")
@@ -40,14 +49,17 @@ Item {
         }
     }
 
-    TableView {
+    TTableView {
         id: gameStatTable
         anchors {
             top: button.bottom
             topMargin: 15
+            horizontalCenter: background.horizontalCenter
+            verticalCenter: background.verticalCenter
         }
+        width: 480
+
         model: ginfomediator.gameDetail
-        width: root.width
 
         TableViewColumn {
             role: "date"

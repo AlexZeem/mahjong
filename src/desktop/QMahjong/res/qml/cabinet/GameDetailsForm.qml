@@ -26,52 +26,56 @@ Item {
         }
     }
 
-    TableView {
+    TTableView {
         id: headerTable
         model: ginfomediator.handDetail
         width: parent.width
         height: 40
         anchors {
             top: button.bottom
+            topMargin: 15
+            horizontalCenter: background.horizontalCenter
         }
         TableViewColumn {
             role: "player1Score"
             title: qsTr("Player1")
-            width: 120
+            width: parent.width/4
         }
         TableViewColumn {
             role: "player2Score"
             title: qsTr("Player2")
-            width: 120
+            width: parent.width/4
         }
         TableViewColumn {
             role: "player3Score"
             title: qsTr("Player3")
-            width: 120
+            width: parent.width/4
         }
         TableViewColumn {
             role: "player4Score"
             title: qsTr("Player4")
-            width: 120
+            width: parent.width/4
         }
     } // end header table;
 
-    TableView {
+    TTableView {
         id: handDetailTable
         model: ginfomediator.handDetail
         headerVisible: false
         anchors {
             top: headerTable.bottom
+            horizontalCenter: background.horizontalCenter
+            verticalCenter: background.verticalCenter
         }
         width: headerTable.width
 
         TableViewColumn {
             role: "player1wind"
-            width: 30
+            width: (headerTable.width/4)/4
         }
         TableViewColumn {
             role: model.modelData.player1mahjong
-            width: 30
+            width: (headerTable.width/4)/4
             delegate: CheckBox {
                 checked: model.player1mahjong
                 enabled: false
@@ -79,15 +83,15 @@ Item {
         }
         TableViewColumn {
             role: "player1point"
-            width: 30
+            width: (headerTable.width/4)/4
         }
         TableViewColumn {
             role: "player1score"
-            width: 30
+            width: (headerTable.width/4)/4
         }
         TableViewColumn {
             role: "player2mahjong"
-            width: 40
+            width: (headerTable.width/4)/3
             delegate: CheckBox {
                 checked: model.player2mahjong
                 enabled: false
@@ -95,16 +99,16 @@ Item {
         }
         TableViewColumn {
             role: "player2point"
-            width: 40
+            width: (headerTable.width/4)/3
         }
         TableViewColumn {
             role: "player2score"
-            width: 40
+            width: (headerTable.width/4)/3
         }
 
         TableViewColumn {
             role: "player3mahjong"
-            width: 40
+            width: (headerTable.width/4)/3
             delegate: CheckBox {
                 checked: model.player3mahjong
                 enabled: false
@@ -112,15 +116,15 @@ Item {
         }
         TableViewColumn {
             role: "player3point"
-            width: 40
+            width: (headerTable.width/4)/3
         }
         TableViewColumn {
             role: "player3score"
-            width: 40
+            width: (headerTable.width/4)/3
         }
         TableViewColumn {
             role: "player4mahjong"
-            width: 40
+            width: (headerTable.width/4)/3
             delegate: CheckBox {
                 checked: model.player4mahjong
                 enabled: false
@@ -128,11 +132,11 @@ Item {
         }
         TableViewColumn {
             role: "player4point"
-            width: 40
+            width: (headerTable.width/4)/3
         }
         TableViewColumn {
             role: "player4score"
-            width: 40
+            width: (headerTable.width/4)/3
         }
     } //end handDetailTable;
 }

@@ -36,17 +36,18 @@ Item {
             top: limits.bottom
             topMargin: 15
             horizontalCenter: background.horizontalCenter
+            verticalCenter: background.verticalCenter
         }
-        implicitWidth: 250
+        implicitWidth: background.width
         TableViewColumn {
             role: "name"
             title: qsTr("Name")
-            width: 175
+            width: (background.width-background.width/3)
         }
         TableViewColumn {
             role: "date"
             title: qsTr("Date")
-            width: 80
+            width: background.width/3
         }
         model: ginfomediator.ulimit
     }
