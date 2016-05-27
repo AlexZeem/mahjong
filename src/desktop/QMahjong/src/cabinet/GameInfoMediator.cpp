@@ -74,21 +74,24 @@ QVariantList GameInfoMediator::ulimit() const
 void GameInfoMediator::setParticipation(QString login)
 {
     participated = persistence::DBHandler::instance()->getParticipant(login);
-    if (! participated.isEmpty()) {
-        for (auto & i : participated){
-            i.getGameId();
-            for(auto & j : persistence::DBHandler::instance()->getGames()){
-                if(j.getGameId() == i.getGameId())
-                    participatedGames.push_back(j);
-            }
+    participatedGames.clear();
+
+    for (auto & i : participated){
+        i.getGameId();
+        for(auto & j : persistence::DBHandler::instance()->getGames()){
+            if(j.getGameId() == i.getGameId())
+                participatedGames.push_back(j);
         }
+    }
+
+    if (! participatedGames.isEmpty()) {
         Quicksort(participatedGames);
     }
 
     // получим кол-во сыгранных маджонгов
     int count = 0;
     for (const auto & i : participatedGames){
-        if (i.getWinner() == persistence::DBHandler::instance()->selectUser(login).getLogin()){
+        if (i.getWinner() == login){
             count++;
         }
         mcount = count;
@@ -99,20 +102,19 @@ void GameInfoMediator::setParticipation(QString login)
         for (const auto & j : participated){
             temp.gameId = j.getGameId();
             QVector<QString> tempUser = j.getUserId();
-            for (auto & t : tempUser) {
-                if (tempUser[0] == persistence::DBHandler::instance()->selectUser(login).getLogin()){
-                    temp.place = first;
-                }
-                if (tempUser[1] == persistence::DBHandler::instance()->selectUser(login).getLogin()){
-                    temp.place = second;
-                }
-                if (tempUser[2] == persistence::DBHandler::instance()->selectUser(login).getLogin()){
-                    temp.place = third;
-                }
-                if (tempUser[3] == persistence::DBHandler::instance()->selectUser(login).getLogin()){
-                    temp.place = fourth;
-                }
+            if (tempUser[0] == login){
+                temp.place = first;
             }
+            if (tempUser[1] == login){
+                temp.place = second;
+            }
+            if (tempUser[2] == login){
+                temp.place = third;
+            }
+            if (tempUser[3] == login){
+                temp.place = fourth;
+            }
+
             up.push_back(temp);
 
             //получим лучший маджонг и его дату.
@@ -170,7 +172,7 @@ void Quicksort (QVector <persistence::Game> participatedGames)
     int mediana = participatedGames.size()/2;
     int left = 0;
     int right = participatedGames.size()-1;
-    int temp;
+
     while(true){
         if (participatedGames[left].getDate() < participatedGames[mediana].getDate())
         {left ++;}
@@ -178,9 +180,9 @@ void Quicksort (QVector <persistence::Game> participatedGames)
         {right--;}
         if (left == right) break;
         if (left < right){
-            participatedGames[temp] = participatedGames[left];
+            persistence::Game temp = participatedGames[left];
             participatedGames[left] = participatedGames[right];
-            participatedGames[right] = participatedGames[temp];
+            participatedGames[right] = temp;
             if (left == mediana) {
                 mediana = right;
             }
