@@ -10,39 +10,44 @@ Item {
         focused: true
         anchors.fill: parent
     }
-
-    Column {
+    Row {
+        id: limits
         anchors {
-            top: parent.top
-            horizontalCenter: parent.horizontalCenter
+            top: background.top
             topMargin: 15
+            left: background.left
+            leftMargin: 15
         }
+        TLableText {
+            text: qsTr("Limits: ")
+            horizontalAlignment: TLableText.AlignHCenter
+        }
+        TTextInput {
+            width: 50
+            text: ginfomediator.countLimit
+            readOnly: true
+            horizontalAlignment: TextInput.AlignHCenter
+        }
+    }// end row
 
-        Row {
-            id: limits
-            TLableText {
-                text: qsTr("Limits: ")
-            }
-            TTextInput {
-                width: 50
-                text: ginfomediator.countLimit
-                readOnly: true
-            }
+    TTableView {
+        id: table
+        anchors {
+            top: limits.bottom
+            topMargin: 15
+            horizontalCenter: background.horizontalCenter
         }
-
-        TableView {
-            id: table
-            TableViewColumn {
-                role: "name"
-                title: qsTr("Name")
-                width: 120
-            }
-            TableViewColumn {
-                role: "date"
-                title: qsTr("Date")
-                width: 70
-            }
-            model: ginfomediator.ulimit
+        implicitWidth: 250
+        TableViewColumn {
+            role: "name"
+            title: qsTr("Name")
+            width: 175
         }
+        TableViewColumn {
+            role: "date"
+            title: qsTr("Date")
+            width: 80
+        }
+        model: ginfomediator.ulimit
     }
 }

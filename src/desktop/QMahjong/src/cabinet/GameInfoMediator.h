@@ -24,6 +24,7 @@ class GameInfoMediator : public QObject
     Q_PROPERTY(int countLimit READ countLimit NOTIFY countLimitChanged)
     Q_PROPERTY(QVariantList ulimit READ ulimit NOTIFY ulimitChanged)
     Q_PROPERTY(QVariantList gameDetail READ gameDetail NOTIFY gameDetailChanged)
+    Q_PROPERTY(QVariantList handDetail READ handDetail NOTIFY handDetailChanged)
 
 
  public:
@@ -38,6 +39,7 @@ class GameInfoMediator : public QObject
     int countLimit() const;
     QVariantList ulimit() const;
     QVariantList gameDetail() const;
+    QVariantList handDetail() const;
 
  signals:
     void participationChanged();
@@ -51,6 +53,7 @@ class GameInfoMediator : public QObject
     void countLimitChanged();
     void ulimitChanged();
     void gameDetailChanged();
+    void handDetailChanged();
 
  public slots:
     void setParticipation(QString login);

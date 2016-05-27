@@ -86,6 +86,51 @@ QVariantList GameInfoMediator::gameDetail() const
     return result;
 }
 
+QVariantList GameInfoMediator::handDetail() const
+{
+    QVariantList result;
+    for (auto&i : participatedGames){
+        QVariantMap temp;
+        temp ["player1Score"] = i.getScore()[0];
+        temp ["player2Score"] = i.getScore()[1];
+        temp ["player3Score"] = i.getScore()[2];
+        temp ["player4Score"] = i.getScore()[3];
+
+        for (auto&j : persistence::DBHandler::instance()->getHands(i.getGameId())){
+
+            temp ["player1wind"] = j.getWind();
+
+            qDebug() << "j.getMahjong()" << (j.getMahjong());
+            if(j.getMahjong() == 0){
+                temp ["player1mahjong"] = true;
+            }
+            else if(j.getMahjong() == 1){
+                temp ["player2mahjong"] = true;
+            }
+            else if(j.getMahjong() == 2){
+                temp ["player3mahjong"] = true;
+            }
+            else if(j.getMahjong() == 3){
+                temp ["player4mahjong"] = true;
+            }
+
+            temp ["player1point"] = j.getCombo()[0];
+            temp ["player2point"] = j.getCombo()[1];
+            temp ["player3point"] = j.getCombo()[2];
+            temp ["player4point"] = j.getCombo()[3];
+
+            temp ["player1score"] = j.getScore()[0];
+            temp ["player2score"] = j.getScore()[1];
+            temp ["player3score"] = j.getScore()[2];
+            temp ["player4score"] = j.getScore()[3];
+        }
+
+        result.push_back(temp);
+    }
+
+    return result;
+}
+
 void GameInfoMediator::setParticipation(QString login)
 {
     participated = persistence::DBHandler::instance()->getParticipant(login);
@@ -151,8 +196,8 @@ void GameInfoMediator::setParticipation(QString login)
 
                 // получим инфо по лимитам
 
-                qDebug() << "1st condition:" << (i.getWinner() == login);
-                qDebug() << "2nd condition:" << k.getLimit();
+                //                qDebug() << "1st condition:" << (i.getWinner() == login); // test
+                //                qDebug() << "2nd condition:" << k.getLimit(); // test
                 if(i.getWinner() == login && !k.getLimit().isEmpty())
                 {
                     userLimits templ;
@@ -169,11 +214,11 @@ void GameInfoMediator::setParticipation(QString login)
         }
     }
 
-    qDebug() << "Mcount value:" << mcount; // test
-    qDebug() << "Mbest:" << mbest; // test
-    qDebug() << "MbestDate:" << mbestDate; // test
-    qDebug() << "Mworst:" << mworst; // test
-    qDebug() << "MworstDate:" << mworstDate; // test
+    //    qDebug() << "Mcount value:" << mcount; // test
+    //    qDebug() << "Mbest:" << mbest; // test
+    //    qDebug() << "MbestDate:" << mbestDate; // test
+    //    qDebug() << "Mworst:" << mworst; // test
+    //    qDebug() << "MworstDate:" << mworstDate; // test
 
 
     emit participationChanged();
