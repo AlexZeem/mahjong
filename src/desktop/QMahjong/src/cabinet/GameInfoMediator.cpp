@@ -6,6 +6,7 @@
 #include "../persistence/Hand.h"
 #include <QDebug>
 #include <QVariantMap>
+#include <QDate>
 
 void Quicksort(QVector <persistence::Game>);
 
@@ -145,7 +146,7 @@ void GameInfoMediator::setParticipation(QString login)
     }
 
     if (! participatedGames.isEmpty()) {
-        Quicksort(participatedGames);
+        quickSort(0, participatedGames.size() - 1);
     }
 
     // получим кол-во сыгранных маджонгов
@@ -222,6 +223,30 @@ void GameInfoMediator::setParticipation(QString login)
 
 
     emit participationChanged();
+}
+
+void GameInfoMediator::quickSort(int left, int right)
+{
+    int i = left, j = right;
+    QDate pivot = QDate::fromString(participatedGames[(left + right) / 2].getDate(),"dd/MM/yyyy");
+
+    /* partition */
+    while (i <= j) {
+        while (QDate::fromString(participatedGames[i].getDate(),"dd/MM/yyyy") < pivot) ++i;
+        while (QDate::fromString(participatedGames[j].getDate(),"dd/MM/yyyy") > pivot) --j;
+
+        if (i <= j) {
+            persistence::Game temp = participatedGames[i];
+            participatedGames[i] = participatedGames[j];
+            participatedGames[j] = temp;
+            ++i;
+            --j;
+        }
+    }
+
+    /* recursion */
+    if (left < j) quickSort(left, j);
+    if (i < right) quickSort(i, right);
 }
 } // cabinet
 

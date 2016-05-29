@@ -58,6 +58,9 @@ class GameInfoMediator : public QObject
  public slots:
     void setParticipation(QString login);
 
+private:
+    void quickSort(int left, int right);
+
  private:
 
     enum Place{
