@@ -23,6 +23,6 @@ TableView {
             }
         }
         textColor: cScheme.textColor
-
     }
+    horizontalScrollBarPolicy: Qt.ScrollBarAlwaysOff
 } // end tableview
