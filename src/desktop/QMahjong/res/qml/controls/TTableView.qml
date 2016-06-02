@@ -3,26 +3,32 @@ import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.2
 
 TableView {
-
     style: TableViewStyle {
         headerDelegate: Rectangle {
             height: textItem.implicitHeight * 1.2
             width: textItem.implicitWidth
-            color: cScheme.textColor
+            color: cScheme.tableHeaderBGColor
             border.color: cScheme.borderColor
             radius: nConst.cornerRadius
             Text {
                 id: textItem
                 anchors.fill: parent
-                anchors.leftMargin: 12
                 verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: styleData.textAlignment
+                horizontalAlignment: Text.AlignHCenter
                 text: styleData.value
-                elide: Text.ElideRight
-                color: cScheme.itemBackgroungColor
+                color: cScheme.tableHeaderTextColor
             }
         }
-        textColor: cScheme.textColor
+        itemDelegate: Item {
+            Text {
+                color: cScheme.tableTextColor
+                text: styleData.value
+                anchors.fill: parent
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+            }
+        }
     }
     horizontalScrollBarPolicy: Qt.ScrollBarAlwaysOff
+
 } // end tableview

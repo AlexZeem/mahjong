@@ -8,5 +8,9 @@ QtObject {
     readonly property string textColor:                 "#959DB8"
     readonly property string activeFocusTextColor:      "#1659CE"
     readonly property string inactiveFocusTextColor:    "#908DAA"
+
+    readonly property string tableHeaderBGColor:        "#d2d3df"
+    readonly property string tableHeaderTextColor:      "#ffffff"
+    readonly property string tableTextColor:            "#9797a0"
 }
 
