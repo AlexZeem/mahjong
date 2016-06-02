@@ -20,7 +20,7 @@ Item {
         }
         TLableText {
             text: qsTr("Limits: ")
-            horizontalAlignment: TLableText.AlignHCenter
+            horizontalAlignment: Text.AlignHCenter
         }
         TTextInput {
             width: 50

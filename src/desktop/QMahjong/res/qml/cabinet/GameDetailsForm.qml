@@ -38,22 +38,22 @@ Item {
         }
         TableViewColumn {
             role: "player1Score"
-            title: qsTr("Player1")
+            title: ginfomediator.playerOne
             width: parent.width/4
         }
         TableViewColumn {
             role: "player2Score"
-            title: qsTr("Player2")
+            title: ginfomediator.playerTwo
             width: parent.width/4
         }
         TableViewColumn {
             role: "player3Score"
-            title: qsTr("Player3")
+            title: ginfomediator.playerThree
             width: parent.width/4
         }
         TableViewColumn {
             role: "player4Score"
-            title: qsTr("Player4")
+            title: ginfomediator.playerFour
             width: parent.width/4
         }
     } // end header table;
@@ -74,7 +74,7 @@ Item {
             width: (headerTable.width/4)/4
         }
         TableViewColumn {
-            role: model.modelData.player1mahjong
+            role: "player1mahjong"
             width: (headerTable.width/4)/4
             delegate: CheckBox {
                 checked: model.player1mahjong

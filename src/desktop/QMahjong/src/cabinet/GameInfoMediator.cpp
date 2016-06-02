@@ -13,11 +13,7 @@ void Quicksort(QVector <persistence::Game>);
 namespace cabinet {
 GameInfoMediator::GameInfoMediator(QObject *parent)
     :QObject(parent)
-{
-    //    QObject::connect(this, SIGNAL(participationChanged()), SIGNAL(participatedInChanged()));
-    //    QObject::connect(this, SIGNAL(participationChanged()), SIGNAL(lastPlayedChanged()));
-    //    QObject::connect(this, SIGNAL(participationChanged()), SIGNAL(countMahjongChanged()));
-}
+{}
 
 int GameInfoMediator::participatedIn() const
 {
@@ -132,6 +128,26 @@ QVariantList GameInfoMediator::handDetail() const
     return result;
 }
 
+QString GameInfoMediator::playerOne() const
+{
+    return player1;
+}
+
+QString GameInfoMediator::playerTwo() const
+{
+    return player2;
+}
+
+QString GameInfoMediator::playerThree() const
+{
+    return player3;
+}
+
+QString GameInfoMediator::playerFour() const
+{
+    return player4;
+}
+
 void GameInfoMediator::setParticipation(QString login)
 {
     participated = persistence::DBHandler::instance()->getParticipant(login);
@@ -147,6 +163,14 @@ void GameInfoMediator::setParticipation(QString login)
 
     if (! participatedGames.isEmpty()) {
         quickSort(0, participatedGames.size() - 1);
+    }
+
+    //получим имена участников игры
+    for (auto& i : participated){
+        player1 = i.getUserId()[0];
+        player2 = i.getUserId()[1];
+        player3 = i.getUserId()[2];
+        player4 = i.getUserId()[3];
     }
 
     // получим кол-во сыгранных маджонгов
@@ -196,9 +220,6 @@ void GameInfoMediator::setParticipation(QString login)
                 mworstDate = mdate;
 
                 // получим инфо по лимитам
-
-                //                qDebug() << "1st condition:" << (i.getWinner() == login); // test
-                //                qDebug() << "2nd condition:" << k.getLimit(); // test
                 if(i.getWinner() == login && !k.getLimit().isEmpty())
                 {
                     userLimits templ;
@@ -214,14 +235,6 @@ void GameInfoMediator::setParticipation(QString login)
             }
         }
     }
-
-    //    qDebug() << "Mcount value:" << mcount; // test
-    //    qDebug() << "Mbest:" << mbest; // test
-    //    qDebug() << "MbestDate:" << mbestDate; // test
-    //    qDebug() << "Mworst:" << mworst; // test
-    //    qDebug() << "MworstDate:" << mworstDate; // test
-
-
     emit participationChanged();
 }
 
@@ -249,33 +262,6 @@ void GameInfoMediator::quickSort(int left, int right)
     if (i < right) quickSort(i, right);
 }
 } // cabinet
-
-void Quicksort (QVector <persistence::Game> participatedGames)
-{
-    QString medianaValued = participatedGames[participatedGames.size()/2].getDate();
-    int mediana = participatedGames.size()/2;
-    int left = 0;
-    int right = participatedGames.size()-1;
-
-    while(true){
-        if (participatedGames[left].getDate() < participatedGames[mediana].getDate())
-        {left ++;}
-        if(participatedGames[right].getDate() > participatedGames[mediana].getDate())
-        {right--;}
-        if (left == right) break;
-        if (left < right){
-            persistence::Game temp = participatedGames[left];
-            participatedGames[left] = participatedGames[right];
-            participatedGames[right] = temp;
-            if (left == mediana) {
-                mediana = right;
-            }
-            if (right == mediana) {
-                mediana = left;
-            }
-        }
-    } // end while
-} // end Quicksort
 
 
 

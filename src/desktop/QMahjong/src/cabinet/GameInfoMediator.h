@@ -25,6 +25,10 @@ class GameInfoMediator : public QObject
     Q_PROPERTY(QVariantList ulimit READ ulimit NOTIFY ulimitChanged)
     Q_PROPERTY(QVariantList gameDetail READ gameDetail NOTIFY gameDetailChanged)
     Q_PROPERTY(QVariantList handDetail READ handDetail NOTIFY handDetailChanged)
+    Q_PROPERTY(QString playerOne READ playerOne NOTIFY playerOneChanged)
+    Q_PROPERTY(QString playerTwo READ playerTwo NOTIFY playerTwoChanged)
+    Q_PROPERTY(QString playerThree READ playerThree NOTIFY playerThreeChanged)
+    Q_PROPERTY(QString playerFour READ playerFour NOTIFY playerFourChanged)
 
 
  public:
@@ -40,6 +44,10 @@ class GameInfoMediator : public QObject
     QVariantList ulimit() const;
     QVariantList gameDetail() const;
     QVariantList handDetail() const;
+    QString playerOne() const;
+    QString playerTwo() const;
+    QString playerThree() const;
+    QString playerFour() const;
 
  signals:
     void participationChanged();
@@ -54,6 +62,10 @@ class GameInfoMediator : public QObject
     void ulimitChanged();
     void gameDetailChanged();
     void handDetailChanged();
+    void playerOneChanged();
+    void playerTwoChanged();
+    void playerThreeChanged();
+    void playerFourChanged();
 
  public slots:
     void setParticipation(QString login);
@@ -88,6 +100,10 @@ private:
     int mworst;
     QString mbestDate;
     QString mworstDate;
+    QString player1;
+    QString player2;
+    QString player3;
+    QString player4;
 
 }; // gameInfoMediator
 } // cabinet
