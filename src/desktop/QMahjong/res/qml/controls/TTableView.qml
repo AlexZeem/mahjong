@@ -3,6 +3,9 @@ import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.2
 
 TableView {
+    horizontalScrollBarPolicy: Qt.ScrollBarAlwaysOff
+    highlightOnFocus: true
+
     style: TableViewStyle {
         headerDelegate: Rectangle {
             height: textItem.implicitHeight * 1.2
@@ -17,18 +20,8 @@ TableView {
                 horizontalAlignment: Text.AlignHCenter
                 text: styleData.value
                 color: cScheme.tableHeaderTextColor
-            }
-        }
-        itemDelegate: Item {
-            Text {
-                color: cScheme.tableTextColor
-                text: styleData.value
-                anchors.fill: parent
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
+                elide: styleData.elideMode
             }
         }
     }
-    horizontalScrollBarPolicy: Qt.ScrollBarAlwaysOff
-
 } // end tableview
